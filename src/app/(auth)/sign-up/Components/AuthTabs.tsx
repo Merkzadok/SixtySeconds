@@ -15,7 +15,7 @@ interface Props {
   isLoading: boolean;
   setIsLoading: (v: boolean) => void;
   formData: {
-    name: string;
+    username: string;
     email: string;
     password: string;
     confirmPassword: string;
