@@ -138,7 +138,7 @@ import FooterEncouragement from "./Components/Footer";
 export default function AuthPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
-    name: "",
+    username: "",
     email: "",
     password: "",
     confirmPassword: "",

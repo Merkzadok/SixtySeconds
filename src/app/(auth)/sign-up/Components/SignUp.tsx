@@ -8,7 +8,7 @@ import { Label } from "@/Components/ui/label";
 interface SignUpProps {
   isLoading: boolean;
   formData: {
-    name: string;
+    username: string;
     email: string;
     password: string;
     confirmPassword: string;
@@ -25,11 +25,55 @@ export default function SignUp({
 }: SignUpProps) {
   const handleSignup = async (e: FormEvent) => {
     e.preventDefault();
+
+    // Optional: password confirmation check before API call
+    if (formData.password !== formData.confirmPassword) {
+      alert("Passwords do not match!");
+      return;
+    }
+
     setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
+
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/create-user`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            username: formData.username,
+            email: formData.email,
+            password: formData.password,
+          }),
+        }
+      );
+
+      if (!res.ok) {
+        const errorData = await res.json();
+        console.error("Error response from API:", errorData);
+        throw new Error(
+          typeof errorData.message === "string"
+            ? errorData.message
+            : JSON.stringify(errorData) || "Signup failed"
+        );
+      }
+
+      const data = await res.json();
+      console.log("Signup success:", data);
+
       alert("Welcome to our learning adventure! 🚀");
-    }, 1000);
+
+      // Optionally reset form or redirect
+      // handleInputChange("name", "");
+      // handleInputChange("email", "");
+      // handleInputChange("password", "");
+      // handleInputChange("confirmPassword", "");
+    } catch (err: any) {
+      console.error("Signup error:", err);
+      alert(err.message || "Something went wrong");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -40,8 +84,8 @@ export default function SignUp({
           id="signup-name"
           type="text"
           placeholder="What should we call you?"
-          value={formData.name}
-          onChange={(e) => handleInputChange("name", e.target.value)}
+          value={formData.username}
+          onChange={(e) => handleInputChange("username", e.target.value)}
           required
         />
       </div>
