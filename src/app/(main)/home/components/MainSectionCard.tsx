@@ -1,9 +1,6 @@
+import { useState, useEffect } from "react";
 import Lottie from "lottie-react";
 import { BookOpen, Gamepad2, Trophy } from "lucide-react";
-
-import BrainAnimation from "/Users/25LP1749/Desktop/final-project/final-project/public/Meditating-Brain.json";
-import GamesAnimation from "/Users/25LP1749/Desktop/final-project/final-project/public/game-app.json";
-import RankingsAnimation from "/Users/25LP1749/Desktop/final-project/final-project/public/Rank.json";
 
 export type MainSectionItem = {
   id: string;
@@ -22,21 +19,46 @@ export default function MainSectionCard({
   item,
   onClick,
 }: MainSectionCardProps) {
-  // Get the appropriate animation based on item id
-  const getAnimation = (id: string) => {
+  const [animationData, setAnimationData] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+
+  // Get the appropriate animation file path from public folder
+  const getAnimationPath = (id: string) => {
     switch (id) {
       case "games":
-        return GamesAnimation;
+        return "/game-app.json"; // Your games animation file
       case "reading":
-        return BrainAnimation;
+        return "/Meditating-Brain.json"; // Your brain animation file
       case "rankings":
-        return RankingsAnimation;
+        return "/Rank.json"; // Your rankings animation file
       default:
-        return BrainAnimation; // fallback animation
+        return "/Meditating-Brain.json";
     }
   };
 
-  // Fallback icons for the button (you can also use small Lottie animations here if you want)
+  // Load animation data dynamically
+  useEffect(() => {
+    const loadAnimation = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch(getAnimationPath(item.id));
+        if (response.ok) {
+          const data = await response.json();
+          setAnimationData(data);
+        } else {
+          console.error("Failed to load animation:", response.status);
+        }
+      } catch (error) {
+        console.error("Error loading animation:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadAnimation();
+  }, [item.id]);
+
+  // Fallback icons
   const getButtonIcon = (id: string) => {
     switch (id) {
       case "games":
@@ -50,7 +72,6 @@ export default function MainSectionCard({
     }
   };
 
-  const animationData = getAnimation(item.id);
   const ButtonIcon = getButtonIcon(item.id);
 
   return (
@@ -68,11 +89,17 @@ export default function MainSectionCard({
           <div
             className={`w-20 h-20 bg-gradient-to-br ${item.gradient} rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-all duration-300 shadow-lg`}
           >
-            <Lottie
-              animationData={animationData}
-              loop={true}
-              className="w-20 h-20"
-            />
+            {loading ? (
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
+            ) : animationData ? (
+              <Lottie
+                animationData={animationData}
+                loop={true}
+                className="w-12 h-12"
+              />
+            ) : (
+              <ButtonIcon className="w-10 h-10 text-white animate-pulse" />
+            )}
           </div>
           <h3 className="text-2xl font-bold text-gray-800 mb-3">
             {item.label}
