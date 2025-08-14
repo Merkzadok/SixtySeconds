@@ -3,7 +3,7 @@
 import React, { useEffect, useState, useRef } from "react";
 
 const SpeechToTextMongolian: React.FC = () => {
-  const expectedText = "монгол улс нь төв ";
+  const [expectedText, setExpectedText] = useState("монгол улс нь төв ");
   const [listening, setListening] = useState(false);
   const [fullTranscript, setFullTranscript] = useState("");
   const [interimTranscript, setInterimTranscript] = useState("");
@@ -69,6 +69,23 @@ const SpeechToTextMongolian: React.FC = () => {
     }
   };
 
+  const handleNextText = async () => {
+    try {
+      const response = await fetch("http://localhost:4001/gemini", {
+        method: "GET",
+      });
+
+      if (!response.ok) {
+        throw new Error(`Response status: ${response.status}`);
+      }
+      const result = await response.json();
+      console.log(result.sentence);
+      setExpectedText(result.sentence);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const clearText = () => {
     setFullTranscript("");
     setInterimTranscript("");
@@ -120,6 +137,12 @@ const SpeechToTextMongolian: React.FC = () => {
           onClick={clearText}
         >
           Цэвэрлэх
+        </button>
+        <button
+          className="py-2 px-4 bg-green-900 text-white border-none rounded-md cursor-pointer font-bold"
+          onClick={handleNextText}
+        >
+          Дараагийн бичвэр
         </button>
       </div>
 
