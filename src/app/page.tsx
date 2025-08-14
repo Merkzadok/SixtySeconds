@@ -7,6 +7,7 @@ import Navigation from "@/Components/Navigation";
 import ParentDashboard from "@/Components/ParentDashboard";
 import ReadingLesson from "@/Components/ReadingLesson";
 import React, { useState } from "react";
+import Subscription from "./(subscription)/_components/subscription";
 
 export type AppPage =
   | "home"
@@ -14,6 +15,7 @@ export type AppPage =
   | "exercises"
   | "parent"
   | "leaderboard";
+  "subscription";
 
 function App() {
   const [currentPage, setCurrentPage] = useState<AppPage>("home");
@@ -56,20 +58,21 @@ function App() {
         );
       case "leaderboard":
         return <Leaderboard onNavigate={setCurrentPage} user={user} />;
-      default:
-        return <HomePage onNavigate={setCurrentPage} user={user} />;
+    default:return <HomePage onNavigate={setCurrentPage} user={user} />;
+
     }
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
+
       {currentPage !== "home" && (
         <Navigation
           currentPage={currentPage}
           onNavigate={setCurrentPage}
           user={user}
         />
-      )}
+      )} 
       {renderCurrentPage()}
     </div>
   );
