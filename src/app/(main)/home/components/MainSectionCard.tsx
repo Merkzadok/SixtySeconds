@@ -1,9 +1,13 @@
-import { LucideIcon } from "lucide-react";
+import Lottie from "lottie-react";
+import { BookOpen, Gamepad2, Trophy } from "lucide-react";
+
+import BrainAnimation from "/Users/25LP1749/Desktop/final-project/final-project/public/Meditating-Brain.json";
+import GamesAnimation from "/Users/25LP1749/Desktop/final-project/final-project/public/game-app.json";
+import RankingsAnimation from "/Users/25LP1749/Desktop/final-project/final-project/public/Rank.json";
 
 export type MainSectionItem = {
   id: string;
   label: string;
-  icon: LucideIcon;
   description: string;
   gradient: string;
   bgPattern: string;
@@ -18,7 +22,37 @@ export default function MainSectionCard({
   item,
   onClick,
 }: MainSectionCardProps) {
-  const Icon = item.icon;
+  // Get the appropriate animation based on item id
+  const getAnimation = (id: string) => {
+    switch (id) {
+      case "games":
+        return GamesAnimation;
+      case "reading":
+        return BrainAnimation;
+      case "rankings":
+        return RankingsAnimation;
+      default:
+        return BrainAnimation; // fallback animation
+    }
+  };
+
+  // Fallback icons for the button (you can also use small Lottie animations here if you want)
+  const getButtonIcon = (id: string) => {
+    switch (id) {
+      case "games":
+        return Gamepad2;
+      case "reading":
+        return BookOpen;
+      case "rankings":
+        return Trophy;
+      default:
+        return BookOpen;
+    }
+  };
+
+  const animationData = getAnimation(item.id);
+  const ButtonIcon = getButtonIcon(item.id);
+
   return (
     <div className="group cursor-pointer" onClick={() => onClick(item.id)}>
       <div
@@ -34,12 +68,10 @@ export default function MainSectionCard({
           <div
             className={`w-20 h-20 bg-gradient-to-br ${item.gradient} rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-all duration-300 shadow-lg`}
           >
-            <Icon
-              className={`w-10 h-10 text-white transition-all duration-300 ${
-                item.id === "games"
-                  ? "group-hover:animate-bounce"
-                  : "group-hover:animate-pulse"
-              }`}
+            <Lottie
+              animationData={animationData}
+              loop={true}
+              className="w-20 h-20"
             />
           </div>
           <h3 className="text-2xl font-bold text-gray-800 mb-3">
@@ -53,7 +85,7 @@ export default function MainSectionCard({
               className={`inline-flex items-center px-4 py-2 bg-gradient-to-r ${item.gradient} text-white rounded-full text-sm font-semibold shadow-md group-hover:shadow-lg transition-all duration-300`}
             >
               Start {item.label}
-              <Icon className="w-4 h-4 ml-2" />
+              <ButtonIcon className="w-4 h-4 ml-2" />
             </div>
           </div>
         </div>
