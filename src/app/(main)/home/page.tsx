@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Home, BookOpen, Gamepad2, Trophy, User, Star } from "lucide-react";
+import { BookOpen, Gamepad2, Trophy, Star } from "lucide-react";
 import MainSectionCard from "./components/MainSectionCard";
 import QuickStatCard from "./components/QuickCard";
 import Header from "./components/Header";
@@ -15,17 +15,7 @@ export default function HomePage() {
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
   const quickStatsRef = useRef<(HTMLDivElement | null)[]>([]);
 
-  const userScore = 2847;
-  const userRating = 4.8;
-
-  const navigationItems = [
-    { id: "home", label: "Home", icon: Home },
-    { id: "reading", label: "Reading", icon: BookOpen },
-    { id: "games", label: "Games", icon: Gamepad2 },
-    { id: "rankings", label: "Rankings", icon: Trophy },
-    { id: "profile", label: "Profile", icon: User },
-  ];
-
+  // Main sections data
   const mainSectionItems = [
     {
       id: "games",
@@ -50,11 +40,12 @@ export default function HomePage() {
     },
   ];
 
+  // Quick stats data
   const quickStats = [
     { label: "Courses", value: "24", icon: BookOpen },
     { label: "Games", value: "12", icon: Gamepad2 },
     { label: "Rank", value: "#47", icon: Trophy },
-    { label: "Points", value: userScore.toLocaleString(), icon: Star },
+    { label: "Points", value: "2,847", icon: Star },
   ];
 
   useEffect(() => {
@@ -89,9 +80,6 @@ export default function HomePage() {
       <Header
         activeSection={activeSection}
         setActiveSection={setActiveSection}
-        navigationItems={navigationItems}
-        userScore={userScore}
-        userRating={userRating}
       />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">

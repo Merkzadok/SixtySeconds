@@ -1,7 +1,17 @@
 "use client";
 import { Dispatch, SetStateAction, useState } from "react";
 import { Button } from "@/Components/ui/button";
-import { Menu, X, LucideIcon } from "lucide-react";
+import {
+  Menu,
+  X,
+  LucideIcon,
+  Home,
+  BookOpen,
+  Gamepad2,
+  Trophy,
+  User,
+  Crown,
+} from "lucide-react";
 import Navigation from "./Navigation";
 import ScoreDisplay from "./ScoreDisplay";
 import ProfileAvatar from "./ProfileAvatar";
@@ -16,19 +26,25 @@ export type NavigationItem = {
 interface HeaderProps {
   activeSection: string;
   setActiveSection: Dispatch<SetStateAction<string>>;
-  navigationItems: NavigationItem[];
-  userScore: number;
-  userRating: number;
 }
 
 export default function Header({
   activeSection,
   setActiveSection,
-  navigationItems,
-  userScore,
-  userRating,
 }: HeaderProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  // All data is now internal to the Header component
+  const userScore = 2847;
+  const userRating = 4.8;
+
+  const navigationItems: NavigationItem[] = [
+    { id: "home", label: "Home", icon: Home },
+    { id: "reading", label: "Reading", icon: BookOpen },
+    { id: "games", label: "Games", icon: Gamepad2 },
+    { id: "rankings", label: "Rankings", icon: Trophy },
+    { id: "profile", label: "Profile", icon: User },
+  ];
 
   return (
     <header className="bg-white/80 backdrop-blur-md border-b border-purple-100 sticky top-0 z-50">
@@ -52,6 +68,19 @@ export default function Header({
             <div className="hidden sm:flex">
               <ScoreDisplay userRating={userRating} userScore={userScore} />
             </div>
+
+            {/* Subscription Button */}
+            <Button
+              className="hidden md:flex items-center space-x-2 bg-gradient-to-r cursor-pointer from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-md hover:shadow-lg transition-all duration-300"
+              onClick={() => {
+                // Handle subscription logic here
+                console.log("Subscribe clicked");
+              }}
+            >
+              <Crown size={16} />
+              <span>Subscribe</span>
+            </Button>
+
             <ProfileAvatar />
             <Button
               variant="ghost"
