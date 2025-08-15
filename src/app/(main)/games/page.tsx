@@ -1,7 +1,11 @@
+import { MastermindGame } from "./components/MasterMindGame"
+import { SnakeGame } from "./components/SnakeGame"
+
 const Games = ()=>{
     return (
         <div>
-            Games
+            {/* <MastermindGame/> */}
+            <SnakeGame/>
         </div>
     )
 }
