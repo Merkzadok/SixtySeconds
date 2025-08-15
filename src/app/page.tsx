@@ -7,7 +7,6 @@ import Navigation from "@/Components/Navigation";
 import ParentDashboard from "@/Components/ParentDashboard";
 import ReadingLesson from "@/Components/ReadingLesson";
 import React, { useState } from "react";
-import Subscription from "./(subscription)/_components/subscription";
 
 export type AppPage =
   | "home"
@@ -15,7 +14,6 @@ export type AppPage =
   | "exercises"
   | "parent"
   | "leaderboard";
-  "subscription";
 
 function App() {
   const [currentPage, setCurrentPage] = useState<AppPage>("home");
