@@ -1,5 +1,6 @@
 import CTASection from "./(landing-page)/CTAsection";
 import FeaturesSection from "./(landing-page)/FeatureSection";
+import FinalFooter from "./(landing-page)/FinalFooter";
 import Footer from "./(landing-page)/FooterSection";
 import GamesSection from "./(landing-page)/GameSection";
 import HeroSection from "./(landing-page)/HeroSection";
@@ -18,6 +19,7 @@ export default function LandingPage() {
       <ProfileSection />
       <CTASection />
       <Footer />
+      <FinalFooter />
     </div>
   );
 }
