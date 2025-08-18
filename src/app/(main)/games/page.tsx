@@ -1,12 +1,97 @@
-import { MastermindGame } from "./components/MasterMindGame"
-import { SnakeGame } from "./components/SnakeGame"
+"use client";
 
-const Games = ()=>{
+import { useState } from "react";
+
+import { MastermindGame } from "./components/MasterMindGame";
+import { MemoryGame } from "./components/MemoryGame";
+import { SnakeGame } from "./components/SnakeGame";
+import { Wordle } from "./components/Wordle";
+import { Button } from "@/Components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/Components/ui/card";
+
+type GameType = "mastermind" | "memory" | "snake" | "wordle" | null;
+
+const Games = () => {
+  const [selectedGame, setSelectedGame] = useState<GameType>(null);
+
+  const games = [
+    {
+      id: "mastermind" as const,
+      title: "Mastermind",
+      description: "Crack the secret code using logic and deduction",
+      component: <MastermindGame />,
+    },
+    {
+      id: "memory" as const,
+      title: "Memory Game",
+      description: "Match pairs of cards to test your memory",
+      component: <MemoryGame />,
+    },
+    {
+      id: "snake" as const,
+      title: "Snake Game",
+      description: "Classic snake game - eat food and grow longer",
+      component: <SnakeGame />,
+    },
+    {
+      id: "wordle" as const,
+      title: "Wordle",
+      description: "Guess the 5-letter word in 6 tries",
+      component: <Wordle />,
+    },
+  ];
+
+  if (selectedGame) {
+    const currentGame = games.find((game) => game.id === selectedGame);
     return (
-        <div>
-            {/* <MastermindGame/> */}
-            <SnakeGame/>
+      <div className="min-h-screen bg-background p-4">
+        <div className="max-w-4xl mx-auto">
+          <div className="mb-6 flex items-center justify-between">
+            <h1 className="text-3xl font-bold">{currentGame?.title}</h1>
+            <Button variant="outline" onClick={() => setSelectedGame(null)}>
+              ← Back to Games
+            </Button>
+          </div>
+          {currentGame?.component}
         </div>
-    )
-}
-export default Games
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-background p-4">
+      <div className="max-w-6xl mx-auto">
+        <div className="text-center mb-8">
+          <h1 className="text-4xl font-bold mb-4">Game Collection</h1>
+          <p className="text-muted-foreground text-lg">Choose a game to play</p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {games.map((game) => (
+            <Card
+              key={game.id}
+              className="cursor-pointer hover:sh    adow-lg transition-shadow"
+              onClick={() => setSelectedGame(game.id)}
+            >
+              <CardHeader>
+                <CardTitle className="text-xl">{game.title}</CardTitle>
+                <CardDescription>{game.description}</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Button className="w-full">Play {game.title}</Button>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Games;
