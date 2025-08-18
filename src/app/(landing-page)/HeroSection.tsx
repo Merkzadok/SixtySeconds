@@ -62,7 +62,7 @@ export default function HeroSection() {
           <div className="relative">
             <div className="relative z-10 animate-float">
               <img
-                src="/children.png"
+                src="/kids.png"
                 alt="Children enjoying language learning games"
                 className="w-full max-w-md mx-auto rounded-2xl shadow-2xl"
               />
