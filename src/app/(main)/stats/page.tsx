@@ -5,19 +5,21 @@ import { Reading } from "../../../../types/types";
 
 const StatsPage = () => {
   const [duration, setDuration] = useState<Reading[]>([]);
-  const [readingCount, setReadingCount] = useState<Number | null>(null);
-  const [endTime, setEndTime] = useState<Reading>();
+  const [readingCount, setReadingCount] = useState<{
+    averageAccuracy?: number;
+  } | null>(null);
+  const [endTime, setEndTime] = useState<Reading[]>([]);
   console.log(typeof readingCount);
 
-  // useEffect(() => {
-  //   const readingCounter = async () => {
-  //     const response = await fetch("http://localhost:4001/gemini/count/1");
-  //     const data = await response.json();
-  //     console.log("count", data);
-  //     setReadingCount(Number(data?.count));
-  //   };
-  //   readingCounter();
-  // }, []);
+  useEffect(() => {
+    const readingCounter = async () => {
+      const response = await fetch("http://localhost:4001/gemini/stats/1");
+      const data = await response.json();
+      console.log("count", data);
+      setReadingCount(data);
+    };
+    readingCounter();
+  }, []);
 
   // useEffect(() => {
   //   const durationStats = async () => {
@@ -36,24 +38,23 @@ const StatsPage = () => {
   //   durationStats();
   // }, []);
 
-  useEffect(() => {
-    const finishStats = async () => {
-      const response = await fetch("http://localhost:4001/gemini/finish/2", {
-        method: "PUT",
-        body: JSON.stringify({ accuracy: 85 }),
-      });
-      const data = await response.json();
-      console.log("endtime", data);
-      setEndTime(data);
-    };
-    finishStats();
-  }, []);
+  // useEffect(() => {
+  //   const finishStats = async () => {
+  //     const response = await fetch("http://localhost:4001/gemini/stats/1", {
+  //       method: "GET",
+  //     });
+  //     const data = await response.json();
+  //     console.log("endtime", data);
+  //     setEndTime(data?.averageAccuracy);
+  //   };
+  //   finishStats();
+  // }, []);
   return (
     <div className="min-h-screen pt-16 bg-gradient-to-br from-pink-50 via-purple-50 to-blue-50">
       <div className="max-w-7xl mx-auto p-8">
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-gray-800 mb-2">
-            Parent Dashboard
+            Stats Dashboard
           </h1>
           <p className="text-gray-600">
             Track User's reading progress and achievements
@@ -68,7 +69,7 @@ const StatsPage = () => {
               <div className="bg-white rounded-2xl p-6 shadow-lg border-2 border-blue-200">
                 <BarChart3 className="h-8 w-8 text-blue-600 mb-3" />
                 <div className="text-2xl font-bold text-blue-600">
-                  {/* {readingCount} {endTime} */}
+                  {readingCount?.count}
                 </div>
                 <div className="text-sm text-gray-600">Reading</div>
               </div>
@@ -80,13 +81,15 @@ const StatsPage = () => {
               <div className="bg-white rounded-2xl p-6 shadow-lg border-2 border-purple-200">
                 <Clock className="h-8 w-8 text-purple-600 mb-3" />
                 <div className="text-2xl font-bold text-purple-600">
-                  {/* {duration}m */}
+                  {readingCount?.averageDuration}m
                 </div>
                 <div className="text-sm text-gray-600">This Week</div>
               </div>
               <div className="bg-white rounded-2xl p-6 shadow-lg border-2 border-yellow-200">
                 <TrendingUp className="h-8 w-8 text-yellow-600 mb-3" />
-                <div className="text-2xl font-bold text-yellow-600">70%</div>
+                <div className="text-2xl font-bold text-yellow-600">
+                  {readingCount?.averageAccuracy ?? 0}%
+                </div>
                 <div className="text-sm text-gray-600">Accuracy</div>
               </div>
             </div>
