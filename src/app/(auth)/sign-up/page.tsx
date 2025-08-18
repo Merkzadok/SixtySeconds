@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 import Background from "./Components/Background";
-import Header from "./Components/Header";
 import AuthTabs from "./Components/AuthTabs";
 import FooterEncouragement from "./Components/Footer";
+import SignUpHeader from "./Components/SignUpHeader";
 
 export default function AuthPage() {
   const [isLoading, setIsLoading] = useState(false);
@@ -23,7 +23,7 @@ export default function AuthPage() {
     <div className="min-h-screen flex items-center justify-center p-4 relative bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
       <Background />
       <div className="w-full max-w-md relative z-10">
-        <Header />
+        <SignUpHeader />
         <AuthTabs
           isLoading={isLoading}
           setIsLoading={setIsLoading}
