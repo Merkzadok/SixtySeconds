@@ -2,6 +2,7 @@
 
 import { Button } from "@/Components/ui/button";
 import { Card, CardContent } from "@/Components/ui/card";
+import Link from "next/link";
 
 export default function CTASection() {
   return (
@@ -20,12 +21,14 @@ export default function CTASection() {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button
-                size="lg"
-                className="bg-gradient-to-r from-emerald-400 to-emerald-500 hover:from-emerald-500 hover:to-emerald-600 text-white font-semibold px-8 py-6 text-lg rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
-              >
-                Get Started Free
-              </Button>
+              <Link href="/sign-up">
+                <Button
+                  size="lg"
+                  className="bg-gradient-to-r from-emerald-400 to-emerald-500 hover:from-emerald-500 hover:to-emerald-600 text-white font-semibold px-8 py-6 text-lg rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+                >
+                  Get Started Free
+                </Button>
+              </Link>
               <Button
                 variant="outline"
                 size="lg"
