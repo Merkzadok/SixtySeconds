@@ -122,7 +122,11 @@ export default function SignUp({
           required
         />
       </div>
-      <Button type="submit" disabled={isLoading} className="w-full">
+      <Button
+        type="submit"
+        disabled={isLoading}
+        className="w-full bg-gradient-to-r from-orange-200 to-orange-600  "
+      >
         {isLoading ? "Creating Account..." : "Begin Adventure! 🌟"}
       </Button>
     </form>

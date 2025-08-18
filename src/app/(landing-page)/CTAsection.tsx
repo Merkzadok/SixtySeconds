@@ -37,10 +37,6 @@ export default function CTASection() {
                 Learn More
               </Button>
             </div>
-
-            <p className="font-sans text-sm text-gray-500">
-              No credit card required • 7-day free trial • Cancel anytime
-            </p>
           </CardContent>
         </Card>
       </div>
