@@ -23,6 +23,7 @@
     "next": "15.4.6",
     "react": "19.1.0",
     "react-dom": "19.1.0",
+    "react-media-recorder": "^1.7.2",
     "react-speech-recognition": "^4.0.1",
     "speech-recognition": "^0.0.1",
     "tailwind-merge": "^3.3.1"
