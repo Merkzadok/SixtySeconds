@@ -114,7 +114,11 @@ export default function SignIn({
         )}
       </div>
 
-      <Button type="submit" disabled={isLoading} className="w-full">
+      <Button
+        type="submit"
+        disabled={isLoading}
+        className="w-full bg-gradient-to-r from-orange-200 to-orange-600"
+      >
         {isLoading ? "Signing In..." : "Start Learning! 🚀"}
       </Button>
     </form>

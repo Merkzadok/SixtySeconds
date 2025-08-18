@@ -84,7 +84,12 @@ const Games = () => {
                 <CardDescription>{game.description}</CardDescription>
               </CardHeader>
               <CardContent>
-                <Button className="w-full">Play {game.title}</Button>
+                <Button
+                  className="w-full bg-gradient-to-r from-orange-300 via-pink-400 to-purple-500
+"
+                >
+                  Play {game.title}
+                </Button>
               </CardContent>
             </Card>
           ))}
