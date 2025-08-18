@@ -23,7 +23,7 @@ export default function Header() {
         <Link href="/sign-up">
           <Button
             variant="outline"
-            className="border-pink-200 text-pink-600 hover:bg-pink-50 bg-transparent"
+            className="border-pink-200 cursor-pointer text-pink-600 hover:bg-pink-50 bg-transparent"
           >
             Sign In
           </Button>
