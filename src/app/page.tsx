@@ -117,7 +117,7 @@ export default function LandingPage() {
             <div className="relative">
               <div className="relative z-10 animate-float">
                 <img
-                  src="/cheerful-children-language-game.png"
+                  src="/children.png"
                   alt="Children enjoying language learning games"
                   className="w-full max-w-md mx-auto rounded-2xl shadow-2xl"
                 />
@@ -207,7 +207,7 @@ export default function LandingPage() {
             <Card className="border-pink-100 hover:border-pink-200 transition-all duration-300 hover:shadow-lg group overflow-hidden">
               <div className="relative">
                 <img
-                  src="/colorful-word-matching-game.png"
+                  src="/wordle.webp"
                   alt="Word Matching Game"
                   className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
                 />
@@ -245,7 +245,7 @@ export default function LandingPage() {
             <Card className="border-emerald-100 hover:border-emerald-200 transition-all duration-300 hover:shadow-lg group overflow-hidden">
               <div className="relative">
                 <img
-                  src="/pronunciation-game.png"
+                  src="/wordle.webp"
                   alt="Pronunciation Game"
                   className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
                 />
@@ -284,7 +284,7 @@ export default function LandingPage() {
             <Card className="border-purple-100 hover:border-purple-200 transition-all duration-300 hover:shadow-lg group overflow-hidden">
               <div className="relative">
                 <img
-                  src="/magical-adventure-game.png"
+                  src="/wordle.webp"
                   alt="Story Adventure Game"
                   className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
                 />
@@ -554,7 +554,7 @@ export default function LandingPage() {
               <Card className="border-pink-100 bg-gradient-to-br from-pink-50 to-white shadow-xl">
                 <CardContent className="p-8">
                   <img
-                    src="/placeholder-htz2p.png"
+                    src="/wordle.webp"
                     alt="Profile Dashboard Preview"
                     className="w-full rounded-xl shadow-lg"
                   />
