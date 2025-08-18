@@ -1,146 +1,127 @@
-// components/sections/LeaderboardSection.tsx
+"use client";
+import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { Crown, Trophy, Star, BarChart3, Globe } from "lucide-react";
 
-import { Badge } from "@/Components/ui/badge";
-import { Card, CardContent } from "@/Components/ui/card";
-import { Trophy, Crown, Medal, BarChart3, Target } from "lucide-react";
+interface User {
+  id: number;
+  name: string;
+  avatar: string;
+  lessons: number;
+  points: number;
+  isCurrentUser?: boolean;
+}
 
-export default function LeaderboardSection() {
-  const winners = [
-    {
-      name: "Emma L.",
-      points: "2,450 points",
-      position: "1st",
-      icon: Crown,
-      bgColor: "from-yellow-100 to-yellow-50",
-      borderColor: "border-yellow-200",
-      iconBg: "from-yellow-400 to-yellow-500",
-      badgeColor: "bg-yellow-500 text-white",
-      emoji: "🏆",
-    },
-    {
-      name: "Alex M.",
-      points: "2,180 points",
-      position: "2nd",
-      icon: Medal,
-      bgColor: "from-gray-100 to-gray-50",
-      borderColor: "border-gray-200",
-      iconBg: "from-gray-400 to-gray-500",
-      badgeColor: "bg-gray-500 text-white",
-      emoji: "🥈",
-    },
-    {
-      name: "Sofia R.",
-      points: "1,920 points",
-      position: "3rd",
-      icon: Medal,
-      bgColor: "from-orange-100 to-orange-50",
-      borderColor: "border-orange-200",
-      iconBg: "from-orange-400 to-orange-500",
-      badgeColor: "bg-orange-500 text-white",
-      emoji: "🥉",
-    },
-  ];
+interface Statistics {
+  activelearners: number;
+  languagesAvailable: number;
+}
+
+const LeaderBoard = () => {
+  const [users, setUsers] = useState<User[]>([]);
+  const [stats, setStats] = useState<Statistics>({
+    activelearners: 0,
+    languagesAvailable: 0,
+  });
+
+  useEffect(() => {
+    fetch("/api/leaderboard")
+      .then((res) => res.json())
+      .then((data) => {
+        setUsers(data.users);
+        setStats(data.stats);
+      });
+  }, []);
+
+  const getCardStyles = (position: number) => {
+    switch (position) {
+      case 1: return "bg-yellow-100 border-yellow-400";
+      case 2: return "bg-blue-100 border-blue-400";
+      case 3: return "bg-orange-100 border-orange-400";
+      default: return "bg-white/80 border-gray-200 hover:border-gray-300";
+    }
+  };
+
+  const getRankIcon = (position: number) => {
+    switch (position) {
+      case 1: return <Crown className="w-6 h-6 text-yellow-600" />;
+      case 2: return <Trophy className="w-6 h-6 text-blue-600" />;
+      case 3: return <Star className="w-6 h-6 text-orange-600" />;
+      default: return <span className="text-gray-500 font-bold text-lg">#{position}</span>;
+    }
+  };
 
   return (
-    <section
-      id="leaderboard"
-      className="px-4 py-16 md:px-6 bg-gradient-to-br from-yellow-50 to-orange-50"
-    >
-      <div className="max-w-6xl mx-auto">
-        <div className="text-center space-y-4 mb-12">
-          <h2 className="font-serif font-black text-3xl md:text-4xl text-gray-800">
-            Top Language Learners
-          </h2>
-          <p className="font-sans text-lg text-gray-600 max-w-2xl mx-auto">
-            See how your child ranks among our amazing community of young
-            language learners!
-          </p>
+    <div className="min-h-screen bg-[#FFFFE6] py-12 px-6">
+      {/* Header */}
+      <div className="flex flex-col items-center text-center mb-12">
+        <motion.div
+          animate={{ rotate: [0, -15, 15, -10, 10, 0], scale: [1, 1.2, 1] }}
+          transition={{ duration: 2, repeat: Infinity, repeatDelay: 2 }}
+        >
+          <Trophy className="w-12 h-12 text-yellow-500 mb-4" />
+        </motion.div>
+        <h1 className="text-4xl font-bold">Leaderboard</h1>
+        <p className="text-gray-600 mt-2 text-lg">
+          See how you compare with other readers!
+        </p>
+      </div>
+
+      <div className="max-w-5xl mx-auto space-y-10">
+        {/* Full Rankings */}
+        <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-md border border-gray-200">
+          <h2 className="text-2xl font-bold mb-6">Full Rankings</h2>
+          <div className="space-y-4">
+            {users.map((user, idx) => (
+              <div
+                key={user.id}
+                className={`p-4 rounded-xl border-2 ${getCardStyles(idx + 1)} ${
+                  user.isCurrentUser ? "ring-2 ring-purple-400" : ""
+                }`}
+              >
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-4">
+                    {getRankIcon(idx + 1)}
+                    <div className="text-3xl">{user.avatar}</div>
+                    <div>
+                      <h3 className="font-bold text-lg">
+                        {user.name} {user.isCurrentUser && "(You!)"}
+                      </h3>
+                      <p className="text-gray-600 text-sm">{user.lessons} lessons</p>
+                    </div>
+                  </div>
+                  <div className="text-xl font-bold">{user.points}</div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-8">
-          {/* Top 3 Winners */}
-          <div className="lg:col-span-2">
-            <Card className="border-yellow-200 bg-gradient-to-br from-yellow-50 to-white shadow-lg">
-              <CardContent className="p-8">
-                <div className="flex items-center gap-3 mb-6">
-                  <Trophy className="w-6 h-6 text-yellow-500" />
-                  <h3 className="font-serif font-bold text-xl text-gray-800">
-                    Full Rankings
-                  </h3>
-                </div>
-
-                <div className="space-y-4">
-                  {winners.map((winner, index) => (
-                    <div
-                      key={index}
-                      className={`flex items-center gap-4 p-4 bg-gradient-to-r ${winner.bgColor} rounded-xl border ${winner.borderColor}`}
-                    >
-                      <div
-                        className={`flex items-center justify-center w-12 h-12 bg-gradient-to-br ${winner.iconBg} rounded-full`}
-                      >
-                        <winner.icon className="w-6 h-6 text-white" />
-                      </div>
-                      <div className="flex-1">
-                        <div className="flex items-center gap-2">
-                          <span className="font-serif font-bold text-lg text-gray-800">
-                            {winner.name}
-                          </span>
-                          <Badge className={`${winner.badgeColor} text-xs`}>
-                            {winner.position}
-                          </Badge>
-                        </div>
-                        <p className="font-sans text-sm text-gray-600">
-                          {winner.points} 
-                        </p>
-                      </div>
-                      <div className="text-right">
-                        <div className="font-serif font-bold text-xl text-yellow-600">
-                          {winner.emoji}
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
+        {/* Statistics */}
+        <div className="grid md:grid-cols-2 gap-6">
+          <div className="bg-white/80 backdrop-blur-sm rounded-xl p-6 shadow-md border border-gray-200 hover:shadow-lg transition-shadow duration-200">
+            <div className="flex flex-col items-center">
+              <div className="w-16 h-16 bg-gradient-to-br from-pink-400 to-pink-500 rounded-2xl flex items-center justify-center mb-4">
+                <BarChart3 className="w-8 h-8 text-white" />
+              </div>
+              <div className="text-3xl font-bold mb-1">{stats.activelearners}</div>
+              <div className="text-gray-600 text-sm">Active Learners</div>
+            </div>
           </div>
 
-          {/* Stats Cards */}
-          <div className="space-y-6">
-            <Card className="border-pink-100 bg-gradient-to-br from-pink-50 to-white">
-              <CardContent className="p-6 text-center space-y-4">
-                <div className="w-16 h-16 bg-gradient-to-br from-pink-200 to-pink-300 rounded-2xl flex items-center justify-center mx-auto">
-                  <BarChart3 className="w-8 h-8 text-pink-600" />
-                </div>
-                <div>
-                  <div className="font-serif font-black text-3xl text-gray-800">
-                    15,000+
-                  </div>
-                  <p className="font-sans text-sm text-gray-600">
-                    Active Learners
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="border-emerald-100 bg-gradient-to-br from-emerald-50 to-white">
-              <CardContent className="p-6 text-center space-y-4">
-                <div className="w-16 h-16 bg-gradient-to-br from-emerald-200 to-emerald-300 rounded-2xl flex items-center justify-center mx-auto">
-                  <Target className="w-8 h-8 text-emerald-600" />
-                </div>
-                <div>
-                  <div className="font-serif font-black text-3xl text-gray-800">
-                    12
-                  </div>
-                  <p className="font-sans text-sm text-gray-600">
-                    Languages Available
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
+          <div className="bg-white/80 backdrop-blur-sm rounded-xl p-6 shadow-md border border-gray-200 hover:shadow-lg transition-shadow duration-200">
+            <div className="flex flex-col items-center">
+              <div className="w-16 h-16 bg-gradient-to-br from-green-400 to-green-500 rounded-2xl flex items-center justify-center mb-4">
+                <Globe className="w-8 h-8 text-white" />
+              </div>
+              <div className="text-3xl font-bold mb-1">{stats.languagesAvailable}</div>
+              <div className="text-gray-600 text-sm">Languages Available</div>
+            </div>
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
-}
+};
+
+export default LeaderBoard;
