@@ -3,7 +3,7 @@
 import Lottie from "lottie-react";
 import ReadingBook from "/public/ReadingBook.json";
 
-export default function Header() {
+export default function SignUpHeader() {
   const animationData = ReadingBook;
 
   return (
