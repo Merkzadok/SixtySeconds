@@ -1,5 +1,9 @@
 "use client";
 
+import Lottie from "lottie-react";
+import flyingBird from "/public/flyingBird.json";
+import Welcome from "/public/WelcomeAnimation.json";
+import BrainAnimation from "/public/Meditating-Brain.json";
 import {
   Stars,
   Heart,
@@ -25,16 +29,20 @@ export default function Background() {
       </div>
 
       {/* Animated Icons - Top Layer */}
-      <div className="absolute top-16 left-16 text-yellow-400 opacity-70 animate-bounce">
-        <Stars size={28} className="drop-shadow-sm" />
+      <div className="absolute top-16 left-5 text-yellow-400 opacity-70 animate-bounce">
+        <Lottie animationData={flyingBird} loop={true} className="w-30 h-30" />
       </div>
 
-      <div className="absolute top-32 right-24 text-pink-400 opacity-60 animate-float">
-        <Heart size={24} className="drop-shadow-sm" />
+      <div className="absolute top-32 right-5 text-pink-400 opacity-60 animate-float">
+        <Lottie animationData={Welcome} loop={true} className="w-30 h-30" />
       </div>
 
-      <div className="absolute top-1/4 right-16 text-purple-400 opacity-50 animate-bounce delay-1000">
-        <BookOpen size={32} className="drop-shadow-sm" />
+      <div className="absolute top-5 right-16 text-purple-400 opacity-50 animate-bounce delay-1000">
+        <Lottie
+          animationData={BrainAnimation}
+          loop={true}
+          className="w-20 h-20"
+        />
       </div>
 
       <div className="absolute top-1/2 left-8 text-blue-400 opacity-60 animate-float delay-500">
