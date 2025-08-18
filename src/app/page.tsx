@@ -1,81 +1,23 @@
-"use client";
+import CTASection from "./(landing-page)/CTAsection";
+import FeaturesSection from "./(landing-page)/FeatureSection";
+import Footer from "./(landing-page)/FooterSection";
+import GamesSection from "./(landing-page)/GameSection";
+import HeroSection from "./(landing-page)/HeroSection";
+import LandingHeader from "./(landing-page)/LandingHeader";
+import LeaderboardSection from "./(landing-page)/LeaderboardSection";
+import ProfileSection from "./(landing-page)/ProfileSection";
 
-import Exercises from "@/Components/Exercises";
-import HomePage from "@/Components/HomePage";
-import Leaderboard from "@/Components/Leaderboard";
-import Navigation from "@/Components/Navigation";
-import ParentDashboard from "@/Components/ParentDashboard";
-import ReadingLesson from "@/Components/ReadingLesson";
-import React, { useState } from "react";
-import Subscription from "./(subscription)/_components/subscription";
-
-export type AppPage =
-  | "home"
-  | "reading"
-  | "exercises"
-  | "parent"
-  | "leaderboard";
-  "subscription";
-
-function App() {
-  const [currentPage, setCurrentPage] = useState<AppPage>("home");
-  const [user, setUser] = useState({
-    name: "Emma",
-    avatar: "👧",
-    score: 850,
-    lessonsCompleted: 12,
-    exercisesCompleted: 28,
-    recordings: [],
-  });
-
-  const renderCurrentPage = () => {
-    switch (currentPage) {
-      case "home":
-        return <HomePage onNavigate={setCurrentPage} user={user} />;
-      case "reading":
-        return (
-          <ReadingLesson
-            onNavigate={setCurrentPage}
-            user={user}
-            setUser={setUser}
-          />
-        );
-      case "exercises":
-        return (
-          <Exercises
-            onNavigate={setCurrentPage}
-            user={user}
-            setUser={setUser}
-          />
-        );
-      case "parent":
-        return (
-          <ParentDashboard
-            onNavigate={setCurrentPage}
-            user={user}
-            setUser={setUser}
-          />
-        );
-      case "leaderboard":
-        return <Leaderboard onNavigate={setCurrentPage} user={user} />;
-    default:return <HomePage onNavigate={setCurrentPage} user={user} />;
-
-    }
-  };
-
+export default function LandingPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
-
-      {currentPage !== "home" && (
-        <Navigation
-          currentPage={currentPage}
-          onNavigate={setCurrentPage}
-          user={user}
-        />
-      )} 
-      {renderCurrentPage()}
+    <div className="min-h-screen bg-gradient-to-br from-pink-50 via-white to-emerald-50">
+      <LandingHeader />
+      <HeroSection />
+      <FeaturesSection />
+      <GamesSection />
+      <LeaderboardSection />
+      <ProfileSection />
+      <CTASection />
+      <Footer />
     </div>
   );
 }
-
-export default App;
