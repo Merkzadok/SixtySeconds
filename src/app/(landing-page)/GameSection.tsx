@@ -13,10 +13,11 @@ export default function GamesSection() {
         "Match words with adorable animals while exploring different habitats.",
       icon: Gamepad2,
       iconColor: "text-pink-500",
+
       borderColor: "border-pink-100 hover:border-pink-200",
-      badge: { text: "Popular", color: "bg-pink-500 text-white" },
       rating: 5,
       ageRange: "Ages 4-8",
+      imageSrc: "/wordle.webp",
     },
     {
       title: "Speak & Shine",
@@ -25,9 +26,9 @@ export default function GamesSection() {
       icon: Target,
       iconColor: "text-emerald-500",
       borderColor: "border-emerald-100 hover:border-emerald-200",
-      badge: { text: "New", color: "bg-emerald-500 text-white" },
       rating: 4,
       ageRange: "Ages 6-12",
+      imageSrc: "/snake.png",
     },
     {
       title: "Magic Tales",
@@ -39,6 +40,7 @@ export default function GamesSection() {
       badge: null,
       rating: 5,
       ageRange: "Ages 5-10",
+      imageSrc: "/memory.png",
     },
   ];
 
@@ -63,17 +65,11 @@ export default function GamesSection() {
             >
               <div className="relative">
                 <img
-                  src="/wordle.webp"
+                  src={game.imageSrc}
                   alt={game.title}
                   className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
                 />
-                {game.badge && (
-                  <div className="absolute top-3 right-3">
-                    <Badge className={game.badge.color}>
-                      {game.badge.text}
-                    </Badge>
-                  </div>
-                )}
+                {game.badge && <div className="absolute top-3 right-3"></div>}
               </div>
               <CardContent className="p-6 space-y-3">
                 <div className="flex items-center gap-2">
