@@ -71,7 +71,7 @@ const SpeechToTextMongolian: React.FC = () => {
 
   const handleNextText = async () => {
     try {
-      const response = await fetch("http://localhost:4001/gemini", {
+      const response = await fetch("http://localhost:4001/gemini/1", {
         method: "GET",
       });
 
