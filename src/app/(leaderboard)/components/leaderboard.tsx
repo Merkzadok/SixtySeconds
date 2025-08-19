@@ -4,44 +4,44 @@ import { motion } from "framer-motion";
 import { Crown, Trophy, Star, BarChart3, Globe, Book } from "lucide-react";
 import LeaderboardUser from "./LeaderboardUser";
 
-interface User {
-  id: number;
-  name: string;
-  avatar: string;
-  lessons: number;
-  points: number;
-  isCurrentUser?: boolean;
-}
+// interface User {
+//   id: number;
+//   name: string;
+//   avatar: string;
+//   lessons: number;
+//   points: number;
+//   isCurrentUser?: boolean;
+// }
 
-interface Statistics {
-  activelearners: number;
-  languagesAvailable: number;
-}
+// interface Statistics {
+//   activelearners: number;
+//   languagesAvailable: number;
+// }
 
 const LeaderBoard = () => {
-  const [users, setUsers] = useState<User[]>([]);
-  const [stats, setStats] = useState<Statistics>({
-    activelearners: 0,
-    languagesAvailable: 0,
-  });
+  // const [users, setUsers] = useState<User[]>([]);
+  // const [stats, setStats] = useState<Statistics>({
+  //   activelearners: 0,
+  //   languagesAvailable: 0,
+  // });
 
-  useEffect(() => {
-    fetch("/api/leaderboard")
-      .then((res) => res.json())
-      .then((data) => {
-        setUsers(data.users);
-        setStats(data.stats);
-      });
-  }, []);
+  // useEffect(() => {
+  //   fetch("/api/leaderboard")
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setUsers(data.users);
+  //       setStats(data.stats);
+  //     });
+  // }, []);
 
-  const getCardStyles = (position: number) => {
-    switch (position) {
-      case 1: return "bg-yellow-100 border-yellow-400";
-      case 2: return "bg-blue-100 border-blue-400";
-      case 3: return "bg-orange-100 border-orange-400";
-      default: return "bg-white/80 border-gray-200 hover:border-gray-300";
-    }
-  };
+  // const getCardStyles = (position: number) => {
+  //   switch (position) {
+  //     case 1: return "bg-yellow-100 border-yellow-400";
+  //     case 2: return "bg-blue-100 border-blue-400";
+  //     case 3: return "bg-orange-100 border-orange-400";
+  //     default: return "bg-white/80 border-gray-200 hover:border-gray-300";
+  //   }
+  // };
 
   // const getRankIcon = (position: number) => {
   //   switch (position) {
