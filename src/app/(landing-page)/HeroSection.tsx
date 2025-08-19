@@ -2,6 +2,7 @@
 import { Badge } from "@/Components/ui/badge";
 import { Button } from "@/Components/ui/button";
 import { Play, Star } from "lucide-react";
+import Link from "next/link";
 
 export default function HeroSection() {
   return (
@@ -26,20 +27,22 @@ export default function HeroSection() {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button
-                size="lg"
-                className="bg-gradient-to-r from-pink-400 to-pink-500 hover:from-pink-500 hover:to-pink-600 text-white font-semibold px-8 py-6 text-lg rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
-              >
-                <Play className="w-5 h-5 mr-2" />
-                Start Your Adventure Today!
-              </Button>
-              <Button
+              <Link href="/sign-up">
+                <Button
+                  size="lg"
+                  className="bg-gradient-to-r from-pink-400 to-pink-500 hover:from-pink-500 hover:to-pink-600 text-white font-semibold px-8 py-6 text-lg rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+                >
+                  <Play className="w-5 h-5 mr-2" />
+                  Start Your Adventure Today!
+                </Button>
+              </Link>
+              {/* <Button
                 variant="outline"
                 size="lg"
                 className="border-emerald-200 text-emerald-600 hover:bg-emerald-50 px-8 py-6 text-lg rounded-xl bg-transparent"
               >
                 Watch Demo
-              </Button>
+              </Button> */}
             </div>
 
             <div className="flex items-center gap-6 pt-4">

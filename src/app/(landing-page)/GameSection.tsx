@@ -103,15 +103,7 @@ export default function GamesSection() {
           ))}
         </div>
 
-        <div className="text-center mt-12">
-          <Button
-            size="lg"
-            className="bg-gradient-to-r from-purple-400 to-purple-500 hover:from-purple-500 hover:to-purple-600 text-white font-semibold px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
-          >
-            <Play className="w-5 h-5 mr-2" />
-            Play All Games
-          </Button>
-        </div>
+        <div className="text-center mt-12"></div>
       </div>
     </section>
   );
