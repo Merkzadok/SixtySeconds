@@ -7,6 +7,7 @@ import { BookOpen, Gamepad2, Trophy, Star } from "lucide-react";
 import MainSectionCard from "./components/MainSectionCard";
 import QuickStatCard from "./components/QuickCard";
 import Header from "./components/Header";
+import Link from "next/link";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -23,6 +24,7 @@ export default function HomePage() {
       description: "Play fun interactive learning games",
       gradient: "from-orange-400 via-red-400 to-pink-500",
       bgPattern: "bg-gradient-to-br from-orange-100 via-red-50 to-pink-100",
+      href: "/games",
     },
     {
       id: "reading",
@@ -30,6 +32,7 @@ export default function HomePage() {
       description: "Discover amazing books and stories",
       gradient: "from-blue-400 via-indigo-400 to-purple-500",
       bgPattern: "bg-gradient-to-br from-blue-100 via-indigo-50 to-purple-100",
+      href: "/reading",
     },
     {
       id: "rankings",
@@ -37,6 +40,7 @@ export default function HomePage() {
       description: "See where you stand among peers",
       gradient: "from-yellow-400 via-amber-400 to-orange-500",
       bgPattern: "bg-gradient-to-br from-yellow-100 via-amber-50 to-orange-100",
+      href: "/rankings",
     },
   ];
 
@@ -109,7 +113,9 @@ export default function HomePage() {
                   cardsRef.current[i] = el;
                 }}
               >
-                <MainSectionCard item={item} onClick={setActiveSection} />
+                <Link href={item.href}>
+                  <MainSectionCard item={item} onClick={setActiveSection} />
+                </Link>
               </div>
             ))}
           </div>
