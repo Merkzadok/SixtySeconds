@@ -21,8 +21,8 @@ const SpeechToTextMongolian: React.FC = () => {
   const [stopTime, setStopTime] = useState<Date | null>(null);
 
   const [sentence, setSentence] = useState<{
-    id: number;
-    text: string;
+    readingId: number;
+    sentence: string;
     readCount: number;
   } | null>(null);
   const [fullTranscript, setFullTranscript] = useState("");
@@ -30,6 +30,16 @@ const SpeechToTextMongolian: React.FC = () => {
   const [listening, setListening] = useState(false);
   const recorderRef = useRef<VoiceRecorderHandle>(null);
   const recognitionRef = useRef<SpeechRecognition | null>(null);
+
+  const fetchNextSentence = async () => {
+    const res = await fetch("http://localhost:4001/gemini/1", {
+      method: "POST",
+      // body:JSON.stringify({sentence})
+    });
+    const data = await res.json();
+    console.log(data);
+    setSentence(data);
+  };
 
   useEffect(() => {
     recognitionRef.current = createRecognition(
@@ -42,19 +52,12 @@ const SpeechToTextMongolian: React.FC = () => {
     return () => recognitionRef.current?.stop();
   }, []);
 
-  const fetchNextSentence = async () => {
-    const res = await fetch("/api/sentences");
-    const data = await res.json();
-    if (data.success)
-      setSentence({ ...data.sentence, readCount: data.sentence.readCount });
-  };
-
   const handleSaveAndNext = async () => {
     if (!sentence) return;
-    await fetch("/api/se  ntences", {
-      method: "POST",
+    await fetch(`http://localhost:4001/gemini/finish/${sentence?.readingId}`, {
+      method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ id: sentence.id }),
+      body: JSON.stringify({ id: sentence.readingId, startTime, stopTime }),
     });
     setFullTranscript("");
     setInterimTranscript("");
@@ -64,7 +67,7 @@ const SpeechToTextMongolian: React.FC = () => {
   };
 
   const { matchCount, total, accuracy } = compareTexts(
-    sentence?.text || "",
+    sentence?.sentence || "",
     fullTranscript
   );
 
@@ -92,7 +95,7 @@ const SpeechToTextMongolian: React.FC = () => {
 
       {sentence && (
         <ExpectedText
-          expectedText={sentence.text}
+          expectedText={sentence?.sentence}
           actualText={fullTranscript}
         />
       )}
