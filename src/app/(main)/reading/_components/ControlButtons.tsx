@@ -7,23 +7,24 @@ type Props = {
 };
 
 const ControlButtons: React.FC<Props> = ({ listening, onToggle, onClear }) => (
-  <div className="flex justify-center gap-4 mb-5">
+  <div className="flex justify-center gap-4 mb-6">
     <button
       onClick={onToggle}
-      className={`px-5 py-2 font-bold text-white rounded 
+      className={`w-32 py-3 rounded-full text-lg font-semibold shadow transition duration-200
       ${
         listening
-          ? "bg-red-500 hover:bg-red-600"
-          : "bg-blue-600 hover:bg-blue-700"
+          ? "bg-red-400 hover:bg-red-500 text-white"
+          : "bg-green-400 hover:bg-green-500 text-white"
       }`}
     >
-      {listening ? "Зогсоох" : "Унших"}
+      {listening ? "⏹ Зогсоох" : "🎤 Унших"}
     </button>
+
     <button
       onClick={onClear}
-      className="px-5 py-2 font-bold text-white bg-cyan-400 hover:bg-cyan-500 rounded"
+      className="w-32 py-3 bg-yellow-400 hover:bg-yellow-500 text-white rounded-full text-lg font-semibold shadow transition duration-200"
     >
-      Цэвэрлэх
+      ♻️ Цэвэрлэх
     </button>
   </div>
 );
