@@ -10,9 +10,10 @@ export default function LeaderboardUser() {
                     <div className="text-3xl">
                         👦
                     </div>
-                    <div className=" frlex font-bold">Emma</div>
-                    <div>
+                    <div className=" frlex font-bold">Emma
+                        <div className=""> 
                         <p className="text-gray-600 text-sm flex"> 12 lessons</p>
+                        </div>
                     </div>
                 </div >
                 <div className="flex items-center space-x-2">
