@@ -1,7 +1,7 @@
 "use client";
 import { Dispatch, SetStateAction } from "react";
 import { Button } from "@/Components/ui/button";
-import { NavigationItem } from "./Header";
+import { NavigationItem } from "./MainHeader";
 import Link from "next/link";
 
 interface NavigationProps {
@@ -20,7 +20,7 @@ export default function Navigation({
       {navigationItems.map((item) => {
         const Icon = item.icon;
         return (
-          <Link href={item.href}>
+          <Link href={item.href} key={item.id}>
             <Button
               key={item.id}
               variant={activeSection === item.id ? "default" : "ghost"}

@@ -1,7 +1,7 @@
 "use client";
 import { Dispatch, SetStateAction } from "react";
 import { Button } from "@/Components/ui/button";
-import { NavigationItem } from "./Header";
+import { NavigationItem } from "./MainHeader";
 import ScoreDisplay from "./ScoreDisplay";
 
 interface MobileNavigationProps {

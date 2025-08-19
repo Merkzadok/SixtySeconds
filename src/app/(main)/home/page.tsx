@@ -6,8 +6,8 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { BookOpen, Gamepad2, Trophy, Star } from "lucide-react";
 import MainSectionCard from "./components/MainSectionCard";
 import QuickStatCard from "./components/QuickCard";
-import Header from "./components/Header";
 import Link from "next/link";
+import MainHeader from "./components/MainHeader";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -81,7 +81,7 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-rose-50 via-purple-50 to-blue-50">
-      <Header
+      <MainHeader
         activeSection={activeSection}
         setActiveSection={setActiveSection}
       />
