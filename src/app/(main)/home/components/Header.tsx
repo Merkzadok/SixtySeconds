@@ -21,6 +21,7 @@ export type NavigationItem = {
   id: string;
   label: string;
   icon: LucideIcon;
+  href: string;
 };
 
 interface HeaderProps {
@@ -39,11 +40,11 @@ export default function Header({
   const userRating = 4.8;
 
   const navigationItems: NavigationItem[] = [
-    { id: "home", label: "Home", icon: Home },
-    { id: "reading", label: "Reading", icon: BookOpen },
-    { id: "games", label: "Games", icon: Gamepad2 },
-    { id: "rankings", label: "Rankings", icon: Trophy },
-    { id: "profile", label: "Profile", icon: User },
+    { id: "home", label: "Home", icon: Home, href: "/" },
+    { id: "reading", label: "Reading", icon: BookOpen, href: "/reading" },
+    { id: "games", label: "Games", icon: Gamepad2, href: "/games" },
+    { id: "rankings", label: "Rankings", icon: Trophy, href: "rankings" },
+    { id: "profile", label: "Profile", icon: User, href: "profile" },
   ];
 
   return (
