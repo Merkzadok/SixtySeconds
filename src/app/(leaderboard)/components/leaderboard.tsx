@@ -1,7 +1,8 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Crown, Trophy, Star, BarChart3, Globe } from "lucide-react";
+import { Crown, Trophy, Star, BarChart3, Globe, Book } from "lucide-react";
+import LeaderboardUser from "./LeaderboardUser";
 
 interface User {
   id: number;
@@ -42,18 +43,18 @@ const LeaderBoard = () => {
     }
   };
 
-  const getRankIcon = (position: number) => {
-    switch (position) {
-      case 1: return <Crown className="w-6 h-6 text-yellow-600" />;
-      case 2: return <Trophy className="w-6 h-6 text-blue-600" />;
-      case 3: return <Star className="w-6 h-6 text-orange-600" />;
-      default: return <span className="text-gray-500 font-bold text-lg">#{position}</span>;
-    }
-  };
+  // const getRankIcon = (position: number) => {
+  //   switch (position) {
+  //     case 1: return <Crown className="w-6 h-6 text-yellow-600" />;
+  //     case 2: return <Trophy className="w-6 h-6 text-blue-600" />;
+  //     case 3: return <Star className="w-6 h-6 text-orange-600" />;
+  //     default: return <span className="text-gray-500 font-bold text-lg">#{position}</span>;
+  //   }
+  // };
 
   return (
     <div className="min-h-screen bg-[#FFFFE6] py-12 px-6">
-      {/* Header */}
+      {/* Header textt */}
       <div className="flex flex-col items-center text-center mb-12">
         <motion.div
           animate={{ rotate: [0, -15, 15, -10, 10, 0], scale: [1, 1.2, 1] }}
@@ -68,32 +69,11 @@ const LeaderBoard = () => {
       </div>
 
       <div className="max-w-5xl mx-auto space-y-10">
-        {/* Full Rankings */}
+        {/* Full Rankk*/}
         <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-md border border-gray-200">
           <h2 className="text-2xl font-bold mb-6">Full Rankings</h2>
           <div className="space-y-4">
-            {users.map((user, idx) => (
-              <div
-                key={user.id}
-                className={`p-4 rounded-xl border-2 ${getCardStyles(idx + 1)} ${
-                  user.isCurrentUser ? "ring-2 ring-purple-400" : ""
-                }`}
-              >
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-4">
-                    {getRankIcon(idx + 1)}
-                    <div className="text-3xl">{user.avatar}</div>
-                    <div>
-                      <h3 className="font-bold text-lg">
-                        {user.name} {user.isCurrentUser && "(You!)"}
-                      </h3>
-                      <p className="text-gray-600 text-sm">{user.lessons} lessons</p>
-                    </div>
-                  </div>
-                  <div className="text-xl font-bold">{user.points}</div>
-                </div>
-              </div>
-            ))}
+            {[1,2].map(()=><LeaderboardUser/>)}
           </div>
         </div>
 
@@ -104,18 +84,18 @@ const LeaderBoard = () => {
               <div className="w-16 h-16 bg-gradient-to-br from-pink-400 to-pink-500 rounded-2xl flex items-center justify-center mb-4">
                 <BarChart3 className="w-8 h-8 text-white" />
               </div>
-              <div className="text-3xl font-bold mb-1">{stats.activelearners}</div>
-              <div className="text-gray-600 text-sm">Active Learners</div>
+              <div className="text-3xl font-bold mb-1">Active Learners</div>
+              <div className="text-gray-600 text-sm">99</div>
             </div>
           </div>
 
           <div className="bg-white/80 backdrop-blur-sm rounded-xl p-6 shadow-md border border-gray-200 hover:shadow-lg transition-shadow duration-200">
             <div className="flex flex-col items-center">
               <div className="w-16 h-16 bg-gradient-to-br from-green-400 to-green-500 rounded-2xl flex items-center justify-center mb-4">
-                <Globe className="w-8 h-8 text-white" />
+                <Book className="w-8 h-8 text-white" />
               </div>
-              <div className="text-3xl font-bold mb-1">{stats.languagesAvailable}</div>
-              <div className="text-gray-600 text-sm">Languages Available</div>
+              <div className="text-3xl font-bold mb-1">Book Lover</div>
+              <div className="text-gray-600 text-sm">Completed 20+ lessons</div>
             </div>
           </div>
         </div>
