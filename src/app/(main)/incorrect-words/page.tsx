@@ -2,7 +2,14 @@
 
 import React, { useEffect, useState } from "react";
 
-type Sentence = { id: number; text: string; wrongWord: string; score: number };
+type Sentence = {
+  id: number;
+  sentence: string;
+  wrongWord: string;
+  score: number;
+  words: string[];
+  correctAnswer: string;
+};
 
 const IncorrectWordPage: React.FC = () => {
   const [totalScore, setTotalScore] = useState(0); // Нийт оноо хадгалах
@@ -12,15 +19,18 @@ const IncorrectWordPage: React.FC = () => {
     correct: boolean;
     score: number;
   } | null>(null);
+  console.log("sel", selectedWord);
 
   const fetchSentence = async () => {
-    const res = await fetch("/api/incorrect-sentences");
+    const res = await fetch("http://localhost:4001/wrong/1", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+    });
     const data = await res.json();
-    if (data.success) {
-      setSentence(data.sentence);
-      setSelectedWord(null);
-      setFeedback(null);
-    }
+    console.log(data);
+    setSentence(data);
+    setSelectedWord(null);
+    setFeedback(null);
   };
 
   useEffect(() => {
@@ -28,13 +38,13 @@ const IncorrectWordPage: React.FC = () => {
   }, []);
 
   const submitSelection = async () => {
-    if (!sentence || !selectedWord) return;
+    if (!sentence?.sentence || !selectedWord) return;
 
-    const correct = selectedWord === sentence.wrongWord;
-    const res = await fetch("/api/incorrect-sentences", {
+    const correct = selectedWord === sentence?.wrongWord;
+    const res = await fetch("http://localhost:4001/wrong/1", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ id: sentence.id, correct }),
+      body: JSON.stringify({ id: sentence.id, correct, selectedWord }),
     });
 
     const data = await res.json();
@@ -63,19 +73,20 @@ const IncorrectWordPage: React.FC = () => {
 
       {/* Өгүүлбэр */}
       <div className="bg-gray-400 p-5 rounded-lg shadow-sm text-xl text-center leading-relaxed">
-        {sentence.text.split(" ").map((word, idx) => (
-          <span
-            key={idx}
-            onClick={() => setSelectedWord(word)}
-            className={`inline-block px-2 py-1 mx-[2px] rounded-md cursor-pointer transition-all duration-200 ${
-              selectedWord === word
-                ? "bg-yellow-300 text-black underline underline-offset-4"
-                : "hover:bg-blue-200 hover:underline"
-            }`}
-          >
-            {word}
-          </span>
-        ))}
+        {sentence &&
+          sentence?.words.map((word, index) => (
+            <span
+              key={index}
+              onClick={() => setSelectedWord(word)}
+              className={`inline-block px-2 py-1 mx-[2px] rounded-md cursor-pointer transition-all duration-200 ${
+                selectedWord === word
+                  ? "bg-yellow-300 text-black underline underline-offset-4"
+                  : "hover:bg-blue-200 hover:underline"
+              }`}
+            >
+              {word}
+            </span>
+          ))}
       </div>
 
       {/* Баталгаажуулах товч */}

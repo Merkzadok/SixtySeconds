@@ -57,7 +57,12 @@ const SpeechToTextMongolian: React.FC = () => {
     await fetch(`http://localhost:4001/gemini/finish/${sentence?.readingId}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ id: sentence.readingId, startTime, stopTime }),
+      body: JSON.stringify({
+        id: sentence.readingId,
+        startTime,
+        stopTime,
+        accuracy: compareTexts(sentence.sentence, fullTranscript).accuracy,
+      }),
     });
     setFullTranscript("");
     setInterimTranscript("");
