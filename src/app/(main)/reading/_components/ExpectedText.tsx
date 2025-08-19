@@ -10,14 +10,16 @@ const ExpectedText: React.FC<Props> = ({ expectedText, actualText }) => {
   const coloredParts = getColoredTextParts(expectedText, actualText);
 
   return (
-    <div className="mb-5">
-      <h3 className="text-lg font-semibold mb-2">📌 Унших өгүүлбэр:</h3>
-      <div className="bg-neutral-900 text-white p-4 rounded leading-relaxed flex flex-wrap gap-1">
+    <div className="mb-6">
+      <h3 className="text-lg font-semibold text-purple-700 mb-2">
+        📌 Унших өгүүлбэр:
+      </h3>
+      <div className="bg-yellow-100 text-gray-800 p-4 rounded-xl leading-relaxed shadow-inner text-lg space-x-1 flex flex-wrap gap-y-1">
         {coloredParts.map((part, index) => (
           <span
             key={index}
             className={
-              part.matched ? "text-green-400 font-semibold" : "text-white"
+              part.matched ? "text-green-600 font-semibold" : "text-gray-700"
             }
           >
             {part.word}

@@ -9,21 +9,10 @@ const TranscriptBox: React.FC<Props> = ({
   fullTranscript,
   interimTranscript,
 }) => (
-  <div
-    style={{
-      minHeight: 120,
-      border: "2px solid #ddd",
-      borderRadius: 8,
-      padding: 15,
-      backgroundColor: "#252525ff",
-      boxShadow: "inset 0 0 5px #ccc",
-    }}
-  >
-    <h3>🗣️ Танигдсан текст:</h3>
-    <p>{fullTranscript}</p>
-    <p style={{ color: "#111111ff", fontStyle: "italic" }}>
-      {interimTranscript}
-    </p>
+  <div className="min-h-[120px] p-4 rounded-xl bg-gray-100 shadow-inner space-y-2">
+    <h3 className="text-base font-bold text-gray-800">🗣️ Танигдсан текст:</h3>
+    <p className="text-gray-900 text-base font-medium">{fullTranscript}</p>
+    <p className="text-gray-600 italic">{interimTranscript}</p>
   </div>
 );
 

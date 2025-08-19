@@ -1,19 +1,21 @@
-// components/VoiceRecorder.tsx
-import React, { forwardRef, useImperativeHandle } from "react";
+import React, { forwardRef, useImperativeHandle, useState } from "react";
 import { ReactMediaRecorder } from "react-media-recorder";
 
 export type VoiceRecorderHandle = {
   start: () => void;
   stop: () => void;
+  getMediaBlobUrl: () => string | null;
 };
 
 const VoiceRecorder = forwardRef<VoiceRecorderHandle>((_, ref) => {
+  const [mediaBlobUrl, setMediaBlobUrl] = useState<string | null>(null);
   let startRecordingInternal: () => void = () => {};
   let stopRecordingInternal: () => void = () => {};
 
   useImperativeHandle(ref, () => ({
     start: () => startRecordingInternal(),
     stop: () => stopRecordingInternal(),
+    getMediaBlobUrl: () => mediaBlobUrl,
   }));
 
   return (
@@ -21,7 +23,11 @@ const VoiceRecorder = forwardRef<VoiceRecorderHandle>((_, ref) => {
       <h3>🎙️ Дуу бичиж байна...</h3>
       <ReactMediaRecorder
         audio
-        render={({ status, startRecording, stopRecording, mediaBlobUrl }) => {
+        onStop={(blobUrl) => {
+          setMediaBlobUrl(blobUrl);
+        }}
+        render={({ status, startRecording, stopRecording }) => {
+          // startRecordingInternal, stopRecordingInternal-г энд дамжуулж өгнө
           startRecordingInternal = startRecording;
           stopRecordingInternal = stopRecording;
 

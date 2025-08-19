@@ -13,24 +13,25 @@ const ResultStats: React.FC<Props> = ({
   accuracy,
   children,
 }) => (
-  <div
-    style={{
-      marginTop: 30,
-      padding: 15,
-      backgroundColor: "#1d1c1cff",
-      borderRadius: 8,
-    }}
-  >
-    <h3>📊 Үр дүн:</h3>
-    <p>Нийт үгс: {total}</p>
-    <p>Зөв таарсан үгс: {matchCount}</p>
+  <div className="bg-violet-100 border border-violet-300 p-4 rounded-xl text-gray-900 shadow-inner space-y-2">
+    <h3 className="text-lg font-semibold text-purple-700">📊 Үр дүн:</h3>
     <p>
-      🎯 Нарийвчлал (Accuracy):{" "}
+      🔠 <span className="font-medium">Нийт үгс:</span>{" "}
+      <span className="text-gray-800 font-semibold">{total}</span>
+    </p>
+    <p>
+      ✅ <span className="font-medium">Зөв таарсан үгс:</span>{" "}
+      <span className="text-gray-800 font-semibold">{matchCount}</span>
+    </p>
+    <p>
+      🎯{" "}
+      <span className="font-bold text-orange-600">Нарийвчлал (Accuracy):</span>{" "}
       <span
-        style={{
-          fontWeight: "bold",
-          color: accuracy === "100.00" ? "green" : "orange",
-        }}
+        className={
+          accuracy === "100.00"
+            ? "text-green-600 font-bold"
+            : "text-orange-500 font-bold"
+        }
       >
         {accuracy}%
       </span>
