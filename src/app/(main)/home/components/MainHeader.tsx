@@ -29,7 +29,7 @@ interface HeaderProps {
   setActiveSection: Dispatch<SetStateAction<string>>;
 }
 
-export default function Header({
+export default function MainHeader({
   activeSection,
   setActiveSection,
 }: HeaderProps) {
