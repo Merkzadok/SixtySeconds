@@ -4,6 +4,7 @@ import { FormEvent, useState } from "react";
 import { Button } from "@/Components/ui/button";
 import { Input } from "@/Components/ui/input";
 import { Label } from "@/Components/ui/label";
+import { useRouter } from "next/navigation";
 
 interface SignInProps {
   isLoading: boolean;
@@ -19,6 +20,7 @@ export default function SignIn({
   setIsLoading,
 }: SignInProps) {
   // Add error state for email (and password if you want)
+  const router = useRouter(); // ✅ initialize router
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
 
@@ -65,6 +67,7 @@ export default function SignIn({
 
       // TODO: handle token storage (e.g., localStorage) or redirect here
       alert("Welcome back! 🎉");
+      router.push("/profile");
     } catch (err: any) {
       console.error("Login error:", err);
       // Fallback for unexpected errors
