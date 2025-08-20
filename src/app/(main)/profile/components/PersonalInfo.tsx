@@ -1,29 +1,63 @@
 "use client";
-import React from "react";
-import { useState } from "react";
+import { useUser } from "@/provider/CurrentUser";
+import React, { useEffect, useState } from "react";
 
 export const PersonalInfo = () => {
+  const { user } = useUser();
+
   const [editing, setEditing] = useState(false);
-  const [form, setForm] = useState({
-    email: "boloroo2020@yahoo.com",
-    phone: "976 89898989",
-    location: "Ulaanbaatar, Mongolia",
-    birthDate: "1990-03-15",
+  const [form, setForm] = useState<any>({
+    email: "",
+    phone: "",
+    location: "",
+    birthDate: "",
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSave = async () => {
-    try {
-      const res = await fetch(`/api/profile/1`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+  useEffect(() => {
+    if (user) {
+      setForm({
+        ...user,
+        birthDate: user.birthDate
+          ? new Date(user.birthDate).toISOString().split("T")[0]
+          : "",
       });
+    }
+  }, [user]);
+
+  const handleSave = async () => {
+    if (!user) return;
+
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        console.error("No token found. User not authenticated.");
+        return;
+      }
+
+      const res = await fetch(
+        `http://localhost:4001/profile/update/${user.id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(form),
+        }
+      );
+
+      if (!res.ok) throw new Error("Failed to update profile");
+
       const data = await res.json();
       console.log("Updated:", data);
+
+      // if your provider has setUser, update it here
+      // setUser(data);
+
       setEditing(false);
     } catch (err) {
       console.error(err);

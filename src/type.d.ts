@@ -22,6 +22,9 @@ declare module "/game-app.json" {
 export type UserType = {
   id: number;
   email: string;
+  phone: string;
+  birthDate: Date;
+  location: string;
   username: string;
   password: string;
 };
