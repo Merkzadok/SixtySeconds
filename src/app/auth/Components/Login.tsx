@@ -67,6 +67,8 @@ export default function SignIn({
 
       // TODO: handle token storage (e.g., localStorage) or redirect here
       alert("Welcome back! 🎉");
+      localStorage.setItem("Token:", data.accesstoken);
+
       router.push("/profile");
     } catch (err: any) {
       console.error("Login error:", err);
