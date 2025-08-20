@@ -1,16 +1,14 @@
 "use client";
 
-import { Button } from "@/Components/ui/button";
 import { useState, useEffect } from "react";
 
-// Available colors for the game
 const COLORS = [
-  { name: "Red", value: "#ef4444", bg: "bg-red-500" },
-  { name: "Blue", value: "#3b82f6", bg: "bg-blue-500" },
-  { name: "Green", value: "#22c55e", bg: "bg-green-500" },
-  { name: "Yellow", value: "#eab308", bg: "bg-yellow-500" },
-  { name: "Purple", value: "#a855f7", bg: "bg-purple-500" },
-  { name: "Orange", value: "#f97316", bg: "bg-orange-500" },
+  { name: "Soft Red", value: "#c24141", bg: "bg-red-600" },
+  { name: "Slate Blue", value: "#4c6ef5", bg: "bg-blue-600" },
+  { name: "Emerald", value: "#16a34a", bg: "bg-green-700" },
+  { name: "Goldenrod", value: "#ca8a04", bg: "bg-yellow-700" },
+  { name: "Amethyst", value: "#7c3aed", bg: "bg-purple-700" },
+  { name: "Burnt Orange", value: "#c2410c", bg: "bg-yellow-300" },
 ];
 
 type GameState = "playing" | "won" | "lost";
@@ -228,24 +226,23 @@ export function MastermindGame() {
           </div>
 
           {/* Submit Button */}
-          <Button
+          <button
             onClick={submitGuess}
             disabled={currentGuess.length !== 4}
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+            className="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-blue-300 disabled:cursor-not-allowed transition-all"
           >
             Submit Guess
-          </Button>
+          </button>
         </div>
       )}
 
       {/* Restart Button */}
-      <Button
+      <button
         onClick={initializeGame}
-        variant="outline"
-        className="w-full bg-transparent"
+        className="w-full px-4 py-2 bg-transparent border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-100 transition-all"
       >
         New Game
-      </Button>
+      </button>
 
       {/* Instructions */}
       <div className="mt-6 p-4 bg-gray-50 rounded-lg">
