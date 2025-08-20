@@ -233,10 +233,10 @@ export function SnakeGame() {
   };
 
   return (
-    <div className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-lg">
+    <div className="mx-auto max-w-md rounded-lg bg-white p-6 shadow-lg">
       {/* Header */}
-      <div className="text-center mb-4">
-        <h2 className="text-2xl font-bold text-gray-800 mb-2">Snake Game</h2>
+      <div className="mb-4 text-center">
+        <h2 className="mb-2 text-2xl font-bold text-gray-800">Snake Game</h2>
         <div className="flex justify-between text-sm text-gray-600">
           <span>Score: {score}</span>
           <span>High Score: {highScore}</span>
@@ -245,20 +245,20 @@ export function SnakeGame() {
 
       {/* Game Status */}
       {gameState === "gameOver" && (
-        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4 text-center">
+        <div className="mb-4 rounded border border-red-400 bg-red-100 px-4 py-3 text-center text-red-700">
           Game Over! Final Score: {score}
         </div>
       )}
 
       {gameState === "paused" && (
-        <div className="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded mb-4 text-center">
+        <div className="mb-4 rounded border border-yellow-400 bg-yellow-100 px-4 py-3 text-center text-yellow-700">
           Game Paused - Press Space or Start to continue
         </div>
       )}
 
       {/* Game Grid */}
       <div
-        className="relative bg-green-100 border-4 border-green-600 mx-auto mb-4 touch-none"
+        className="relative mx-auto mb-4 touch-none rounded-md border-4 border-blue-950"
         style={{
           width: `${GRID_SIZE * 15}px`,
           height: `${GRID_SIZE * 15}px`,
@@ -268,13 +268,31 @@ export function SnakeGame() {
         onTouchStart={onTouchStart}
         onTouchEnd={onTouchEnd}
       >
+        {/* Background Grid (chessboard-style) */}
+        {[...Array(GRID_SIZE)].map((_, y) =>
+          [...Array(GRID_SIZE)].map((_, x) => (
+            <div
+              key={`cell-${x}-${y}`}
+              className={`absolute transition-all duration-150 ${
+                (x + y) % 2 === 0 ? "bg-blue-800" : "bg-blue-900"
+              }`}
+              style={{
+                left: `${(x / GRID_SIZE) * 100}%`,
+                top: `${(y / GRID_SIZE) * 100}%`,
+                width: `${100 / GRID_SIZE}%`,
+                height: `${100 / GRID_SIZE}%`,
+              }}
+            />
+          ))
+        )}
+
         {/* Snake */}
         {snake.map((segment, index) => (
           <div
-            key={index}
-            className={`absolute ${
+            key={`snake-${index}`}
+            className={`absolute z-10 rounded-sm ${
               index === 0 ? "bg-green-700" : "bg-green-500"
-            } rounded-sm`}
+            }`}
             style={{
               left: `${(segment.x / GRID_SIZE) * 100}%`,
               top: `${(segment.y / GRID_SIZE) * 100}%`,
@@ -286,7 +304,7 @@ export function SnakeGame() {
 
         {/* Food */}
         <div
-          className="absolute bg-red-500 rounded-full"
+          className="absolute z-10 rounded-full bg-red-500"
           style={{
             left: `${(food.x / GRID_SIZE) * 100}%`,
             top: `${(food.y / GRID_SIZE) * 100}%`,
@@ -301,7 +319,7 @@ export function SnakeGame() {
         {gameState === "paused" || gameState === "gameOver" ? (
           <Button
             onClick={startNewGame}
-            className="w-full bg-green-600 hover:bg-green-700 text-white"
+            className="w-full bg-green-600 text-white hover:bg-green-700"
           >
             {gameState === "gameOver" ? "New Game" : "Start Game"}
           </Button>
@@ -316,7 +334,7 @@ export function SnakeGame() {
         )}
 
         {/* Mobile Controls */}
-        <div className="grid grid-cols-3 gap-2 max-w-48 mx-auto md:hidden">
+        <div className="mx-auto grid max-w-48 grid-cols-3 gap-2 md:hidden">
           <div></div>
           <Button
             variant="outline"
@@ -358,9 +376,9 @@ export function SnakeGame() {
       </div>
 
       {/* Instructions */}
-      <div className="mt-6 p-4 bg-gray-50 rounded-lg">
-        <h4 className="font-semibold text-gray-700 mb-2">How to Play:</h4>
-        <ul className="text-sm text-gray-600 space-y-1">
+      <div className="mt-6 rounded-lg bg-gray-50 p-4">
+        <h4 className="mb-2 font-semibold text-gray-700">How to Play:</h4>
+        <ul className="space-y-1 text-sm text-gray-600">
           <li>• Use arrow keys or swipe to move</li>
           <li>• Eat red food to grow and score points</li>
           <li>• Avoid hitting walls or yourself</li>
