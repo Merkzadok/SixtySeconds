@@ -1,11 +1,17 @@
+"use client";
 // components/sections/FeaturesSection.tsx
 import { Card, CardContent } from "@/Components/ui/card";
 import { BookOpen, Trophy, Users } from "lucide-react";
 
+import Welcome from "@/data/animations/WelcomeAnimation.json";
+import ReadingBook from "@/data/animations/ReadingBook.json";
+import Rank from "@/data/animations/Rank.json";
+import Lottie from "lottie-react";
+
 export default function FeaturesSection() {
   const features = [
     {
-      icon: BookOpen,
+      animation: ReadingBook,
       title: "Interactive Lessons",
       description:
         "Engaging stories and games that adapt to your child's learning pace and style.",
@@ -14,7 +20,7 @@ export default function FeaturesSection() {
       borderColor: "border-pink-100 hover:border-pink-200",
     },
     {
-      icon: Trophy,
+      animation: Welcome,
       title: "Fun Challenges",
       description:
         "Exciting quests and mini-games that reward progress and build confidence.",
@@ -23,7 +29,7 @@ export default function FeaturesSection() {
       borderColor: "border-emerald-100 hover:border-emerald-200",
     },
     {
-      icon: Users,
+      animation: Rank,
       title: "Progress Tracking",
       description:
         "Parents can monitor learning milestones and celebrate achievements together.",
@@ -54,9 +60,14 @@ export default function FeaturesSection() {
             >
               <CardContent className="p-8 text-center space-y-4">
                 <div
-                  className={`w-16 h-16 bg-gradient-to-br ${feature.bgColor} rounded-2xl flex items-center justify-center mx-auto group-hover:scale-110 transition-transform duration-300`}
+                  className={`w-20 h-20 bg-gradient-to-br ${feature.bgColor} rounded-2xl flex items-center justify-center mx-auto group-hover:scale-110 transition-transform duration-300`}
                 >
-                  <feature.icon className={`w-8 h-8 ${feature.iconColor}`} />
+                  <Lottie
+                    animationData={feature.animation}
+                    loop={true}
+                    autoplay={true}
+                    className="w-12 h-12"
+                  />
                 </div>
                 <h3 className="font-serif font-bold text-xl text-gray-800">
                   {feature.title}
