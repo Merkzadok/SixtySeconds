@@ -19,6 +19,7 @@ const VoiceRecorder = dynamic(
 const SpeechToTextMongolian: React.FC = () => {
   const [startTime, setStartTime] = useState<Date | null>(null);
   const [stopTime, setStopTime] = useState<Date | null>(null);
+  const [audioUrl, setAudioUrl] = useState<string | null>(null);
 
   const [sentence, setSentence] = useState<{
     readingId: number;
@@ -54,21 +55,32 @@ const SpeechToTextMongolian: React.FC = () => {
 
   const handleSaveAndNext = async () => {
     if (!sentence) return;
-    await fetch(`http://localhost:4001/gemini/finish/${sentence?.readingId}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        id: sentence.readingId,
-        startTime,
-        stopTime,
-        accuracy: compareTexts(sentence.sentence, fullTranscript).accuracy,
-      }),
-    });
-    setFullTranscript("");
-    setInterimTranscript("");
-    setListening(false);
-    recognitionRef.current?.stop();
-    fetchNextSentence();
+
+    try {
+      console.log(audioUrl);
+      const response = await fetch(
+        `http://localhost:4001/gemini/finish/${sentence?.readingId}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            id: sentence.readingId,
+            startTime,
+            stopTime,
+            audioUrl,
+            accuracy: compareTexts(sentence.sentence, fullTranscript).accuracy,
+          }),
+        }
+      );
+      console.log(response);
+      setFullTranscript("");
+      setInterimTranscript("");
+      setListening(false);
+      recognitionRef.current?.stop();
+      fetchNextSentence();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const { matchCount, total, accuracy } = compareTexts(
@@ -120,7 +132,13 @@ const SpeechToTextMongolian: React.FC = () => {
       />
 
       <ResultStats matchCount={matchCount} total={total} accuracy={accuracy}>
-        <VoiceRecorder ref={recorderRef} />
+        <VoiceRecorder
+          ref={recorderRef}
+          onUploadComplete={(url) => {
+            console.log("🎤 Upload болсон аудио URL:", url);
+            setAudioUrl(url || null); // state-д хадгалах
+          }}
+        />
 
         <button
           onClick={handleSaveAndNext}
@@ -129,6 +147,18 @@ const SpeechToTextMongolian: React.FC = () => {
           ✅ Хадгалах ба Дараагийн
         </button>
       </ResultStats>
+      {audioUrl && (
+        <div className="mt-4 text-center space-y-2">
+          <audio src={audioUrl} controls className="w-full rounded" />
+          <a
+            href={audioUrl}
+            download="recording.webm"
+            className="text-blue-600 underline text-sm"
+          >
+            ⬇️ Татаж авах
+          </a>
+        </div>
+      )}
 
       {sentence && (
         <p className="text-center text-sm text-gray-600">
