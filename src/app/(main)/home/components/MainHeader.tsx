@@ -25,23 +25,22 @@ export type NavigationItem = {
   href: string;
 };
 
-interface HeaderProps {
-  activeSection: string;
-  setActiveSection: Dispatch<SetStateAction<string>>;
-}
+// interface HeaderProps {
+//   activeSection: string;
+//   setActiveSection: Dispatch<SetStateAction<string>>;
+// }
 
-export default function MainHeader({
-  activeSection,
-  setActiveSection,
-}: HeaderProps) {
+export default function MainHeader() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   // All data is now internal to the Header component
   const userScore = 2847;
   const userRating = 4.8;
 
+  const [activeSection, setActiveSection] = useState("home");
+
   const navigationItems: NavigationItem[] = [
-    { id: "home", label: "Home", icon: Home, href: "/" },
+    { id: "home", label: "Home", icon: Home, href: "/home" },
     { id: "reading", label: "Reading", icon: BookOpen, href: "/reading" },
     { id: "games", label: "Games", icon: Gamepad2, href: "/games" },
     {
