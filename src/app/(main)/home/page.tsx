@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef, useLayoutEffect } from "react";
 import { motion } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -51,34 +51,42 @@ export default function HomePage() {
     { label: "Rank", value: "#47", icon: Trophy },
     { label: "Points", value: "2,847", icon: Star },
   ];
+  const gsapCtx = useRef<gsap.Context | null>(null);
 
-  useEffect(() => {
-    // Animate cards with GSAP stagger
-    gsap.from(cardsRef.current, {
-      opacity: 0,
-      y: 50,
-      stagger: 0.2,
-      duration: 0.8,
-      ease: "power3.out",
-      scrollTrigger: {
-        trigger: cardsRef.current[0],
-        start: "top 80%",
-      },
+  useLayoutEffect(() => {
+    // Create a context so GSAP can clean up on unmount
+    gsapCtx.current = gsap.context(() => {
+      // Reset initial state
+      gsap.set(cardsRef.current, { opacity: 0, y: 50 });
+      gsap.set(quickStatsRef.current, { opacity: 0, y: 30 });
+
+      gsap.to(cardsRef.current, {
+        opacity: 1,
+        y: 0,
+        stagger: 0.2,
+        duration: 0.8,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: cardsRef.current[0],
+          start: "top 80%",
+        },
+      });
+
+      gsap.to(quickStatsRef.current, {
+        opacity: 1,
+        y: 0,
+        stagger: 0.15,
+        duration: 0.6,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: quickStatsRef.current[0],
+          start: "top 85%",
+        },
+      });
     });
 
-    gsap.from(quickStatsRef.current, {
-      opacity: 0,
-      y: 30,
-      stagger: 0.15,
-      duration: 0.6,
-      ease: "power2.out",
-      scrollTrigger: {
-        trigger: quickStatsRef.current[0],
-        start: "top 85%",
-      },
-    });
+    return () => gsapCtx.current?.revert(); // cleanup animations on unmount
   }, []);
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-rose-50 via-purple-50 to-blue-50">
       <MainHeader
