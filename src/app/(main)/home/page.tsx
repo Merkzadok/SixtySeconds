@@ -39,7 +39,7 @@ export default function HomePage() {
       description: "See where you stand among peers",
       gradient: "from-yellow-400 via-amber-400 to-orange-500",
       bgPattern: "bg-gradient-to-br from-yellow-100 via-amber-50 to-orange-100",
-      href: "/rankings",
+      href: "/leaderboard",
     },
   ];
 

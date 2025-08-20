@@ -1,9 +1,9 @@
 "use client";
 
 import Lottie from "lottie-react";
-import flyingBird from "/public/flyingBird.json";
-import Welcome from "/public/WelcomeAnimation.json";
-import BrainAnimation from "/public/Meditating-Brain.json";
+import flyingBird from "@/data/animations/flyingBird.json";
+import Welcome from "@/data/animations/WelcomeAnimation.json";
+import BrainAnimation from "@/data/animations/Meditating-Brain.json";
 
 export default function Background() {
   return (
