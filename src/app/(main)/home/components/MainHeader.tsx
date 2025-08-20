@@ -16,6 +16,7 @@ import Navigation from "./Navigation";
 import ScoreDisplay from "./ScoreDisplay";
 import ProfileAvatar from "./ProfileAvatar";
 import MobileNavigation from "./MobileNavigation";
+import Link from "next/link";
 
 export type NavigationItem = {
   id: string;
@@ -43,8 +44,13 @@ export default function MainHeader({
     { id: "home", label: "Home", icon: Home, href: "/" },
     { id: "reading", label: "Reading", icon: BookOpen, href: "/reading" },
     { id: "games", label: "Games", icon: Gamepad2, href: "/games" },
-    { id: "rankings", label: "Rankings", icon: Trophy, href: "rankings" },
-    { id: "profile", label: "Profile", icon: User, href: "profile" },
+    {
+      id: "leaderboard",
+      label: "Leaderboard",
+      icon: Trophy,
+      href: "leaderboard",
+    },
+    // { id: "profile", label: "Profile", icon: User, href: "profile" },
   ];
 
   return (
@@ -81,8 +87,9 @@ export default function MainHeader({
               <Crown size={16} />
               <span>Subscribe</span>
             </Button>
-
-            <ProfileAvatar />
+            <Link href="/profile">
+              <ProfileAvatar />
+            </Link>
             <Button
               variant="ghost"
               size="sm"
