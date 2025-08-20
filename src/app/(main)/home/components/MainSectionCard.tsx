@@ -12,13 +12,9 @@ export type MainSectionItem = {
 
 interface MainSectionCardProps {
   item: MainSectionItem;
-  onClick: (id: string) => void;
 }
 
-export default function MainSectionCard({
-  item,
-  onClick,
-}: MainSectionCardProps) {
+export default function MainSectionCard({ item }: MainSectionCardProps) {
   const [animationData, setAnimationData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
@@ -75,7 +71,7 @@ export default function MainSectionCard({
   const ButtonIcon = getButtonIcon(item.id);
 
   return (
-    <div className="group cursor-pointer" onClick={() => onClick(item.id)}>
+    <div className="group cursor-pointer">
       <div
         className={`${item.bgPattern} rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-white/50 hover:scale-105 relative overflow-hidden`}
       >

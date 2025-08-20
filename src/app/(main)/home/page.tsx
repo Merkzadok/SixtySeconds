@@ -7,12 +7,11 @@ import { BookOpen, Gamepad2, Trophy, Star } from "lucide-react";
 import MainSectionCard from "./components/MainSectionCard";
 import QuickStatCard from "./components/QuickCard";
 import Link from "next/link";
-import MainHeader from "./components/MainHeader";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function HomePage() {
-  const [activeSection, setActiveSection] = useState("home");
+  // const [activeSection, setActiveSection] = useState("home");
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
   const quickStatsRef = useRef<(HTMLDivElement | null)[]>([]);
 
@@ -89,10 +88,7 @@ export default function HomePage() {
   }, []);
   return (
     <div className="min-h-screen bg-gradient-to-br from-rose-50 via-purple-50 to-blue-50">
-      <MainHeader
-        activeSection={activeSection}
-        setActiveSection={setActiveSection}
-      />
+      {/* <MainHeader /> */}
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="text-center space-y-8">
@@ -103,9 +99,11 @@ export default function HomePage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
-            <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent">
-              Welcome to LearnHub
-            </h1>
+            <Link href="/home">
+              <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent">
+                Welcome to LearnHub
+              </h1>
+            </Link>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
               Your personalized learning journey starts here. Explore, learn,
               and grow with our interactive platform.
@@ -122,7 +120,7 @@ export default function HomePage() {
                 }}
               >
                 <Link href={item.href}>
-                  <MainSectionCard item={item} onClick={setActiveSection} />
+                  <MainSectionCard item={item} />
                 </Link>
               </div>
             ))}
