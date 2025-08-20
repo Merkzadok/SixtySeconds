@@ -19,3 +19,9 @@ declare module "/game-app.json" {
   const value: any;
   export default value;
 }
+export type UserType = {
+  id: number;
+  email: string;
+  username: string;
+  password: string;
+};
