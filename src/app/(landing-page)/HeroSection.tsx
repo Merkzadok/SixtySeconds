@@ -27,7 +27,7 @@ export default function HeroSection() {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <Link href="/sign-up">
+              <Link href="/auth">
                 <Button
                   size="lg"
                   className="bg-gradient-to-r from-pink-400 to-pink-500 hover:from-pink-500 hover:to-pink-600 text-white font-semibold px-8 py-6 text-lg rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"

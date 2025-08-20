@@ -20,7 +20,7 @@ export default function Header() {
           <span className="font-sans text-gray-600">Features</span>
           <span className="font-sans text-gray-600">About</span>
         </div>
-        <Link href="/sign-up">
+        <Link href="/auth">
           <Button
             variant="outline"
             className="border-pink-200 cursor-pointer text-pink-600 hover:bg-pink-50 bg-transparent"
