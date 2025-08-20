@@ -1,25 +1,41 @@
-import { Crown, Star } from "lucide-react";
+import { Crown, Star, Trophy } from "lucide-react";
 
-export default function LeaderboardUser() {
-    return (
-        <div
-        >
-            <div className="flex items-center justify-between space-x-4 p-4 transition-all duration-200 border-2 border-yellow-300 rounded-lg">
-                <div className="flex items-center space-x-4 ">
-                <Crown className="text-yellow-500 w-6 h-6" />
-                    <div className="text-3xl">
-                        👦
-                    </div>
-                    <div className=" frlex font-bold">Emma
-                        <div className=""> 
-                        <p className="text-gray-600 text-sm flex"> 12 lessons</p>
-                        </div>
-                    </div>
-                </div >
-                <div className="flex items-center space-x-2">
-                    <Star className="text-yellow-400"/> <div className="text-xl font-bold"> 980 points</div>
-                </div>
-            </div>
+type LeaderboardUserProps = {
+  name: string;
+  lessons: number;
+  points: number;
+  rank: number;
+  isCurrentUser: boolean;
+};
+
+export default function LeaderboardUser({ name, lessons, points, rank, isCurrentUser }: LeaderboardUserProps) {
+  const getIcon = () => {
+    switch (rank) {
+      case 1: return <Crown className="text-yellow-500 w-5 h-5" />;
+      case 2: return <Trophy className="text-blue-500 w-5 h-5" />;
+      case 3: return <Star className="text-orange-400 w-5 h-5" />;
+      default: return <span className="text-gray-500 font-bold">#{rank}</span>;
+    }
+  };
+
+  return (
+    <div className={`flex items-center justify-between p-4 rounded-lg border-2 
+      ${isCurrentUser ? "border-purple-400 bg-purple-50" : "border-gray-200 bg-white/80"} 
+      transition-all duration-200 shadow-sm`}>
+      
+      <div className="flex items-center space-x-4">
+        {getIcon()}
+        <div className="text-2xl">👤</div>
+        <div>
+          <p className="font-semibold text-gray-800">{name}</p>
+          <p className="text-sm text-gray-500">{lessons} lessons</p>
         </div>
-    )
+      </div>
+
+      <div className="flex items-center space-x-1 text-gray-700">
+        <Star className="w-4 h-4 text-yellow-400" />
+        <span className="font-semibold text-md">{points} pts</span>
+      </div>
+    </div>
+  );
 }
