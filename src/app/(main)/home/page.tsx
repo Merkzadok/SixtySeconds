@@ -88,8 +88,6 @@ export default function HomePage() {
   }, []);
   return (
     <div className="min-h-screen bg-gradient-to-br from-rose-50 via-purple-50 to-blue-50">
-      {/* <MainHeader /> */}
-
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="text-center space-y-8">
           {/* Welcome Section */}
@@ -99,11 +97,9 @@ export default function HomePage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
-            <Link href="/home">
-              <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent">
-                Welcome to LearnHub
-              </h1>
-            </Link>
+            <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent">
+              Welcome to LearnHub
+            </h1>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
               Your personalized learning journey starts here. Explore, learn,
               and grow with our interactive platform.
