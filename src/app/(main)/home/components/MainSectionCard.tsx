@@ -1,6 +1,10 @@
-import { useState, useEffect } from "react";
+"use client";
+
 import Lottie from "lottie-react";
 import { BookOpen, Gamepad2, Trophy } from "lucide-react";
+import GameApp from "@/data/animations/game-app.json";
+import MeditatingBrain from "@/data/animations/Meditating-Brain.json";
+import Rank from "@/data/animations/Rank.json";
 
 export type MainSectionItem = {
   id: string;
@@ -15,44 +19,19 @@ interface MainSectionCardProps {
 }
 
 export default function MainSectionCard({ item }: MainSectionCardProps) {
-  const [animationData, setAnimationData] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
-
-  // Get the appropriate animation file path from public folder
-  const getAnimationPath = (id: string) => {
+  // Map item IDs to imported animation JSONs
+  const getAnimationData = (id: string) => {
     switch (id) {
       case "games":
-        return "/game-app.json"; // Your games animation file
+        return GameApp;
       case "reading":
-        return "/Meditating-Brain.json"; // Your brain animation file
+        return MeditatingBrain;
       case "rankings":
-        return "/Rank.json"; // Your rankings animation file
+        return Rank;
       default:
-        return "/Meditating-Brain.json";
+        return MeditatingBrain;
     }
   };
-
-  // Load animation data dynamically
-  useEffect(() => {
-    const loadAnimation = async () => {
-      try {
-        setLoading(true);
-        const response = await fetch(getAnimationPath(item.id));
-        if (response.ok) {
-          const data = await response.json();
-          setAnimationData(data);
-        } else {
-          console.error("Failed to load animation:", response.status);
-        }
-      } catch (error) {
-        console.error("Error loading animation:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadAnimation();
-  }, [item.id]);
 
   // Fallback icons
   const getButtonIcon = (id: string) => {
@@ -68,6 +47,7 @@ export default function MainSectionCard({ item }: MainSectionCardProps) {
     }
   };
 
+  const animationData = getAnimationData(item.id);
   const ButtonIcon = getButtonIcon(item.id);
 
   return (
@@ -85,24 +65,24 @@ export default function MainSectionCard({ item }: MainSectionCardProps) {
           <div
             className={`w-20 h-20 bg-gradient-to-br ${item.gradient} rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-all duration-300 shadow-lg`}
           >
-            {loading ? (
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
-            ) : animationData ? (
+            {animationData ? (
               <Lottie
                 animationData={animationData}
-                loop={true}
+                loop
                 className="w-12 h-12"
               />
             ) : (
               <ButtonIcon className="w-10 h-10 text-white animate-pulse" />
             )}
           </div>
+
           <h3 className="text-2xl font-bold text-gray-800 mb-3">
             {item.label}
           </h3>
           <p className="text-gray-700 text-base font-medium leading-relaxed">
             {item.description}
           </p>
+
           <div className="mt-6">
             <div
               className={`inline-flex items-center px-4 py-2 bg-gradient-to-r ${item.gradient} text-white rounded-full text-sm font-semibold shadow-md group-hover:shadow-lg transition-all duration-300`}

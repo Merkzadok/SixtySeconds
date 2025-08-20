@@ -1,7 +1,7 @@
 "use client";
 
 import Lottie from "lottie-react";
-import ReadingBook from "/public/ReadingBook.json";
+import ReadingBook from "@/data/animations/ReadingBook.json";
 
 export default function SignUpHeader() {
   const animationData = ReadingBook;
