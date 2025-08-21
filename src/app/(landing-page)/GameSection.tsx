@@ -67,7 +67,7 @@ export default function GamesSection() {
                 <img
                   src={game.imageSrc}
                   alt={game.title}
-                  className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                  className="w-full h-50 object-cover group-hover:scale-105 transition-transform duration-300"
                 />
                 {game.badge && <div className="absolute top-3 right-3"></div>}
               </div>

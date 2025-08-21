@@ -15,11 +15,7 @@ export default function Header() {
             LinguaPlay
           </span>
         </div>
-        <div className="hidden md:flex items-center gap-6">
-          <span className="font-sans text-gray-600">How It Works</span>
-          <span className="font-sans text-gray-600">Features</span>
-          <span className="font-sans text-gray-600">About</span>
-        </div>
+        <div className="hidden md:flex items-center gap-6"></div>
         <Link href="/auth">
           <Button
             variant="outline"
