@@ -1,9 +1,7 @@
 "use client";
 import React from "react";
-import { motion } from "framer-motion";
-import { Trophy, BarChart3, Book } from "lucide-react";
+import { BarChart3, Book } from "lucide-react";
 import LeaderboardUser from "./LeaderboardUser";
-import MainHeader from "@/app/(main)/home/components/MainHeader";
 
 const users = [
   { name: "Emma", lessons: 12, points: 980, rank: 1 },

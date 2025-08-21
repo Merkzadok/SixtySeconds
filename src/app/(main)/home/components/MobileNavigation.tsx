@@ -16,8 +16,7 @@ export default function MobileNavigation({
   navigationItems,
   activeSection,
   setActiveSection,
-  userRating,
-  userScore,
+
   closeMenu,
 }: MobileNavigationProps) {
   return (

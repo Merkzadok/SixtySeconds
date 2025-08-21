@@ -1,6 +1,7 @@
 // components/sections/ProfileSection.tsx
 import { Card, CardContent } from "@/Components/ui/card";
 import { User, Trophy, Star, Crown, Medal } from "lucide-react";
+import Image from "next/image";
 
 export default function ProfileSection() {
   const avatars = [
@@ -105,10 +106,12 @@ export default function ProfileSection() {
           <div className="relative">
             <Card className="border-pink-100 bg-gradient-to-br from-pink-50 to-white shadow-xl">
               <CardContent className="p-8">
-                <img
+                <Image
                   src="/wordle.webp"
                   alt="Profile Dashboard Preview"
-                  className="w-full rounded-xl shadow-lg"
+                  width={500} // set your desired width
+                  height={300} // set your desired height
+                  className="w-full rounded-xl shadow-lg object-cover"
                 />
               </CardContent>
             </Card>

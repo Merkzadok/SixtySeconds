@@ -2,6 +2,7 @@
 
 import { Card, CardContent } from "@/Components/ui/card";
 import { Star, Gamepad2, Target, BookOpen } from "lucide-react";
+import Image from "next/image";
 
 export default function GamesSection() {
   const games = [
@@ -62,9 +63,11 @@ export default function GamesSection() {
               className={`${game.borderColor} transition-all duration-300 hover:shadow-lg group overflow-hidden`}
             >
               <div className="relative">
-                <img
+                <Image
                   src={game.imageSrc}
                   alt={game.title}
+                  width={400} // replace with your desired width
+                  height={200} // replace with your desired height
                   className="w-full h-50 object-cover group-hover:scale-105 transition-transform duration-300"
                 />
                 {game.badge && <div className="absolute top-3 right-3"></div>}

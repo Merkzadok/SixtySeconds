@@ -1,7 +1,7 @@
 // components/sections/HeroSection.tsx
-import { Badge } from "@/Components/ui/badge";
 import { Button } from "@/Components/ui/button";
 import { Play, Star } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 export default function HeroSection() {
@@ -61,10 +61,13 @@ export default function HeroSection() {
 
           <div className="relative">
             <div className="relative z-10 animate-float">
-              <img
+              <Image
                 src="/kids.png"
                 alt="Children enjoying language learning games"
+                width={448} // max-w-md equivalent (28rem = 448px)
+                height={300} // adjust based on your actual image aspect ratio
                 className="w-full max-w-md mx-auto rounded-2xl shadow-2xl"
+                priority={true}
               />
             </div>
             <div className="absolute -top-4 -right-4 w-24 h-24 bg-gradient-to-br from-yellow-200 to-orange-200 rounded-full animate-bounce-gentle opacity-80"></div>

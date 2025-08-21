@@ -1,7 +1,6 @@
 "use client";
 // components/sections/FeaturesSection.tsx
 import { Card, CardContent } from "@/Components/ui/card";
-import { BookOpen, Trophy, Users } from "lucide-react";
 
 import Welcome from "@/data/animations/WelcomeAnimation.json";
 import ReadingBook from "@/data/animations/ReadingBook.json";

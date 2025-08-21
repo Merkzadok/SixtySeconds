@@ -2,7 +2,7 @@
 import { useUser } from "@/provider/CurrentUser";
 import React, { useState } from "react";
 import axios from "axios";
-import { Check, Gamepad2, BookOpen, Shield, Users } from "lucide-react";
+import { Check } from "lucide-react";
 import MainHeader from "@/app/(main)/home/components/MainHeader";
 
 type BillingPeriod = "free" | "monthly" | "quarterly" | "yearly";
