@@ -2,7 +2,6 @@
 import { Dispatch, SetStateAction } from "react";
 import { Button } from "@/Components/ui/button";
 import { NavigationItem } from "./MainHeader";
-import ScoreDisplay from "./ScoreDisplay";
 
 interface MobileNavigationProps {
   navigationItems: NavigationItem[];
@@ -45,9 +44,6 @@ export default function MobileNavigation({
             </Button>
           );
         })}
-      </div>
-      <div className="mt-4 pt-4 border-t border-purple-100">
-        <ScoreDisplay userRating={userRating} userScore={userScore} />
       </div>
     </div>
   );
