@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Keyboard } from "./WordleKeyboard";
 import { Button } from "@/Components/ui/button";
 import { WordleGrid } from "./WordleGrid";
@@ -54,10 +54,87 @@ export const Wordle = () => {
     Record<string, LetterState>
   >({});
 
+  const resetGame = useCallback(() => {
+    const randomWord = WORDS[Math.floor(Math.random() * WORDS.length)];
+    setTargetWord(randomWord);
+    setGuesses([]);
+    setCurrentGuess("");
+    setGameStatus("playing");
+    setKeyboardState({});
+  }, []);
+
   // Initialize game
   useEffect(() => {
     resetGame();
-  }, []);
+  }, [resetGame]);
+
+  const handleAddLetter = useCallback(
+    (letter: string) => {
+      if (gameStatus !== "playing") return;
+      setCurrentGuess((prev) => {
+        if (prev.length < 5) {
+          return prev + letter;
+        }
+        return prev;
+      });
+    },
+    [gameStatus]
+  );
+
+  const handleDeleteLetter = useCallback(() => {
+    if (gameStatus !== "playing") return;
+    setCurrentGuess((prev) => prev.slice(0, -1));
+  }, [gameStatus]);
+
+  const handleSubmitGuess = useCallback(() => {
+    if (gameStatus !== "playing" || currentGuess.length !== 5) return;
+
+    const guessLetters: GuessLetter[] = currentGuess
+      .split("")
+      .map((letter, index) => {
+        let state: LetterState = "absent";
+
+        if (targetWord[index] === letter) {
+          state = "correct";
+        } else if (targetWord.includes(letter)) {
+          state = "present";
+        }
+
+        return { letter, state };
+      });
+
+    const newGuess: Guess = { letters: guessLetters };
+
+    setGuesses((prevGuesses) => {
+      const newGuesses = [...prevGuesses, newGuess];
+
+      // Check win/lose conditions
+      if (currentGuess === targetWord) {
+        setGameStatus("won");
+      } else if (newGuesses.length >= 6) {
+        setGameStatus("lost");
+      }
+
+      return newGuesses;
+    });
+
+    // Update keyboard state
+    setKeyboardState((prevKeyboardState) => {
+      const newKeyboardState = { ...prevKeyboardState };
+      guessLetters.forEach(({ letter, state }) => {
+        if (
+          !newKeyboardState[letter] ||
+          (newKeyboardState[letter] === "absent" && state !== "absent") ||
+          (newKeyboardState[letter] === "present" && state === "correct")
+        ) {
+          newKeyboardState[letter] = state;
+        }
+      });
+      return newKeyboardState;
+    });
+
+    setCurrentGuess("");
+  }, [gameStatus, currentGuess, targetWord]);
 
   // Handle keyboard input
   useEffect(() => {
@@ -77,70 +154,7 @@ export const Wordle = () => {
 
     window.addEventListener("keydown", handleKeyPress);
     return () => window.removeEventListener("keydown", handleKeyPress);
-  }, [currentGuess, gameStatus]);
-
-  const resetGame = () => {
-    const randomWord = WORDS[Math.floor(Math.random() * WORDS.length)];
-    setTargetWord(randomWord);
-    setGuesses([]);
-    setCurrentGuess("");
-    setGameStatus("playing");
-    setKeyboardState({});
-  };
-
-  const handleAddLetter = (letter: string) => {
-    if (currentGuess.length < 5) {
-      setCurrentGuess((prev) => prev + letter);
-    }
-  };
-
-  const handleDeleteLetter = () => {
-    setCurrentGuess((prev) => prev.slice(0, -1));
-  };
-
-  const handleSubmitGuess = () => {
-    if (currentGuess.length !== 5) return;
-
-    const guessLetters: GuessLetter[] = currentGuess
-      .split("")
-      .map((letter, index) => {
-        let state: LetterState = "absent";
-
-        if (targetWord[index] === letter) {
-          state = "correct";
-        } else if (targetWord.includes(letter)) {
-          state = "present";
-        }
-
-        return { letter, state };
-      });
-
-    const newGuess: Guess = { letters: guessLetters };
-    const newGuesses = [...guesses, newGuess];
-    setGuesses(newGuesses);
-
-    // Update keyboard state
-    const newKeyboardState = { ...keyboardState };
-    guessLetters.forEach(({ letter, state }) => {
-      if (
-        !newKeyboardState[letter] ||
-        (newKeyboardState[letter] === "absent" && state !== "absent") ||
-        (newKeyboardState[letter] === "present" && state === "correct")
-      ) {
-        newKeyboardState[letter] = state;
-      }
-    });
-    setKeyboardState(newKeyboardState);
-
-    // Check win condition
-    if (currentGuess === targetWord) {
-      setGameStatus("won");
-    } else if (newGuesses.length >= 6) {
-      setGameStatus("lost");
-    }
-
-    setCurrentGuess("");
-  };
+  }, [gameStatus, handleAddLetter, handleDeleteLetter, handleSubmitGuess]);
 
   return (
     <div className="flex flex-col items-center gap-6">

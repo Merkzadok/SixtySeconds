@@ -18,7 +18,6 @@ export function SnakeGame() {
   // Game state
   const [snake, setSnake] = useState<Position[]>(INITIAL_SNAKE);
   const [food, setFood] = useState<Position>({ x: 15, y: 15 });
-  const [direction, setDirection] = useState<Direction>(INITIAL_DIRECTION);
   const [gameState, setGameState] = useState<GameState>("paused");
   const [score, setScore] = useState(0);
   const [highScore, setHighScore] = useState(0);
@@ -105,6 +104,15 @@ export function SnakeGame() {
     });
   }, [food, generateFood, checkCollision]);
 
+  // Toggle pause
+  const togglePause = useCallback(() => {
+    if (gameState === "playing") {
+      setGameState("paused");
+    } else if (gameState === "paused") {
+      setGameState("playing");
+    }
+  }, [gameState]);
+
   // Handle direction change
   const changeDirection = useCallback(
     (newDirection: Direction) => {
@@ -119,7 +127,6 @@ export function SnakeGame() {
       };
 
       if (opposites[directionRef.current] !== newDirection) {
-        setDirection(newDirection);
         directionRef.current = newDirection;
       }
     },
@@ -155,7 +162,7 @@ export function SnakeGame() {
 
     window.addEventListener("keydown", handleKeyPress);
     return () => window.removeEventListener("keydown", handleKeyPress);
-  }, [changeDirection]);
+  }, [changeDirection, togglePause]);
 
   // Game loop
   useEffect(() => {
@@ -185,19 +192,9 @@ export function SnakeGame() {
   const startNewGame = () => {
     setSnake(INITIAL_SNAKE);
     setFood({ x: 15, y: 15 });
-    setDirection(INITIAL_DIRECTION);
     directionRef.current = INITIAL_DIRECTION;
     setScore(0);
     setGameState("playing");
-  };
-
-  // Toggle pause
-  const togglePause = () => {
-    if (gameState === "playing") {
-      setGameState("paused");
-    } else if (gameState === "paused") {
-      setGameState("playing");
-    }
   };
 
   // Touch controls for mobile
