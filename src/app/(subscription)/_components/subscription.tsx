@@ -29,7 +29,7 @@ export default function Subscription() {
   const [billingPeriod, setBillingPeriod] = useState<BillingPeriod>("free");
 
   const { user } = useUser();//users context herglegchiin medeelel awah
-  
+  console.log("user in subscription:", user);
   const currentOption = billingOptions.find(o => o.key === billingPeriod)!;
 
   const formatPrice = (price: number) => new Intl.NumberFormat("mn-MN").format(price);
@@ -44,11 +44,10 @@ export default function Subscription() {
       alert("Та эхлээд нэвтэрнэ үү!");
       return;
     }
-
     try {
       const token = localStorage.getItem("token"); // auth token авч байна
       await axios.post(
-        "http://localhost:4001/subscription",
+        "http://localhost:4001/subscriptions",
         {
           userId: user.id,
           plan: billingPeriod,
