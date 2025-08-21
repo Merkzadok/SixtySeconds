@@ -19,7 +19,7 @@ export default function UserContextProvider({
 
   useEffect(() => {
     const getCurrentUserByAccessToken = async () => {
-      const token = localStorage.getItem("token") as string;
+      const token = localStorage.getItem("Token:") as string;
 
       if (!token) return;
       try {
@@ -30,15 +30,12 @@ export default function UserContextProvider({
               Authorization: `Bearer ${token}`,
             },
           }
-          
         );
 
         setUser(response?.data?.user);
       } catch (error) {
         console.log(error);
       }
-
-      
     };
     getCurrentUserByAccessToken();
   }, []);

@@ -27,4 +27,9 @@ export type UserType = {
   location: string;
   username: string;
   password: string;
+  profile: {
+    id: number;
+    name: string;
+  };
+  profileId: number;
 };
