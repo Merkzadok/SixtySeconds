@@ -44,7 +44,7 @@ export default function FeaturesSection() {
       <div className="max-w-6xl mx-auto">
         <div className="text-center space-y-4 mb-12">
           <h2 className="font-serif font-black text-3xl md:text-4xl text-gray-800">
-            Why Children Love LinguaPlay
+            Why Children Love SixtySeconds
           </h2>
           <p className="font-sans text-lg text-gray-600 max-w-2xl mx-auto">
             Our carefully designed features make language learning feel like

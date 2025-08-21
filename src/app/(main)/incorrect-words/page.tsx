@@ -1,5 +1,6 @@
 "use client";
 
+import { LoaderScreen } from "@/Components/loader/loading";
 import React, { useEffect, useState } from "react";
 
 type Sentence = {
@@ -19,18 +20,27 @@ const IncorrectWordPage: React.FC = () => {
     correct: boolean;
     score: number;
   } | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
   console.log("sel", selectedWord);
 
   const fetchSentence = async () => {
-    const res = await fetch("http://localhost:4001/wrong/1", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-    });
-    const data = await res.json();
-    console.log(data);
-    setSentence(data);
-    setSelectedWord(null);
-    setFeedback(null);
+    setIsLoading(true);
+
+    try {
+      const res = await fetch("http://localhost:4001/wrong/1", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+      });
+      const data = await res.json();
+      console.log(data);
+      setSentence(data);
+      setSelectedWord(null);
+      setFeedback(null);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -59,8 +69,7 @@ const IncorrectWordPage: React.FC = () => {
     }
   };
 
-  if (!sentence)
-    return <p className="text-center text-lg mt-10">Түр хүлээнэ үү...</p>;
+  if (!sentence) return <LoaderScreen />;
 
   return (
     <div className="max-w-2xl mx-auto p-6 space-y-6">

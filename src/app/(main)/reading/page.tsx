@@ -11,6 +11,7 @@ import TranscriptBox from "./_components/TranscriptBox";
 import ResultStats from "./_components/ResultStats";
 import { VoiceRecorderHandle } from "../reading/_components/VoiceRecorder";
 import { useUser } from "@/provider/CurrentUser";
+import { LoaderScreen } from "@/Components/loader/loading";
 
 const VoiceRecorder = dynamic(
   () => import("../reading/_components/VoiceRecorder"),
@@ -107,71 +108,79 @@ const SpeechToTextMongolian: React.FC = () => {
       setListening(true);
     }
   };
+  if (!sentence) return <LoaderScreen />;
 
   return (
-    <div className="max-w-md mx-auto mt-6 px-4 py-6 bg-white rounded-2xl shadow-lg font-sans space-y-6">
-      <h1 className="text-center text-3xl font-extrabold text-pink-500">
-        Монгол яриаг текст рүү
-      </h1>
+    <div className="bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 min-h-screen flex items-center justify-center">
+      <div className="max-w-md mx-auto mt-20 px-6 py-8 bg-gradient-to-b from-white to-gray-50 rounded-2xl shadow-xl font-sans space-y-8">
+        <h1 className="text-center text-3xl font-extrabold text-indigo-600 drop-shadow-sm">
+          Монгол яриаг текст рүү
+        </h1>
 
-      {sentence && (
-        <ExpectedText
-          expectedText={sentence?.sentence}
-          actualText={fullTranscript}
-        />
-      )}
+        {sentence && (
+          <ExpectedText
+            expectedText={sentence?.sentence}
+            actualText={fullTranscript}
+          />
+        )}
 
-      <ControlButtons
-        listening={listening}
-        onToggle={onToggle}
-        onClear={() => {
-          setFullTranscript("");
-          setInterimTranscript("");
-        }}
-      />
-
-      <TranscriptBox
-        fullTranscript={fullTranscript}
-        interimTranscript={interimTranscript}
-      />
-
-      <ResultStats matchCount={matchCount} total={total} accuracy={accuracy}>
-        <VoiceRecorder
-          ref={recorderRef}
-          onUploadComplete={(url) => {
-            console.log("🎤 Upload болсон аудио URL:", url);
-            setAudioUrl(url || null); // state-д хадгалах
+        <ControlButtons
+          listening={listening}
+          onToggle={onToggle}
+          onClear={() => {
+            setFullTranscript("");
+            setInterimTranscript("");
           }}
         />
 
-        <button
-          onClick={handleSaveAndNext}
-          className="block w-full py-3 bg-indigo-500 hover:bg-indigo-600 text-white text-lg font-semibold rounded-full shadow transition"
-        >
-          ✅ Хадгалах ба Дараагийн
-        </button>
-      </ResultStats>
-      {audioUrl && (
-        <div className="mt-4 text-center space-y-2">
-          <audio src={audioUrl} controls className="w-full rounded" />
-          <a
-            href={audioUrl}
-            download="recording.webm"
-            className="text-blue-600 underline text-sm"
-          >
-            ⬇️ Татаж авах
-          </a>
-        </div>
-      )}
+        <TranscriptBox
+          fullTranscript={fullTranscript}
+          interimTranscript={interimTranscript}
+        />
 
-      {sentence && (
-        <p className="text-center text-sm text-gray-600">
-          📚 Энэ өгүүлбэрийг уншсан удаа:{" "}
-          <span className="font-bold text-purple-600">
-            {sentence.readCount}
-          </span>
-        </p>
-      )}
+        <ResultStats matchCount={matchCount} total={total} accuracy={accuracy}>
+          <VoiceRecorder
+            ref={recorderRef}
+            onUploadComplete={(url) => {
+              console.log("🎤 Upload болсон аудио URL:", url);
+              setAudioUrl(url || null);
+            }}
+          />
+
+          <button
+            onClick={handleSaveAndNext}
+            className="block w-full py-3 bg-indigo-500 hover:bg-indigo-600 text-white text-lg font-semibold rounded-xl shadow-md transition-transform hover:scale-105"
+          >
+            ✅ Хадгалах ба Дараагийн
+          </button>
+        </ResultStats>
+
+        {audioUrl && (
+          <div className="mt-6 text-center space-y-3">
+            <audio
+              src={audioUrl}
+              controls
+              className="w-full rounded-lg shadow-sm"
+            />
+            <a
+              href={audioUrl}
+              download="recording.webm"
+              className="inline-block text-indigo-600 hover:text-indigo-800 underline text-sm"
+            >
+              ⬇️ Татаж авах
+            </a>
+          </div>
+        )}
+
+        {sentence && (
+          <p className="text-center text-sm text-gray-600">
+            📚 Энэ өгүүлбэрийг уншсан удаа:{" "}
+            <span className="font-bold text-indigo-600">
+              {sentence.readCount}
+            </span>
+          </p>
+        )}
+      </div>
     </div>
   );
 };

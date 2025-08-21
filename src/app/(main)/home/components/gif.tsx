@@ -1,5 +1,6 @@
 import Lottie from "lottie-react";
-import BrainAnimation from "/Users/25LP1749/Desktop/final-project/final-project/public/Meditating-Brain.json";
+// @ts-expect-error: TypeScript may not recognize JSON imports without a declaration
+import BrainAnimation from "@/assets/lottie/brain.json";
 
 const Gifff = () => {
   return (

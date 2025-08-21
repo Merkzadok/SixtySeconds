@@ -17,19 +17,21 @@ const currentUser = "Liam";
 const LeaderBoard = () => {
   return (
     <div className="max-w-6xl mx-auto px-4 ">
-     <MainHeader />
-      <div className="flex flex-col items-center text-center mb-10">
-        <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent"
-        >Leaderboard</h1>
+      <div className="flex flex-col items-center text-center mb-10 mt-12 ">
+        <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent">
+          Амжилтын самбар
+        </h1>
         <p className="text-muted-foreground text-lg md:text-xl mt-2">
-          See how you compare with other learners!
+          Бусад суралцагчидтай өөрийгөө харьцуулж үзээрэй!
         </p>
       </div>
 
       {/* Rankings */}
       <div className="max-w-3xl mx-auto space-y-8">
         <div className="bg-white/90 backdrop-blur rounded-2xl p-6 shadow-md border border-gray-200">
-          <h2 className="text-xl font-semibold mb-4 text-gray-800">Top Learners</h2>
+          <h2 className="text-xl font-semibold mb-4 text-gray-800">
+            Шилдэг суралцагчид
+          </h2>
           <div className="space-y-4">
             {users.map((user, idx) => (
               <LeaderboardUser
@@ -51,8 +53,8 @@ const LeaderBoard = () => {
               <div className="w-14 h-14 bg-gradient-to-br from-pink-400 to-purple-500 rounded-xl flex items-center justify-center mb-3">
                 <BarChart3 className="w-7 h-7 text-white" />
               </div>
-              <div className="text-xl font-bold">Active Learners</div>
-              <div className="text-sm text-gray-600">99 learners</div>
+              <div className="text-xl font-bold">Идэвхтэй суралцагчид</div>
+              <div className="text-sm text-gray-600">99 суралцагч</div>
             </div>
           </div>
 
@@ -61,8 +63,8 @@ const LeaderBoard = () => {
               <div className="w-14 h-14 bg-gradient-to-br from-green-400 to-teal-500 rounded-xl flex items-center justify-center mb-3">
                 <Book className="w-7 h-7 text-white" />
               </div>
-              <div className="text-xl font-bold">Book Lovers</div>
-              <div className="text-sm text-gray-600">20+ lessons completed</div>
+              <div className="text-xl font-bold">Номд дурлагчид</div>
+              <div className="text-sm text-gray-600">20+ хичээл судалсан</div>
             </div>
           </div>
         </div>
