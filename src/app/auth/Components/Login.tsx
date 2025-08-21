@@ -64,7 +64,6 @@ export default function SignIn({
       }
 
       const data = await res.json();
-      console.log("Login success:", data);
 
       // TODO: handle token storage (e.g., localStorage) or redirect here
       // alert("Welcome back! 🎉");

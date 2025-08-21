@@ -21,7 +21,6 @@ const IncorrectWordPage: React.FC = () => {
     score: number;
   } | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  console.log("sel", selectedWord);
 
   const fetchSentence = async () => {
     setIsLoading(true);
@@ -32,7 +31,7 @@ const IncorrectWordPage: React.FC = () => {
         headers: { "Content-Type": "application/json" },
       });
       const data = await res.json();
-      console.log(data);
+
       setSentence(data);
       setSelectedWord(null);
       setFeedback(null);

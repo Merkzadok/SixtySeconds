@@ -28,11 +28,12 @@ const features = [
 export default function Subscription() {
   const [billingPeriod, setBillingPeriod] = useState<BillingPeriod>("free");
 
-  const { user } = useUser();//users context herglegchiin medeelel awah
-  console.log("user in subscription:", user);
-  const currentOption = billingOptions.find(o => o.key === billingPeriod)!;
+  const { user } = useUser(); //users context herglegchiin medeelel awah
 
-  const formatPrice = (price: number) => new Intl.NumberFormat("mn-MN").format(price);
+  const currentOption = billingOptions.find((o) => o.key === billingPeriod)!;
+
+  const formatPrice = (price: number) =>
+    new Intl.NumberFormat("mn-MN").format(price);
   const getMonthlyEquivalent = (price: number, period: BillingPeriod) => {
     const months = period === "quarterly" ? 3 : period === "yearly" ? 12 : 1;
     return Math.floor(price / months);
@@ -68,7 +69,7 @@ export default function Subscription() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b ">
-      <MainHeader/>
+      <MainHeader />
       <div className="flex flex-col items-center text-center mb-10">
         <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent">
           Subscription
@@ -79,7 +80,7 @@ export default function Subscription() {
       <div className="max-w-xl mx-auto bg-white rounded-3xl shadow-2xl p-8">
         {/* Billing Options */}
         <div className="mb-6 grid grid-cols-4 gap-2 bg-gray-100 p-2 rounded-2xl">
-          {billingOptions.map(option => (
+          {billingOptions.map((option) => (
             <button
               key={option.key}
               onClick={() => setBillingPeriod(option.key)}
@@ -95,7 +96,9 @@ export default function Subscription() {
         {/* Pricing */}
         <div className="text-center mb-6">
           {currentOption.price === 0 ? (
-            <p className="text-3xl md:text-4xl font-bold text-green-500">7 ӨДӨР ҮНЭГҮЙ</p>
+            <p className="text-3xl md:text-4xl font-bold text-green-500">
+              7 ӨДӨР ҮНЭГҮЙ
+            </p>
           ) : (
             <p className="text-3xl md:text-4xl font-bold text-purple-700">
               ₮{formatPrice(currentOption.price)}
@@ -103,7 +106,10 @@ export default function Subscription() {
           )}
           {billingPeriod !== "free" && (
             <p className="text-gray-600 mt-1">
-              Сард ₮{formatPrice(getMonthlyEquivalent(currentOption.price, billingPeriod))}
+              Сард ₮
+              {formatPrice(
+                getMonthlyEquivalent(currentOption.price, billingPeriod)
+              )}
             </p>
           )}
         </div>
@@ -115,13 +121,16 @@ export default function Subscription() {
           </h4>
           {billingPeriod === "free" ? (
             <div className="flex items-center justify-center text-gray-700">
-              <Check className="w-5 h-5 text-green-400 mr-2" />
-              7 өдөр бүх хичээл үнэгүй
+              <Check className="w-5 h-5 text-green-400 mr-2" />7 өдөр бүх хичээл
+              үнэгүй
             </div>
           ) : (
             <div className="grid md:grid-cols-2 gap-3">
               {features.map((f, i) => (
-                <div key={i} className="flex items-center text-gray-700 p-2 rounded-lg">
+                <div
+                  key={i}
+                  className="flex items-center text-gray-700 p-2 rounded-lg"
+                >
                   <Check className="w-5 h-5 text-green-400 mr-2" />
                   {f}
                 </div>

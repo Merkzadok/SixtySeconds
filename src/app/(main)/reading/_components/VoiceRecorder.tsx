@@ -69,7 +69,6 @@ const VoiceRecorder = forwardRef<VoiceRecorderHandle, Props>(
         );
         const data = await response.json();
         if (data.secure_url) {
-          console.log("✅ Cloudinary-д хадгаллаа:", data.secure_url);
           return data.secure_url;
         } else {
           console.warn("⚠️ Cloudinary upload амжилтгүй:", data);

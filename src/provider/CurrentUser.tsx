@@ -29,10 +29,8 @@ export default function UserContextProvider({
             headers: {
               Authorization: `Bearer ${token}`,
             },
-            
           }
         );
-console.log("Current user response:", response.data);
 
         setUser(response?.data?.user);
       } catch (error) {

@@ -29,8 +29,7 @@ export const PersonalInfo = () => {
   }, [user]);
 
   const handleSave = async () => {
-    console.log(user);
-    if (!user) return console.log("dfadfaalga");
+    if (!user) return;
 
     try {
       const token = localStorage.getItem("Token:");
@@ -38,7 +37,7 @@ export const PersonalInfo = () => {
         console.error("No token found. User not authenticated.");
         return;
       }
-      console.log(form);
+
       const res = await fetch(
         `http://localhost:4001/profile/create/${user.id}`,
         {
@@ -54,7 +53,6 @@ export const PersonalInfo = () => {
       if (!res.ok) throw new Error("Failed to update profile");
 
       const data = await res.json();
-      console.log("Updated:", data);
 
       // if your provider has setUser, update it here
       // setUser(data);

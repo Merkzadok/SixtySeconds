@@ -59,7 +59,6 @@ export default function SignUp({
       }
 
       const data = await res.json();
-      console.log("Signup success:", data);
 
       alert("Welcome to our learning adventure! 🚀");
 

@@ -8,8 +8,6 @@ const ReadingStats = () => {
   const [readingStats, setReadingStats] = useState<Reading>();
   const { user } = useUser();
 
-  console.log(typeof readingStats);
-
   useEffect(() => {
     if (!user) return;
     const readingCounter = async () => {
@@ -17,7 +15,7 @@ const ReadingStats = () => {
         `http://localhost:4001/gemini/stats/${user?.profileId}`
       );
       const data = await response.json();
-      console.log("count", data);
+
       setReadingStats(data);
     };
     readingCounter();

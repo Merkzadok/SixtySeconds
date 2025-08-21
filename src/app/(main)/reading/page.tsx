@@ -41,7 +41,7 @@ const SpeechToTextMongolian: React.FC = () => {
       // body:JSON.stringify({sentence})
     });
     const data = await res.json();
-    console.log(data);
+
     setSentence(data);
   };
 
@@ -61,7 +61,6 @@ const SpeechToTextMongolian: React.FC = () => {
     if (!sentence) return;
 
     try {
-      console.log(audioUrl);
       const response = await fetch(
         `http://localhost:4001/gemini/finish/${sentence?.readingId}`,
         {
@@ -76,7 +75,7 @@ const SpeechToTextMongolian: React.FC = () => {
           }),
         }
       );
-      console.log(response);
+
       setFullTranscript("");
       setInterimTranscript("");
       setListening(false);
@@ -96,12 +95,11 @@ const SpeechToTextMongolian: React.FC = () => {
   const onToggle = () => {
     if (listening) {
       setStopTime(new Date()); // 🟢 ЭНЭ
-      console.log("stop: ", new Date());
+
       recognitionRef.current?.stop();
       recorderRef.current?.stop();
       setListening(false);
     } else {
-      console.log("start: ", new Date());
       setStartTime(new Date()); // 🟢 ЭНЭ
       recognitionRef.current?.start();
       recorderRef.current?.start();
@@ -142,7 +140,6 @@ const SpeechToTextMongolian: React.FC = () => {
           <VoiceRecorder
             ref={recorderRef}
             onUploadComplete={(url) => {
-              console.log("🎤 Upload болсон аудио URL:", url);
               setAudioUrl(url || null);
             }}
           />
