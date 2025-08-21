@@ -2,21 +2,26 @@
 import { BarChart3, Clock, TrendingUp, Trophy } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Reading } from "../../../../../types/types";
+import { useUser } from "@/provider/CurrentUser";
 
 const ReadingStats = () => {
   const [readingStats, setReadingStats] = useState<Reading>();
+  const { user } = useUser();
 
   console.log(typeof readingStats);
 
   useEffect(() => {
+    if (!user) return;
     const readingCounter = async () => {
-      const response = await fetch("http://localhost:4001/gemini/stats/1");
+      const response = await fetch(
+        `http://localhost:4001/gemini/stats/${user?.profileId}`
+      );
       const data = await response.json();
       console.log("count", data);
       setReadingStats(data);
     };
     readingCounter();
-  }, []);
+  }, [user]);
 
   return (
     <div className="min-h-screen pt-16 bg-gradient-to-br from-pink-50 via-purple-50 to-blue-50">
