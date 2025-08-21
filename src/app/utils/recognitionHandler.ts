@@ -4,8 +4,18 @@ export const createRecognition = (
   setListening: React.Dispatch<React.SetStateAction<boolean>>
 ): SpeechRecognition | null => {
   const SpeechRecognitionConstructor =
-    (window as any).SpeechRecognition ||
-    (window as any).webkitSpeechRecognition;
+    (
+      window as unknown as {
+        SpeechRecognition?: typeof SpeechRecognition;
+        webkitSpeechRecognition?: typeof SpeechRecognition;
+      }
+    ).SpeechRecognition ||
+    (
+      window as unknown as {
+        SpeechRecognition?: typeof SpeechRecognition;
+        webkitSpeechRecognition?: typeof SpeechRecognition;
+      }
+    ).webkitSpeechRecognition;
 
   if (!SpeechRecognitionConstructor) {
     alert("Таны браузер ярианы таних функцийг дэмжихгүй байна!");
