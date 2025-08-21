@@ -46,7 +46,6 @@ export default function SignIn({
       if (!res.ok) {
         const errorData = await res.json();
 
-        // Handle specific error messages:
         const msg =
           typeof errorData.message === "string"
             ? errorData.message.toLowerCase()
@@ -57,16 +56,13 @@ export default function SignIn({
         } else if (msg.includes("password")) {
           setPasswordError(errorData.message);
         } else {
-          // fallback generic error
           throw new Error(errorData.message || "Login failed");
         }
-        return; // stop further processing
+        return;
       }
 
       const data = await res.json();
 
-      // TODO: handle token storage (e.g., localStorage) or redirect here
-      // alert("Welcome back! 🎉");
       toast.success("Welcome back! 🎉", {
         description: "Great to see you again!",
         duration: 1000,
@@ -76,11 +72,15 @@ export default function SignIn({
       setTimeout(() => {
         router.push("/profile");
       }, 1000);
-      // router.push("/profile");
-    } catch (err: any) {
-      console.error("Login error:", err);
-      // Fallback for unexpected errors
-      setEmailError(err.message || "Something went wrong during login");
+    } catch (err: unknown) {
+      // Narrow the type
+      if (err instanceof Error) {
+        console.error("Login error:", err);
+        setEmailError(err.message || "Something went wrong during login");
+      } else {
+        console.error("Unexpected error:", err);
+        setEmailError("Something went wrong during login");
+      }
     } finally {
       setIsLoading(false);
     }

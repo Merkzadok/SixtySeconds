@@ -154,7 +154,7 @@ export const Wordle = () => {
         <div className="text-center">
           <p className="text-2xl font-bold text-green-600 mb-2">You Win! 🎉</p>
           <p className="text-muted-foreground">
-            You guessed "{targetWord}" correctly!
+            You guessed &quot;{targetWord}&quot; correctly!
           </p>
         </div>
       )}
@@ -162,7 +162,9 @@ export const Wordle = () => {
       {gameStatus === "lost" && (
         <div className="text-center">
           <p className="text-2xl font-bold text-red-600 mb-2">Game Over 😔</p>
-          <p className="text-muted-foreground">The word was "{targetWord}"</p>
+          <p className="text-muted-foreground">
+            The word was &quot;{targetWord}&quot;
+          </p>
         </div>
       )}
 
