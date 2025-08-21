@@ -6,7 +6,7 @@ export default function FooterEncouragement() {
       <p className="text-gray-600 text-sm">🎯 Learn at your own pace</p>
       <p className="text-gray-600 text-sm">🏆 Earn badges and rewards</p>
       <p className="text-gray-600 text-sm">
-        👨‍👩‍👧‍👦 Safe and supervised environment
+        👨‍👩‍👧‍👦 Safe and supervised environmentw
       </p>
     </div>
   );
