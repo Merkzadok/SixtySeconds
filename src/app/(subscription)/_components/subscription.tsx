@@ -2,13 +2,15 @@
 
 import React, { useState } from "react";
 import { Check, Crown, Gamepad2, BookOpen, Shield, Users, Star } from "lucide-react";
+import Header from "@/app/(landing-page)/LandingHeader";
+import MainHeader from "@/app/(main)/home/components/MainHeader";
 
 type BillingPeriod = "free" | "monthly" | "quarterly" | "yearly";
 
 const billingOptions = [
   { key: "free" as BillingPeriod, label: "Free", price: 0 },
   { key: "monthly" as BillingPeriod, label: "Monthly", price: 19900 },
-  { key: "quarterly" as BillingPeriod, label: "Quarterly", price: 49900 },
+  { key: "quarterly" as BillingPeriod, label: "Three Month", price: 49900 },
   { key: "yearly" as BillingPeriod, label: "Yearly", price: 179900 },
 ];
 
@@ -35,21 +37,10 @@ export default function Subscription() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-yellow-50 via-pink-50 to-purple-50 p-4">
-      {/* Header */}
-      <div className="text-center mb-12">
-        <div className="inline-flex items-center justify-center bg-gradient-to-r from-pink-400 to-yellow-400 p-5 rounded-full shadow-lg mb-4">
-          <Crown className="w-12 h-12 text-white" />
-        </div>
-        <h1 className="text-4xl md:text-6xl font-bold text-purple-700 mb-2">
-          60{" "}
-          <span className="bg-gradient-to-r from-yellow-400 to-pink-400 bg-clip-text text-transparent">
-            Second
-          </span>
-        </h1>
-        <p className="text-lg md:text-xl text-gray-700">
-          Хүүхдийн хөгжилд зориулсан, тоглоомтой уншлагын платформ
-        </p>
+    <div className="min-h-screen bg-gradient-to-b ">
+      <MainHeader/>
+      <div className="flex flex-col items-center text-center mb-10">
+<h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent">Subscription</h1>
       </div>
 
       {/* Billing Card */}
@@ -60,11 +51,7 @@ export default function Subscription() {
             <button
               key={option.key}
               onClick={() => setBillingPeriod(option.key)}
-              className={`py-2 rounded-xl font-semibold transition-all duration-200 ${
-                billingPeriod === option.key
-                  ? "bg-gradient-to-r from-yellow-400 to-pink-400 text-white shadow-md scale-105"
-                  : "text-gray-600 hover:bg-white hover:text-purple-700"
-              }`}
+              className={`py-2 rounded-xl font-semibold hover:bg-gray-300 transition-colors `}
             >
               {option.label}
             </button>
@@ -100,7 +87,7 @@ export default function Subscription() {
           ) : (
             <div className="grid md:grid-cols-2 gap-3">
               {features.map((f, i) => (
-                <div key={i} className="flex items-center text-gray-700 p-2 rounded-lg bg-yellow-50 hover:bg-yellow-100 transition">
+                <div key={i} className="flex items-center text-gray-700 p-2 rounded-lg">
                   <Check className="w-5 h-5 text-green-400 mr-2" />
                   {f}
                 </div>
@@ -110,8 +97,8 @@ export default function Subscription() {
         </div>
 
         {/* CTA Button */}
-        <button className="w-full py-4 bg-gradient-to-r from-yellow-400 to-pink-400 text-white font-bold text-lg rounded-2xl shadow-lg hover:scale-105 transform transition">
-          {billingPeriod === "free" ? "Үнэгүй туршилт эхлүүлэх" : "Захиалах"}
+        <button className="w-full py-4 bg-gray-200 hover:bg-gray-300 text-black font-bold text-lg rounded-2xl shadow-lg ">
+          {billingPeriod === "free" ? "Start Free" : "BUY NOW"}
         </button>
       </div>
 
