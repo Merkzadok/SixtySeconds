@@ -103,7 +103,7 @@ export default function FinalFooter() {
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-sm text-muted-foreground flex items-center gap-2">
               <span>©</span>
-              2024 KidsLingo. Made with
+              2025 KidsLingo. Made with
               <span className="text-red-500">❤️</span>
               in Mongolia
               <span className="text-lg">🇲🇳</span>
