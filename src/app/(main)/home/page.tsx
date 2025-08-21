@@ -41,6 +41,7 @@ export default function HomePage() {
       bgPattern: "bg-gradient-to-br from-yellow-100 via-amber-50 to-orange-100",
       href: "/leaderboard",
     },
+
   ];
 
   // Quick stats data
