@@ -10,6 +10,7 @@ import ControlButtons from "./_components/ControlButtons";
 import TranscriptBox from "./_components/TranscriptBox";
 import ResultStats from "./_components/ResultStats";
 import { VoiceRecorderHandle } from "../reading/_components/VoiceRecorder";
+import { useUser } from "@/provider/CurrentUser";
 
 const VoiceRecorder = dynamic(
   () => import("../reading/_components/VoiceRecorder"),
@@ -20,6 +21,7 @@ const SpeechToTextMongolian: React.FC = () => {
   const [startTime, setStartTime] = useState<Date | null>(null);
   const [stopTime, setStopTime] = useState<Date | null>(null);
   const [audioUrl, setAudioUrl] = useState<string | null>(null);
+  const { user } = useUser();
 
   const [sentence, setSentence] = useState<{
     readingId: number;
@@ -33,7 +35,7 @@ const SpeechToTextMongolian: React.FC = () => {
   const recognitionRef = useRef<SpeechRecognition | null>(null);
 
   const fetchNextSentence = async () => {
-    const res = await fetch("http://localhost:4001/gemini/1", {
+    const res = await fetch(`http://localhost:4001/gemini/${user?.profileId}`, {
       method: "POST",
       // body:JSON.stringify({sentence})
     });
@@ -43,6 +45,7 @@ const SpeechToTextMongolian: React.FC = () => {
   };
 
   useEffect(() => {
+    if (!user) return;
     recognitionRef.current = createRecognition(
       setFullTranscript,
       setInterimTranscript,
@@ -51,7 +54,7 @@ const SpeechToTextMongolian: React.FC = () => {
     fetchNextSentence();
 
     return () => recognitionRef.current?.stop();
-  }, []);
+  }, [user]);
 
   const handleSaveAndNext = async () => {
     if (!sentence) return;
