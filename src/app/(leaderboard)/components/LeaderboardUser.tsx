@@ -34,7 +34,7 @@ export default function LeaderboardUser({ name, lessons, points, rank, isCurrent
 
       <div className="flex items-center space-x-1 text-gray-700">
         <Star className="w-4 h-4 text-yellow-400" />
-        <span className="font-semibold text-md">{points} pts</span>
+        <span className="font-semibold text-md">{points}</span>
       </div>
     </div>
   );
