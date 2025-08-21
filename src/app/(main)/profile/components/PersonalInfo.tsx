@@ -7,9 +7,9 @@ export const PersonalInfo = () => {
 
   const [editing, setEditing] = useState(false);
   const [form, setForm] = useState<any>({
-    email: "",
-    phone: "",
-    location: "",
+    name: "",
+    about: "",
+    avatarImage: "",
     birthDate: "",
   });
 
@@ -29,19 +29,20 @@ export const PersonalInfo = () => {
   }, [user]);
 
   const handleSave = async () => {
-    if (!user) return;
+    console.log(user);
+    if (!user) return console.log("dfadfaalga");
 
     try {
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem("Token:");
       if (!token) {
         console.error("No token found. User not authenticated.");
         return;
       }
-
+      console.log(form);
       const res = await fetch(
-        `http://localhost:4001/profile/update/${user.id}`,
+        `http://localhost:4001/profile/create/${user.id}`,
         {
-          method: "PUT",
+          method: "POST",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
@@ -74,22 +75,22 @@ export const PersonalInfo = () => {
         {editing ? (
           <>
             <input
-              name="email"
-              value={form.email}
+              name="name"
+              value={form.name}
               onChange={handleChange}
               className="w-full p-2 border rounded"
               placeholder="Имэйл"
             />
             <input
-              name="phone"
-              value={form.phone}
+              name="about"
+              value={form.about}
               onChange={handleChange}
               className="w-full p-2 border rounded"
               placeholder="Утас"
             />
             <input
-              name="location"
-              value={form.location}
+              name="avatarImage"
+              value={form.avatarImage}
               onChange={handleChange}
               className="w-full p-2 border rounded"
               placeholder="Байршил"
