@@ -39,7 +39,7 @@ export default function Subscription() {
     return Math.floor(price / months);
   };
 
-  // 👇 subscription хадгалах function
+  // 👇 subscription hadgalah
   const handleSubscribe = async () => {
     if (!user) {
       alert("Та эхлээд нэвтэрнэ үү!");
