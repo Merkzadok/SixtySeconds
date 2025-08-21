@@ -11,9 +11,6 @@ export default function HeroSection() {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div className="space-y-8 animate-fade-in-up">
             <div className="space-y-4">
-              <Badge className="bg-pink-100 text-pink-700 hover:bg-pink-100 border-pink-200">
-                New Adventure Awaits
-              </Badge>
               <h1 className="font-serif font-black text-4xl md:text-6xl text-gray-800 leading-tight">
                 Unlock the Joy of{" "}
                 <span className="text-transparent bg-gradient-to-r from-pink-400 to-emerald-400 bg-clip-text">
