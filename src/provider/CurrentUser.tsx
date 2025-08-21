@@ -30,12 +30,15 @@ export default function UserContextProvider({
               Authorization: `Bearer ${token}`,
             },
           }
+          
         );
 
         setUser(response?.data?.user);
       } catch (error) {
         console.log(error);
       }
+
+      
     };
     getCurrentUserByAccessToken();
   }, []);
