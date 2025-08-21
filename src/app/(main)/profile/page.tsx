@@ -1,6 +1,6 @@
 import Payment from "./components/Payment";
 import PersonalInfo from "./components/PersonalInfo";
-import Security, { AccountSecurity } from "./components/Security";
+import { AccountSecurity } from "./components/Security";
 import UserProfile from "./components/ProfileCard";
 
 export const Page = () => {

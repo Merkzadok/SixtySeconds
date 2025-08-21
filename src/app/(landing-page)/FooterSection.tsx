@@ -14,7 +14,7 @@ export default function Footer() {
           </span>
         </div>
         <p className="font-sans text-sm text-gray-600">
-          © 2024 LinguaPlay. Making language learning magical for children
+          © 2025 LinguaPlay. Making language learning magical for children
           worldwide.
         </p>
       </div>
