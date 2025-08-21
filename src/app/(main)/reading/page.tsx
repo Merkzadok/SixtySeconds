@@ -5,18 +5,17 @@ import dynamic from "next/dynamic";
 
 import { createRecognition } from "@/app/utils/recognitionHandler";
 import { compareTexts } from "@/app/utils/compareTexts";
-import ExpectedText from "./_components/ExpectedText";
-import ControlButtons from "./_components/ControlButtons";
-import TranscriptBox from "./_components/TranscriptBox";
-import ResultStats from "./_components/ResultStats";
-import { VoiceRecorderHandle } from "../reading/_components/VoiceRecorder";
+import ExpectedText from "./components/ExpectedText";
+import ControlButtons from "./components/ControlButtons";
+import TranscriptBox from "./components/TranscriptBox";
+import ResultStats from "./components/ResultStats";
+import { VoiceRecorderHandle } from "./components/VoiceRecorder";
 import { useUser } from "@/provider/CurrentUser";
 import { LoaderScreen } from "@/Components/loader/loading";
 
-const VoiceRecorder = dynamic(
-  () => import("../reading/_components/VoiceRecorder"),
-  { ssr: false }
-);
+const VoiceRecorder = dynamic(() => import("./components/VoiceRecorder"), {
+  ssr: false,
+});
 
 const SpeechToTextMongolian: React.FC = () => {
   const [startTime, setStartTime] = useState<Date | null>(null);

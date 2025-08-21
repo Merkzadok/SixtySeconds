@@ -1,4 +1,4 @@
-import ReadingStats from "./_components/ReadingStats";
+import ReadingStats from "./components/ReadingStats";
 
 const Stats = () => {
   return (
