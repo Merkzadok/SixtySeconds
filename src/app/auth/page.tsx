@@ -3,7 +3,6 @@
 import { useState } from "react";
 import Background from "./Components/Background";
 import AuthTabs from "./Components/AuthTabs";
-import FooterEncouragement from "./Components/Footer";
 import SignUpHeader from "./Components/SignUpHeader";
 
 export default function AuthPage() {
@@ -30,7 +29,6 @@ export default function AuthPage() {
           formData={formData}
           handleInputChange={handleInputChange}
         />
-        <FooterEncouragement />
       </div>
     </div>
   );

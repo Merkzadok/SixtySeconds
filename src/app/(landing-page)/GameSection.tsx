@@ -1,28 +1,26 @@
 // components/sections/GamesSection.tsx
 
-import { Badge } from "@/Components/ui/badge";
-import { Button } from "@/Components/ui/button";
 import { Card, CardContent } from "@/Components/ui/card";
-import { Play, Star, Gamepad2, Target, BookOpen } from "lucide-react";
+import { Star, Gamepad2, Target, BookOpen } from "lucide-react";
 
 export default function GamesSection() {
   const games = [
     {
-      title: "Word Safari",
+      title: "Master Mind",
       description:
-        "Match words with adorable animals while exploring different habitats.",
+        "A code-breaking game where players guess a hidden color sequence with feedback on correctness.",
       icon: Gamepad2,
       iconColor: "text-pink-500",
 
       borderColor: "border-pink-100 hover:border-pink-200",
       rating: 5,
       ageRange: "Ages 4-8",
-      imageSrc: "/wordle.webp",
+      imageSrc: "/mastermind.png",
     },
     {
-      title: "Speak & Shine",
+      title: "Snake",
       description:
-        "Practice pronunciation with AI feedback and fun voice challenges.",
+        "A classic arcade game where players control a growing snake to eat food while avoiding collisions with walls and itself.",
       icon: Target,
       iconColor: "text-emerald-500",
       borderColor: "border-emerald-100 hover:border-emerald-200",
@@ -31,9 +29,9 @@ export default function GamesSection() {
       imageSrc: "/snake.png",
     },
     {
-      title: "Magic Tales",
+      title: "Memory Game",
       description:
-        "Interactive stories where children choose their own language learning adventure.",
+        "A card-flipping game where players match pairs of identical items using memory skills.",
       icon: BookOpen,
       iconColor: "text-purple-500",
       borderColor: "border-purple-100 hover:border-purple-200",
