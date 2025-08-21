@@ -31,7 +31,7 @@ const ReadingStats = () => {
             Stats Dashboard
           </h1>
           <p className="text-gray-600">
-            Track User's reading progress and achievements
+            Track User&apos;s reading progress and achievements
           </p>
         </div>
 

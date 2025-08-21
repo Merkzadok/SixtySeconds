@@ -68,9 +68,18 @@ export default function SignUp({
       // handleInputChange("email", "");
       // handleInputChange("password", "");
       // handleInputChange("confirmPassword", "");
-    } catch (err: any) {
+    } catch (err: unknown) {
+      let message = "Something went wrong";
+
+      if (err instanceof Error) {
+        message = err.message;
+      } else if (typeof err === "object" && err !== null && "message" in err) {
+        // If err is an object with a message property
+        message = (err as { message?: string }).message || message;
+      }
+
       console.error("Signup error:", err);
-      alert(err.message || "Something went wrong");
+      alert(message);
     } finally {
       setIsLoading(false);
     }
