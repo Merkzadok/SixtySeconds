@@ -11,8 +11,8 @@ export default function Header() {
           <div className="w-8 h-8 bg-gradient-to-br from-pink-300 to-emerald-300 rounded-lg flex items-center justify-center">
             <Sparkles className="w-5 h-5 text-white" />
           </div>
-          <span className="font-serif font-black text-xl text-gray-800">
-            LinguaPlay
+          <span className="font-serif font-black text-xl bg-gradient-to-r from-indigo-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+            SixtySeconds
           </span>
         </div>
         <div className="hidden md:flex items-center gap-6"></div>
