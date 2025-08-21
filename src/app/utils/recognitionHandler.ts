@@ -1,18 +1,85 @@
+// export const createRecognition = (
+//   setFullTranscript: React.Dispatch<React.SetStateAction<string>>,
+//   setInterimTranscript: React.Dispatch<React.SetStateAction<string>>,
+//   setListening: React.Dispatch<React.SetStateAction<boolean>>
+// ): SpeechRecognition | null => {
+//   const SpeechRecognitionConstructor =
+//     (
+//       window as unknown as {
+//         SpeechRecognition?: typeof SpeechRecognition;
+//         webkitSpeechRecognition?: typeof SpeechRecognition;
+//       }
+//     ).SpeechRecognition ||
+//     (
+//       window as unknown as {
+//         SpeechRecognition?: typeof SpeechRecognition;
+//         webkitSpeechRecognition?: typeof SpeechRecognition;
+//       }
+//     ).webkitSpeechRecognition;
+
+//   if (!SpeechRecognitionConstructor) {
+//     alert("Таны браузер ярианы таних функцийг дэмжихгүй байна!");
+//     return null;
+//   }
+
+//   const recognition = new SpeechRecognitionConstructor();
+//   recognition.lang = "mn-MN";
+//   recognition.interimResults = true;
+//   recognition.continuous = true;
+
+//   recognition.onresult = (event: SpeechRecognitionEvent) => {
+//     let interim = "";
+//     let final = "";
+
+//     for (let i = event.resultIndex; i < event.results.length; ++i) {
+//       const result = event.results[i];
+//       if (result.isFinal) {
+//         final += result[0].transcript + " ";
+//       } else {
+//         interim += result[0].transcript;
+//       }
+//     }
+
+//     setFullTranscript((prev) => prev + final);
+//     setInterimTranscript(interim);
+//   };
+
+//   recognition.onerror = (event: any) => {
+//     console.error("Speech recognition error", event);
+//   };
+
+//   recognition.onend = () => {
+//     setListening(false);
+//   };
+
+//   return recognition;
+// };
 export const createRecognition = (
   setFullTranscript: React.Dispatch<React.SetStateAction<string>>,
   setInterimTranscript: React.Dispatch<React.SetStateAction<string>>,
   setListening: React.Dispatch<React.SetStateAction<boolean>>
 ): SpeechRecognition | null => {
-  const SpeechRecognitionConstructor =
-    (window as any).SpeechRecognition ||
-    (window as any).webkitSpeechRecognition;
+  // Define the constructor type for SpeechRecognition
+  type SpeechRecognitionConstructor = {
+    new (): SpeechRecognition;
+  };
 
-  if (!SpeechRecognitionConstructor) {
+  interface WindowWithSpeech {
+    SpeechRecognition?: SpeechRecognitionConstructor;
+    webkitSpeechRecognition?: SpeechRecognitionConstructor;
+  }
+
+  const { SpeechRecognition, webkitSpeechRecognition } =
+    window as unknown as WindowWithSpeech;
+
+  const RecognitionConstructor = SpeechRecognition || webkitSpeechRecognition;
+
+  if (!RecognitionConstructor) {
     alert("Таны браузер ярианы таних функцийг дэмжихгүй байна!");
     return null;
   }
 
-  const recognition = new SpeechRecognitionConstructor();
+  const recognition = new RecognitionConstructor();
   recognition.lang = "mn-MN";
   recognition.interimResults = true;
   recognition.continuous = true;
@@ -21,7 +88,7 @@ export const createRecognition = (
     let interim = "";
     let final = "";
 
-    for (let i = event.resultIndex; i < event.results.length; ++i) {
+    for (let i = event.resultIndex; i < event.results.length; i++) {
       const result = event.results[i];
       if (result.isFinal) {
         final += result[0].transcript + " ";
@@ -34,7 +101,7 @@ export const createRecognition = (
     setInterimTranscript(interim);
   };
 
-  recognition.onerror = (event: any) => {
+  recognition.onerror = (event: SpeechRecognitionErrorEvent) => {
     console.error("Speech recognition error", event);
   };
 

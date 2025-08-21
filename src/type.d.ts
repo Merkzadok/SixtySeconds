@@ -1,24 +1,28 @@
 // types.d.ts
+
+// Generic JSON module typing
 declare module "*.json" {
-  const value: any;
+  const value: Record<string, unknown>;
   export default value;
 }
 
-// Specifically for Lottie animations if you want better typing
+// Specifically for Lottie animations
 declare module "/Meditating-Brain.json" {
-  const value: any;
+  const value: Record<string, unknown>;
   export default value;
 }
 
 declare module "/Rank.json" {
-  const value: any;
+  const value: Record<string, unknown>;
   export default value;
 }
 
 declare module "/game-app.json" {
-  const value: any;
+  const value: Record<string, unknown>;
   export default value;
 }
+
+// User type
 export type UserType = {
   id: number;
   email: string;
