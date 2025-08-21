@@ -5,6 +5,7 @@ import { Button } from "@/Components/ui/button";
 import { Input } from "@/Components/ui/input";
 import { Label } from "@/Components/ui/label";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 interface SignInProps {
   isLoading: boolean;
@@ -66,10 +67,17 @@ export default function SignIn({
       console.log("Login success:", data);
 
       // TODO: handle token storage (e.g., localStorage) or redirect here
-      alert("Welcome back! 🎉");
+      // alert("Welcome back! 🎉");
+      toast.success("Welcome back! 🎉", {
+        description: "Great to see you again!",
+        duration: 1000,
+      });
       localStorage.setItem("Token:", data.accesstoken);
 
-      router.push("/profile");
+      setTimeout(() => {
+        router.push("/profile");
+      }, 1000);
+      // router.push("/profile");
     } catch (err: any) {
       console.error("Login error:", err);
       // Fallback for unexpected errors
