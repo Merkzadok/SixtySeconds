@@ -78,6 +78,7 @@ const SpeechToTextMongolian: React.FC = () => {
       setListening(false);
       recognitionRef.current?.stop();
       fetchNextSentence();
+      setAudioUrl("");
     } catch (error) {
       console.log(error);
     }
