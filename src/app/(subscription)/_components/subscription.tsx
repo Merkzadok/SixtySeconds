@@ -39,14 +39,14 @@ export default function Subscription() {
     return Math.floor(price / months);
   };
 
-  // 👇 subscription хадгалах function
+  // 👇 subscription hadgalah
   const handleSubscribe = async () => {
     if (!user) {
       alert("Та эхлээд нэвтэрнэ үү!");
       return;
     }
     try {
-      const token = localStorage.getItem("token"); // auth token авч байна
+      const token = localStorage.getItem("Token"); // auth token авч байна
       await axios.post(
         "http://localhost:4001/subscriptions",
         {
