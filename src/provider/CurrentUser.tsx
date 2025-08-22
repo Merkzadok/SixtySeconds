@@ -91,7 +91,6 @@ export default function UserContextProvider({
       } catch (error) {
         console.log("Error fetching user:", error);
         // Optionally remove invalid token
-        localStorage.removeItem("Token:");
         setUser(null);
       } finally {
         setLoading(false);
