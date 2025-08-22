@@ -1,433 +1,146 @@
-// "use client";
-// import { useUser } from "@/provider/CurrentUser";
-// import React, { useEffect, useState } from "react";
-
-// export const PersonalInfo = () => {
-//   const { user } = useUser();
-
-//   const [editing, setEditing] = useState(false);
-//   const [form, setForm] = useState<any>({
-//     name: "",
-//     about: "",
-//     avatarImage: "",
-//     birthDate: "",
-//   });
-
-//   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-//     setForm({ ...form, [e.target.name]: e.target.value });
-//   };
-
-//   useEffect(() => {
-//     if (user) {
-//       setForm({
-//         ...user,
-//         birthDate: user.birthDate
-//           ? new Date(user.birthDate).toISOString().split("T")[0]
-//           : "",
-//       });
-//     }
-//   }, [user]);
-
-//   const handleSave = async () => {
-//     if (!user) return;
-
-//     try {
-//       const token = localStorage.getItem("Token:");
-//       if (!token) {
-//         console.error("No token found. User not authenticated.");
-//         return;
-//       }
-
-//       const res = await fetch(
-//         `http://localhost:4001/profile/create/${user.id}`,
-//         {
-//           method: "POST",
-//           headers: {
-//             "Content-Type": "application/json",
-//             Authorization: `Bearer ${token}`,
-//           },
-//           body: JSON.stringify(form),
-//         }
-//       );
-
-//       if (!res.ok) throw new Error("Failed to update profile");
-
-//       const data = await res.json();
-
-//       // if your provider has setUser, update it here
-//       // setUser(data);
-
-//       setEditing(false);
-//     } catch (err) {
-//       console.error(err);
-//     }
-//   };
-
-//   return (
-//     <div className="max-w-md mx-auto bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl shadow-lg p-6">
-//       <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
-//         <span>👤</span> Хувийн мэдээлэл
-//       </h2>
-
-//       <div className="space-y-4">
-//         {editing ? (
-//           <>
-//             <input
-//               name="name"
-//               value={form.name}
-//               onChange={handleChange}
-//               className="w-full p-2 border rounded"
-//               placeholder="Имэйл"
-//             />
-//             <input
-//               name="about"
-//               value={form.about}
-//               onChange={handleChange}
-//               className="w-full p-2 border rounded"
-//               placeholder="Утас"
-//             />
-//             <input
-//               name="avatarImage"
-//               value={form.avatarImage}
-//               onChange={handleChange}
-//               className="w-full p-2 border rounded"
-//               placeholder="Байршил"
-//             />
-//             <input
-//               type="date"
-//               name="birthDate"
-//               value={form.birthDate}
-//               onChange={handleChange}
-//               className="w-full p-2 border rounded"
-//             />
-//           </>
-//         ) : (
-//           <>
-//             <div className="flex items-center gap-3">
-//               <span className="text-blue-500 text-xl">📧</span>
-//               <div>
-//                 <p className="text-gray-500 text-sm">Имэйл</p>
-//                 <p className="font-medium text-gray-800">{form.email}</p>
-//               </div>
-//             </div>
-//             <div className="flex items-center gap-3">
-//               <span className="text-green-500 text-xl">📞</span>
-//               <div>
-//                 <p className="text-gray-500 text-sm">Утас</p>
-//                 <p className="font-medium text-gray-800">{form.phone}</p>
-//               </div>
-//             </div>
-//             <div className="flex items-center gap-3">
-//               <span className="text-pink-500 text-xl">📍</span>
-//               <div>
-//                 <p className="text-gray-500 text-sm">Байршил</p>
-//                 <p className="font-medium text-gray-800">{form.location}</p>
-//               </div>
-//             </div>
-//             <div className="flex items-center gap-3">
-//               <span className="text-yellow-500 text-xl">📅</span>
-//               <div>
-//                 <p className="text-gray-500 text-sm">Төрсөн өдөр</p>
-//                 <p className="font-medium text-gray-800">{form.birthDate}</p>
-//               </div>
-//             </div>
-//           </>
-//         )}
-//       </div>
-
-//       {editing ? (
-//         <button
-//           onClick={handleSave}
-//           className="mt-6 w-full bg-green-500 text-white py-2 rounded-lg shadow hover:opacity-90 transition"
-//         >
-//           Хадгалах
-//         </button>
-//       ) : (
-//         <button
-//           onClick={() => setEditing(true)}
-//           className="mt-6 w-full bg-gradient-to-r from-purple-500 to-blue-500 text-white py-2 rounded-lg shadow hover:opacity-90 transition"
-//         >
-//           Мэдээлэл засах
-//         </button>
-//       )}
-//     </div>
-//   );
-// };
-
-// export default PersonalInfo;
+// components/ProfileCard.tsx
 "use client";
-import { useUser } from "@/provider/CurrentUser";
-import { UserType } from "@/type";
-import React, { useEffect, useState } from "react";
-import { toast } from "sonner";
 
-// Define the form type based on the fields you're actually using
-type PersonalInfoFormType = {
+import { useUser } from "@/provider/CurrentUser";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+
+type ProfileForm = {
   name: string;
-  about: string;
-  phone: string;
-  location: string;
-  birthDate: string; // ISO date string for form inputs
+  email: string;
+  avatarImage: string;
+  age: number;
 };
 
-export const PersonalInfo = () => {
-  const { user } = useUser();
-
+export default function ProfileCard() {
+  const { user, setUser, loading } = useUser();
   const [editing, setEditing] = useState(false);
-  const [form, setForm] = useState<PersonalInfoFormType>({
-    name: "",
-    about: "",
-    phone: "",
-    location: "",
-    birthDate: "",
+  const router = useRouter();
+
+  const formik = useFormik<ProfileForm>({
+    initialValues: {
+      name: user?.profile?.name || "",
+      email: user?.email || "",
+      avatarImage: user?.profile?.avatarImage || "",
+      age: user?.profile?.age || 0,
+    },
+    enableReinitialize: true,
+    validationSchema: Yup.object({
+      name: Yup.string().required("Нэр оруулах шаардлагатай"),
+      email: Yup.string().email("Зөв имэйл оруулна уу").required("Имэйл шаардлагатай"),
+    }),
+    onSubmit: async (values) => {
+      try {
+        const token = localStorage.getItem("Token:");
+        if (!token) return;
+
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/profile/update/${user?.id}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+          body: JSON.stringify(values),
+        });
+
+        if (!res.ok) throw new Error("Failed to update");
+        const data = await res.json();
+
+        // Context update
+        setUser({
+          ...user!,
+          email: values.email,
+          profile: {
+            ...data.profile,
+            avatarImage: data.profile.avatarImage || "",
+            age: data.profile.age || 0,
+          },
+        });
+        setEditing(false);
+      } catch (err) {
+        console.error(err);
+      }
+    },
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
-
-  useEffect(() => {
-    if (user) {
-      setForm({
-        name: user.profile?.name || "",
-        about: user.profile?.about || "",
-        phone: user.phone || "",
-        location: user.location || "",
-        birthDate: user.birthDate
-          ? new Date(user.birthDate).toISOString().split("T")[0]
-          : "",
-      });
-    }
-  }, [user]);
-
-  const handleSave = async () => {
-    if (!user) {
-      toast.error("User not found");
-      return;
-    }
-
-    try {
-      const token = localStorage.getItem("Token:"); // 👈 энд key-гээ зөв шалгаарай
-      if (!token) {
-        toast.error("No authentication token found");
-        return;
-      }
-
-      toast.loading("Saving profile...");
-
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/profile/create/${user.id}`, // 👈 create биш, update API ашиглах нь зөв
-        {
-          method: "POST", // 👈 update үед PUT эсвэл PATCH
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify(form),
-        }
-      );
-
-      if (!res.ok) {
-        const errorData = await res.json();
-        throw new Error(errorData.message || "Failed to update profile");
-      }
-
-      const data = await res.json();
-
-      toast.success("Profile updated successfully! 🎉", {
-        description: "Your changes have been saved.",
-        duration: 2000,
-      });
-
-      setEditing(false);
-
-      // 👇 context user update
-      // setUser(data);
-    } catch (err) {
-      console.error("Error saving profile:", err);
-      toast.error("Failed to save profile", {
-        description:
-          err instanceof Error ? err.message : "Please try again later",
-      });
-    }
-  };
-
-  const handleCancel = () => {
-    // Reset form to original values
-    if (user) {
-      setForm({
-        name: user.profile?.name || "",
-        about: user.profile?.about || "",
-        phone: user.phone || "",
-        location: user.location || "",
-        birthDate: user.birthDate
-          ? new Date(user.birthDate).toISOString().split("T")[0]
-          : "",
-      });
-    }
-    setEditing(false);
-  };
+  if (loading) return <p className="text-center">Loading...</p>;
+  if (!user) return <p className="text-center">No user found</p>;
 
   return (
-    <div className="max-w-md mx-auto bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl shadow-lg p-6">
-      <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
-        <span>👤</span> Хувийн мэдээлэл
-      </h2>
+    <div className="max-w-sm mx-auto bg-white rounded-2xl shadow-xl overflow-hidden">
+      <div className="bg-purple-300 h-28 relative">
+        <div className="absolute -bottom-12 left-1/2 transform -translate-x-1/2">
+          <img
+            src={formik.values.avatarImage || "/default-avatar.png"}
+            alt="avatar"
+            className="w-24 h-24 rounded-full border-4 border-white object-cover"
+          />
+        </div>
+      </div>
 
-      <div className="space-y-4">
+      <div className="pt-16 pb-6 px-6 text-center">
         {editing ? (
-          <>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Нэр
-              </label>
-              <input
-                name="name"
-                type="text"
-                value={form.name}
-                onChange={handleChange}
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                placeholder="Таны нэр"
-              />
-            </div>
+          <form onSubmit={formik.handleSubmit} className="space-y-3">
+            <input
+              name="name"
+              placeholder="Нэр"
+              value={formik.values.name}
+              onChange={formik.handleChange}
+              className="w-full border p-2 rounded-lg"
+            />
+            {formik.errors.name && <p className="text-red-500 text-sm">{formik.errors.name}</p>}
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Имэйл
-              </label>
-              <input
-                name="about"
-                type="text"
-                value={form.about}
-                onChange={handleChange}
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                placeholder="example@email.com"
-              />
-            </div>
+            <input
+              name="email"
+              placeholder="Имэйл"
+              value={formik.values.email}
+              onChange={formik.handleChange}
+              className="w-full border p-2 rounded-lg"
+            />
+            {formik.errors.email && <p className="text-red-500 text-sm">{formik.errors.email}</p>}
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Утас
-              </label>
-              <input
-                name="phone"
-                type="tel"
-                value={form.phone}
-                onChange={handleChange}
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                placeholder="+976 9999 9999"
-              />
-            </div>
+            <input
+              name="avatarImage"
+              placeholder="Avatar URL"
+              value={formik.values.avatarImage}
+              onChange={formik.handleChange}
+              className="w-full border p-2 rounded-lg"
+            />
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Байршил
-              </label>
-              <input
-                name="location"
-                type="text"
-                value={form.location}
-                onChange={handleChange}
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                placeholder="Улаанбаатар, Монгол"
-              />
-            </div>
+            <input
+              name="age"
+              type="number"
+              placeholder="Age"
+              value={formik.values.age}
+              onChange={formik.handleChange}
+              className="w-full border p-2 rounded-lg"
+            />
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Төрсөн өдөр
-              </label>
-              <input
-                type="date"
-                name="birthDate"
-                value={form.birthDate}
-                onChange={handleChange}
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              />
+            <div className="flex gap-2">
+              <button type="button" onClick={() => setEditing(false)} className="flex-1 bg-gray-400 text-white py-2 rounded-lg">
+                Цуцлах
+              </button>
+              <button type="submit" className="flex-1 bg-green-500 text-white py-2 rounded-lg">
+                Хадгалах
+              </button>
             </div>
-          </>
+          </form>
         ) : (
           <>
-            <div className="flex items-center gap-3 p-3 bg-white rounded-lg">
-              <span className="text-purple-500 text-xl">👤</span>
-              <div>
-                <p className="text-gray-500 text-sm">Нэр</p>
-                <p className="font-medium text-gray-800">
-                  {form.name || "Тодорхойгүй"}
-                </p>
-              </div>
-            </div>
+            <h2 className="text-xl font-semibold">{formik.values.name || "Нэр байхгүй"}</h2>
+            <p className="text-gray-500">{formik.values.email || "Имэйл байхгүй"}</p>
+            <p className="text-gray-500">Age: {formik.values.age}</p>
 
-            <div className="flex items-center gap-3 p-3 bg-white rounded-lg">
-              <span className="text-blue-500 text-xl">📧</span>
-              <div>
-                <p className="text-gray-500 text-sm">Имэйл</p>
-                <p className="font-medium text-gray-800">
-                  {form.about || "Тодорхойгүй"}
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3 p-3 bg-white rounded-lg">
-              <span className="text-green-500 text-xl">📞</span>
-              <div>
-                <p className="text-gray-500 text-sm">Утас</p>
-                <p className="font-medium text-gray-800">
-                  {form.phone || "Тодорхойгүй"}
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3 p-3 bg-white rounded-lg">
-              <span className="text-pink-500 text-xl">📍</span>
-              <div>
-                <p className="text-gray-500 text-sm">Байршил</p>
-                <p className="font-medium text-gray-800">
-                  {form.location || "Тодорхойгүй"}
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3 p-3 bg-white rounded-lg">
-              <span className="text-yellow-500 text-xl">📅</span>
-              <div>
-                <p className="text-gray-500 text-sm">Төрсөн өдөр</p>
-                <p className="font-medium text-gray-800">
-                  {form.birthDate
-                    ? new Date(form.birthDate).toLocaleDateString("mn-MN")
-                    : "Тодорхойгүй"}
-                </p>
-              </div>
+            <div className="flex gap-3 mt-5">
+              <button onClick={() => setEditing(true)} className="flex-1 bg-purple-500 text-white py-2 rounded-lg shadow hover:opacity-90">
+                Edit profile
+              </button>
+              <button onClick={() => router.push("/subscription")} className="flex-1 bg-blue-500 text-white py-2 rounded-lg shadow hover:opacity-90">
+                Subscription
+              </button>
             </div>
           </>
         )}
       </div>
-
-      {editing ? (
-        <div className="flex gap-3 mt-6">
-          <button
-            onClick={handleCancel}
-            className="flex-1 bg-gray-500 text-white py-3 rounded-lg shadow hover:bg-gray-600 transition font-medium"
-          >
-            Цуцлах
-          </button>
-          <button
-            onClick={handleSave}
-            className="flex-1 bg-green-500 text-white py-3 rounded-lg shadow hover:bg-green-600 transition font-medium"
-          >
-            Хадгалах
-          </button>
-        </div>
-      ) : (
-        <button
-          onClick={() => setEditing(true)}
-          className="mt-6 w-full bg-gradient-to-r from-purple-500 to-blue-500 text-white py-3 rounded-lg shadow hover:opacity-90 transition font-medium"
-        >
-          Мэдээлэл засах
-        </button>
-      )}
     </div>
   );
-};
-
-export default PersonalInfo;
+}
