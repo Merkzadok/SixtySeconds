@@ -26,7 +26,7 @@ const IncorrectWordPage: React.FC = () => {
     setIsLoading(true);
 
     try {
-      const res = await fetch("http://localhost:4001/wrong/1", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/wrong/1`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
       });
@@ -50,7 +50,7 @@ const IncorrectWordPage: React.FC = () => {
     if (!sentence?.sentence || !selectedWord) return;
 
     const correct = selectedWord === sentence?.wrongWord;
-    const res = await fetch("http://localhost:4001/wrong/1", {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/wrong/1`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id: sentence.id, correct, selectedWord }),

@@ -35,10 +35,13 @@ const SpeechToTextMongolian: React.FC = () => {
   const recognitionRef = useRef<SpeechRecognition | null>(null);
 
   const fetchNextSentence = async () => {
-    const res = await fetch(`http://localhost:4001/gemini/${user?.profileId}`, {
-      method: "POST",
-      // body:JSON.stringify({sentence})
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/gemini/${user?.profileId}`,
+      {
+        method: "POST",
+        // body:JSON.stringify({sentence})
+      }
+    );
     const data = await res.json();
 
     setSentence(data);
@@ -61,7 +64,7 @@ const SpeechToTextMongolian: React.FC = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:4001/gemini/finish/${sentence?.readingId}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/gemini/finish/${sentence?.readingId}`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },

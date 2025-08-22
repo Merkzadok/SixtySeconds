@@ -12,7 +12,7 @@ const ReadingStats = () => {
     if (!user) return;
     const readingCounter = async () => {
       const response = await fetch(
-        `http://localhost:4001/gemini/stats/${user?.profileId}`
+        `${process.env.NEXT_PUBLIC_API_URL}/gemini/stats/${user?.profileId}`
       );
       const data = await response.json();
 

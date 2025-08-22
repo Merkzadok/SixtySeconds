@@ -79,7 +79,7 @@ export default function UserContextProvider({
 
       try {
         const response = await axios.get(
-          "http://localhost:4001/profile/current-user",
+          `${process.env.NEXT_PUBLIC_API_URL}/profile/current-user`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

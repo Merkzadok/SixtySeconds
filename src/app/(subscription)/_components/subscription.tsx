@@ -48,7 +48,7 @@ export default function Subscription() {
     try {
       const token = localStorage.getItem("Token"); // auth token авч байна
       await axios.post(
-        "http://localhost:4001/subscriptions",
+        `${process.env.NEXT_PUBLIC_API_URL}/subscriptions`,
         {
           userId: user.id,
           plan: billingPeriod,

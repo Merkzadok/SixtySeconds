@@ -217,7 +217,7 @@ export const PersonalInfo = () => {
       toast.loading("Saving profile...");
 
       const res = await fetch(
-        `http://localhost:4001/profile/create/${user.id}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/profile/create/${user.id}`,
         {
           method: "POST",
           headers: {
