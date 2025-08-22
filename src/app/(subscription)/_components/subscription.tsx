@@ -46,7 +46,7 @@ export default function Subscription() {
       return;
     }
     try {
-      const token = localStorage.getItem("token"); // auth token авч байна
+      const token = localStorage.getItem("Token"); // auth token авч байна
       await axios.post(
         "http://localhost:4001/subscriptions",
         {
