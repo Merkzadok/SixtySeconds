@@ -164,7 +164,7 @@ import { toast } from "sonner";
 // Define the form type based on the fields you're actually using
 type PersonalInfoFormType = {
   name: string;
-  email: string;
+  about: string;
   phone: string;
   location: string;
   birthDate: string; // ISO date string for form inputs
@@ -176,7 +176,7 @@ export const PersonalInfo = () => {
   const [editing, setEditing] = useState(false);
   const [form, setForm] = useState<PersonalInfoFormType>({
     name: "",
-    email: "",
+    about: "",
     phone: "",
     location: "",
     birthDate: "",
@@ -190,7 +190,7 @@ export const PersonalInfo = () => {
     if (user) {
       setForm({
         name: user.profile?.name || "",
-        email: user.email || "",
+        about: user.about || "",
         phone: user.phone || "",
         location: user.location || "",
         birthDate: user.birthDate
@@ -207,19 +207,18 @@ export const PersonalInfo = () => {
     }
 
     try {
-      const token = localStorage.getItem("Token:");
+      const token = localStorage.getItem("Token:"); // 👈 энд key-гээ зөв шалгаарай
       if (!token) {
         toast.error("No authentication token found");
         return;
       }
 
-      // Show loading toast
       toast.loading("Saving profile...");
 
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/profile/create/${user.id}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/profile/create/${user.id}`, // 👈 create биш, update API ашиглах нь зөв
         {
-          method: "POST",
+          method: "POST", // 👈 update үед PUT эсвэл PATCH
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
@@ -235,7 +234,6 @@ export const PersonalInfo = () => {
 
       const data = await res.json();
 
-      // Success toast with auto-navigation
       toast.success("Profile updated successfully! 🎉", {
         description: "Your changes have been saved.",
         duration: 2000,
@@ -243,7 +241,7 @@ export const PersonalInfo = () => {
 
       setEditing(false);
 
-      // Optional: If you have a setUser function in your context, update it
+      // 👇 context user update
       // setUser(data);
     } catch (err) {
       console.error("Error saving profile:", err);
@@ -259,7 +257,7 @@ export const PersonalInfo = () => {
     if (user) {
       setForm({
         name: user.profile?.name || "",
-        email: user.email || "",
+        about: user.about || "",
         phone: user.phone || "",
         location: user.location || "",
         birthDate: user.birthDate
@@ -298,9 +296,9 @@ export const PersonalInfo = () => {
                 Имэйл
               </label>
               <input
-                name="email"
-                type="email"
-                value={form.email}
+                name="about"
+                type="text"
+                value={form.about}
                 onChange={handleChange}
                 className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 placeholder="example@email.com"
@@ -365,7 +363,7 @@ export const PersonalInfo = () => {
               <div>
                 <p className="text-gray-500 text-sm">Имэйл</p>
                 <p className="font-medium text-gray-800">
-                  {form.email || "Тодорхойгүй"}
+                  {form.about || "Тодорхойгүй"}
                 </p>
               </div>
             </div>

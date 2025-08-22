@@ -75,7 +75,7 @@ export default function UserContextProvider({
 
   useEffect(() => {
     const getCurrentUserByAccessToken = async () => {
-      const token = localStorage.getItem("Token") as string;
+      const token = localStorage.getItem("Token:") as string;
 
       try {
         const response = await axios.get(
