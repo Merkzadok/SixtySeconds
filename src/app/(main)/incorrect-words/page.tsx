@@ -20,11 +20,8 @@ const IncorrectWordPage: React.FC = () => {
     correct: boolean;
     score: number;
   } | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
 
   const fetchSentence = async () => {
-    setIsLoading(true);
-
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/wrong/1`, {
         method: "POST",
@@ -38,7 +35,6 @@ const IncorrectWordPage: React.FC = () => {
     } catch (error) {
       console.log(error);
     } finally {
-      setIsLoading(false);
     }
   };
 

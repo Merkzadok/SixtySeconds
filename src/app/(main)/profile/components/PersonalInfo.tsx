@@ -190,7 +190,7 @@ export const PersonalInfo = () => {
     if (user) {
       setForm({
         name: user.profile?.name || "",
-        about: user.about || "",
+        about: user.profile?.about || "",
         phone: user.phone || "",
         location: user.location || "",
         birthDate: user.birthDate
@@ -257,7 +257,7 @@ export const PersonalInfo = () => {
     if (user) {
       setForm({
         name: user.profile?.name || "",
-        about: user.about || "",
+        about: user.profile?.about || "",
         phone: user.phone || "",
         location: user.location || "",
         birthDate: user.birthDate
