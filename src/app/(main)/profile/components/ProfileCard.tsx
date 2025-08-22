@@ -4,13 +4,14 @@ export const ProfileCard = () => {
   return (
     <div className="flex items-center gap-4 bg-gradient-to-r from-pink-400 via-purple-400 to-indigo-400 p-6 rounded-2xl shadow-lg text-white max-w max-auto">
       {/* Профайл зураг */}
-      <Image
-        src="https://via.placeholder.com/80"
-        alt="Аватар"
-        width={80}
-        height={80}
-        className="rounded-full border-4 border-white shadow-lg object-cover"
-      />
+<Image
+  src="https://via.placeholder.com/80"
+  alt="Аватар"
+  width={80}
+  height={80}
+  className="rounded-full border-4 border-white shadow-lg object-cover"
+/>
+
 
       {/* Мэдээлэл */}
       <div>
