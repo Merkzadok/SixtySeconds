@@ -3,7 +3,7 @@ import PersonalInfo from "./components/PersonalInfo";
 import { AccountSecurity } from "./components/Security";
 import UserProfile from "./components/ProfileCard";
 
-export const ProfilePage = () => {
+export default function ProfilePage() {
   return (
     <div className="space-y-8">
       <UserProfile />
@@ -18,5 +18,4 @@ export const ProfilePage = () => {
       <Payment />
     </div>
   );
-};
-export default ProfilePage;
+}

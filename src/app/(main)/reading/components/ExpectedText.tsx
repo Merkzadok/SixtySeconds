@@ -19,7 +19,7 @@ const ExpectedText: React.FC<Props> = ({ expectedText, actualText }) => {
           <span
             key={index}
             className={
-              part.matched ? "text-green-600 font-semibold" : "text-gray-700"
+              part.isMatch ? "text-green-600 font-semibold" : "text-gray-700"
             }
           >
             {part.word}
