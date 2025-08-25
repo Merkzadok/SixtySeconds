@@ -1,52 +1,3 @@
-// "use client";
-
-// import { UserType } from "@/type";
-// import axios from "axios";
-// import React, { createContext, useContext, useEffect, useState } from "react";
-
-// type userContextType = {
-//   user: UserType | null;
-// };
-
-// const UserContext = createContext({} as userContextType);
-
-// export default function UserContextProvider({
-//   children,
-// }: {
-//   children: React.ReactNode;
-// }) {
-//   const [user, setUser] = useState<null | UserType>(null);
-
-//   useEffect(() => {
-//     const getCurrentUserByAccessToken = async () => {
-//       const token = localStorage.getItem("Token:") as string;
-
-//       if (!token) return;
-//       try {
-//         const response = await axios.get(
-//           "http://localhost:4001/profile/current-user",
-//           {
-//             headers: {
-//               Authorization: `Bearer ${token}`,
-//             },
-//           }
-//         );
-
-//         setUser(response?.data?.user);
-//       } catch (error) {
-//         console.log(error);
-//       }
-//     };
-//     getCurrentUserByAccessToken();
-//   }, []);
-
-//   return (
-//     <UserContext.Provider value={{ user }}>{children}</UserContext.Provider>
-//   );
-// }
-
-// export const useUser = () => useContext(UserContext);
-
 "use client";
 
 import { UserType } from "@/type";
@@ -65,46 +16,33 @@ const UserContext = createContext<UserContextType>({
   loading: true,
 });
 
-export default function UserContextProvider({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function UserContextProvider({ children }: { children: React.ReactNode }) {
+
   const [user, setUser] = useState<UserType | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const getCurrentUserByAccessToken = async () => {
-      const token = localStorage.getItem("Token:") as string;
+    const fetchCurrentUser = async () => {
+      const token = localStorage.getItem("Token:");
+      if (!token) return setLoading(false);
 
       try {
-        const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_URL}/profile/current-user`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-
-        setUser(response?.data?.user);
-      } catch (error) {
-        console.log("Error fetching user:", error);
-        // Optionally remove invalid token
+        const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/profile/current-user`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setUser(res.data.user);
+      } catch (err) {
+        console.error("Error fetching user:", err);
         setUser(null);
       } finally {
         setLoading(false);
       }
     };
 
-    getCurrentUserByAccessToken();
+    fetchCurrentUser();
   }, []);
 
-  return (
-    <UserContext.Provider value={{ user, setUser, loading }}>
-      {children}
-    </UserContext.Provider>
-  );
+  return <UserContext.Provider value={{ user, setUser, loading }}>{children}</UserContext.Provider>;
 }
 
 export const useUser = () => useContext(UserContext);

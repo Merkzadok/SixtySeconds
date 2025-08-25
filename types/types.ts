@@ -27,3 +27,16 @@ export interface Statistics {
   activelearners: number;
   languagesAvailable: number;
 }
+export type ProfileType = {
+  id: number;
+  name: string;
+  about?: string;
+  avatarImage: string;
+  age: number;
+};
+
+export type UserType = {
+  id: number;
+  email: string;
+  profile: ProfileType;
+};

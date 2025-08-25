@@ -8,10 +8,10 @@ import MainHeader from "@/app/(main)/home/components/MainHeader";
 type BillingPeriod = "free" | "monthly" | "quarterly" | "yearly";
 
 const billingOptions = [
-  { key: "free" as BillingPeriod, label: "Free", price: 0 },
-  { key: "monthly" as BillingPeriod, label: "Monthly", price: 19900 },
-  { key: "quarterly" as BillingPeriod, label: "Three Month", price: 49900 },
-  { key: "yearly" as BillingPeriod, label: "Yearly", price: 179900 },
+  { key: "free" as BillingPeriod, label: "Free", price: 0, planId: 1 },
+  { key: "monthly" as BillingPeriod, label: "Monthly", price: 19900, planId: 2 },
+  { key: "quarterly" as BillingPeriod, label: "Three Month", price: 49900, planId: 3 },
+  { key: "yearly" as BillingPeriod, label: "Yearly", price: 179900, planId: 4 },
 ];
 
 const features = [
@@ -27,9 +27,7 @@ const features = [
 
 export default function Subscription() {
   const [billingPeriod, setBillingPeriod] = useState<BillingPeriod>("free");
-
-  const { user } = useUser(); //users context herglegchiin medeelel awah
-
+  const { user } = useUser();
   const currentOption = billingOptions.find((o) => o.key === billingPeriod)!;
 
   const formatPrice = (price: number) =>
@@ -38,47 +36,58 @@ export default function Subscription() {
     const months = period === "quarterly" ? 3 : period === "yearly" ? 12 : 1;
     return Math.floor(price / months);
   };
+const handleSubscribe = async () => {
+  if (!user) {
+    alert("Та эхлээд нэвтэрнэ үү!");
+    return;
+  }
 
-  // 👇 subscription hadgalah
-  const handleSubscribe = async () => {
-    if (!user) {
-      alert("Та эхлээд нэвтэрнэ үү!");
+  const token = localStorage.getItem("Token:");
+  if (!token) {
+    alert("Та нэвтэрсэн байх шаардлагатай.");
+    return;
+  }
+
+  try {
+    const res = await axios.post(
+      `${process.env.NEXT_PUBLIC_API_URL}/subscriptions/create`,
+      {
+        userId: user.id,
+        planId: currentOption.planId,
+      },
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+
+    if (res.data.activeSubscription) {
+      alert(
+        `Таны идэвхтэй subscription аль хэдийн бий.\n` +
+        `Төлөв: ${res.data.activeSubscription.status}\n` +
+        `Эхлэх: ${new Date(res.data.activeSubscription.startDate).toLocaleDateString()}\n` +
+        `Дуусах: ${new Date(res.data.activeSubscription.endDate).toLocaleDateString()}`
+      );
       return;
     }
-    try {
-      const token = localStorage.getItem("Token"); // auth token авч байна
-      await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/subscriptions`,
-        {
-          userId: user.id,
-          plan: billingPeriod,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
 
+    if (res.status === 201) {
       alert("Таны subscription амжилттай бүртгэгдлээ!");
-    } catch (error) {
-      console.error(error);
-      alert("Алдаа гарлаа, дахин оролдоно уу.");
     }
-  };
+
+  } catch (error: any) {
+    console.error("Front-end - Subscription error:", error.response?.data || error.message);
+    alert("Алдаа гарлаа, дахин оролдоно уу.");
+  }
+};
 
   return (
     <div className="min-h-screen bg-gradient-to-b ">
       <MainHeader />
-      <div className="flex flex-col items-center text-center mb-10">
+      <div className="mt-12 flex flex-col items-center text-center mb-10">
         <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent">
           Subscription
         </h1>
       </div>
 
-      {/* Billing Card */}
       <div className="max-w-xl mx-auto bg-white rounded-3xl shadow-2xl p-8">
-        {/* Billing Options */}
         <div className="mb-6 grid grid-cols-4 gap-2 bg-gray-100 p-2 rounded-2xl">
           {billingOptions.map((option) => (
             <button
@@ -93,7 +102,6 @@ export default function Subscription() {
           ))}
         </div>
 
-        {/* Pricing */}
         <div className="text-center mb-6">
           {currentOption.price === 0 ? (
             <p className="text-3xl md:text-4xl font-bold text-green-500">
@@ -114,7 +122,6 @@ export default function Subscription() {
           )}
         </div>
 
-        {/* Features */}
         <div className="mb-6">
           <h4 className="text-center text-lg font-semibold text-gray-800 mb-4">
             Багтсан боломжууд
@@ -127,10 +134,7 @@ export default function Subscription() {
           ) : (
             <div className="grid md:grid-cols-2 gap-3">
               {features.map((f, i) => (
-                <div
-                  key={i}
-                  className="flex items-center text-gray-700 p-2 rounded-lg"
-                >
+                <div key={i} className="flex items-center text-gray-700 p-2 rounded-lg">
                   <Check className="w-5 h-5 text-green-400 mr-2" />
                   {f}
                 </div>
@@ -139,7 +143,6 @@ export default function Subscription() {
           )}
         </div>
 
-        {/* CTA Button */}
         <button
           onClick={handleSubscribe}
           className="w-full py-4 bg-gray-200 hover:bg-gray-300 text-black font-bold text-lg rounded-2xl shadow-lg "

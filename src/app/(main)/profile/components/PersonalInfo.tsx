@@ -1,433 +1,237 @@
-// "use client";
-// import { useUser } from "@/provider/CurrentUser";
-// import React, { useEffect, useState } from "react";
-
-// export const PersonalInfo = () => {
-//   const { user } = useUser();
-
-//   const [editing, setEditing] = useState(false);
-//   const [form, setForm] = useState<any>({
-//     name: "",
-//     about: "",
-//     avatarImage: "",
-//     birthDate: "",
-//   });
-
-//   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-//     setForm({ ...form, [e.target.name]: e.target.value });
-//   };
-
-//   useEffect(() => {
-//     if (user) {
-//       setForm({
-//         ...user,
-//         birthDate: user.birthDate
-//           ? new Date(user.birthDate).toISOString().split("T")[0]
-//           : "",
-//       });
-//     }
-//   }, [user]);
-
-//   const handleSave = async () => {
-//     if (!user) return;
-
-//     try {
-//       const token = localStorage.getItem("Token:");
-//       if (!token) {
-//         console.error("No token found. User not authenticated.");
-//         return;
-//       }
-
-//       const res = await fetch(
-//         `http://localhost:4001/profile/create/${user.id}`,
-//         {
-//           method: "POST",
-//           headers: {
-//             "Content-Type": "application/json",
-//             Authorization: `Bearer ${token}`,
-//           },
-//           body: JSON.stringify(form),
-//         }
-//       );
-
-//       if (!res.ok) throw new Error("Failed to update profile");
-
-//       const data = await res.json();
-
-//       // if your provider has setUser, update it here
-//       // setUser(data);
-
-//       setEditing(false);
-//     } catch (err) {
-//       console.error(err);
-//     }
-//   };
-
-//   return (
-//     <div className="max-w-md mx-auto bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl shadow-lg p-6">
-//       <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
-//         <span>👤</span> Хувийн мэдээлэл
-//       </h2>
-
-//       <div className="space-y-4">
-//         {editing ? (
-//           <>
-//             <input
-//               name="name"
-//               value={form.name}
-//               onChange={handleChange}
-//               className="w-full p-2 border rounded"
-//               placeholder="Имэйл"
-//             />
-//             <input
-//               name="about"
-//               value={form.about}
-//               onChange={handleChange}
-//               className="w-full p-2 border rounded"
-//               placeholder="Утас"
-//             />
-//             <input
-//               name="avatarImage"
-//               value={form.avatarImage}
-//               onChange={handleChange}
-//               className="w-full p-2 border rounded"
-//               placeholder="Байршил"
-//             />
-//             <input
-//               type="date"
-//               name="birthDate"
-//               value={form.birthDate}
-//               onChange={handleChange}
-//               className="w-full p-2 border rounded"
-//             />
-//           </>
-//         ) : (
-//           <>
-//             <div className="flex items-center gap-3">
-//               <span className="text-blue-500 text-xl">📧</span>
-//               <div>
-//                 <p className="text-gray-500 text-sm">Имэйл</p>
-//                 <p className="font-medium text-gray-800">{form.email}</p>
-//               </div>
-//             </div>
-//             <div className="flex items-center gap-3">
-//               <span className="text-green-500 text-xl">📞</span>
-//               <div>
-//                 <p className="text-gray-500 text-sm">Утас</p>
-//                 <p className="font-medium text-gray-800">{form.phone}</p>
-//               </div>
-//             </div>
-//             <div className="flex items-center gap-3">
-//               <span className="text-pink-500 text-xl">📍</span>
-//               <div>
-//                 <p className="text-gray-500 text-sm">Байршил</p>
-//                 <p className="font-medium text-gray-800">{form.location}</p>
-//               </div>
-//             </div>
-//             <div className="flex items-center gap-3">
-//               <span className="text-yellow-500 text-xl">📅</span>
-//               <div>
-//                 <p className="text-gray-500 text-sm">Төрсөн өдөр</p>
-//                 <p className="font-medium text-gray-800">{form.birthDate}</p>
-//               </div>
-//             </div>
-//           </>
-//         )}
-//       </div>
-
-//       {editing ? (
-//         <button
-//           onClick={handleSave}
-//           className="mt-6 w-full bg-green-500 text-white py-2 rounded-lg shadow hover:opacity-90 transition"
-//         >
-//           Хадгалах
-//         </button>
-//       ) : (
-//         <button
-//           onClick={() => setEditing(true)}
-//           className="mt-6 w-full bg-gradient-to-r from-purple-500 to-blue-500 text-white py-2 rounded-lg shadow hover:opacity-90 transition"
-//         >
-//           Мэдээлэл засах
-//         </button>
-//       )}
-//     </div>
-//   );
-// };
-
-// export default PersonalInfo;
 "use client";
-import { useUser } from "@/provider/CurrentUser";
-import { UserType } from "@/type";
-import React, { useEffect, useState } from "react";
-import { toast } from "sonner";
 
-// Define the form type based on the fields you're actually using
-type PersonalInfoFormType = {
-  name: string;
-  about: string;
-  phone: string;
-  location: string;
-  birthDate: string; // ISO date string for form inputs
+import { useUser } from "@/provider/CurrentUser";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { useState, ChangeEvent } from "react";
+import { useRouter } from "next/navigation";
+import { User, Mail, Image, Calendar, Edit3, CreditCard, Loader2 } from "lucide-react";
+
+type ProfileForm = {
+  username: string;
+  email: string;
+  avatarImage: string;
+  age: number;
 };
 
-export const PersonalInfo = () => {
-  const { user } = useUser();
-
+export default function ProfileCard() {
+  const { user, setUser, loading } = useUser();
   const [editing, setEditing] = useState(false);
-  const [form, setForm] = useState<PersonalInfoFormType>({
-    name: "",
-    about: "",
-    phone: "",
-    location: "",
-    birthDate: "",
-  });
+  const router = useRouter();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
-
-  useEffect(() => {
-    if (user) {
-      setForm({
-        name: user.profile?.name || "",
-        about: user.profile?.about || "",
-        phone: user.phone || "",
-        location: user.location || "",
-        birthDate: user.birthDate
-          ? new Date(user.birthDate).toISOString().split("T")[0]
-          : "",
-      });
-    }
-  }, [user]);
-
-  const handleSave = async () => {
-    if (!user) {
-      toast.error("User not found");
-      return;
-    }
-
+  const handleProfileSave = async (values: ProfileForm) => {
     try {
-      const token = localStorage.getItem("Token:"); // 👈 энд key-гээ зөв шалгаарай
-      if (!token) {
-        toast.error("No authentication token found");
-        return;
+      const token = localStorage.getItem("Token:");
+      if (!token || !user) return;
+
+      let url = "";
+      let method: "POST" | "PUT" = "PUT";
+
+  
+      if (!user.profile) {
+        url = `${process.env.NEXT_PUBLIC_API_URL}/profile/create/${user.id}`;
+        method = "POST";
+      } else {
+        url = `${process.env.NEXT_PUBLIC_API_URL}/profile/update/${user.id}`;
+        method = "PUT";
       }
 
-      toast.loading("Saving profile...");
+      const res = await fetch(url, {
+        method,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          name: values.username,
+          avatarImage: values.avatarImage,
+          age: values.age,
+        }),
+      });
 
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/profile/create/${user.id}`, // 👈 create биш, update API ашиглах нь зөв
-        {
-          method: "POST", // 👈 update үед PUT эсвэл PATCH
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify(form),
-        }
-      );
-
-      if (!res.ok) {
-        const errorData = await res.json();
-        throw new Error(errorData.message || "Failed to update profile");
-      }
+      if (!res.ok) throw new Error("Failed to save profile");
 
       const data = await res.json();
 
-      toast.success("Profile updated successfully! 🎉", {
-        description: "Your changes have been saved.",
-        duration: 2000,
+      setUser({
+        ...user,
+        email: values.email,
+        profile: {
+          ...data.userProfile ?? data.profile,
+          avatarImage: data.userProfile?.avatarImage || data.profile?.avatarImage || "",
+          age: data.userProfile?.age || data.profile?.age || 0,
+        },
       });
 
       setEditing(false);
-
-      // 👇 context user update
-      // setUser(data);
     } catch (err) {
-      console.error("Error saving profile:", err);
-      toast.error("Failed to save profile", {
-        description:
-          err instanceof Error ? err.message : "Please try again later",
-      });
+      console.error(err);
     }
   };
 
-  const handleCancel = () => {
-    // Reset form to original values
-    if (user) {
-      setForm({
-        name: user.profile?.name || "",
-        about: user.profile?.about || "",
-        phone: user.phone || "",
-        location: user.location || "",
-        birthDate: user.birthDate
-          ? new Date(user.birthDate).toISOString().split("T")[0]
-          : "",
-      });
-    }
-    setEditing(false);
-  };
+  const formik = useFormik<ProfileForm>({
+    initialValues: {
+      username: user?.profile?.name || "",
+      email: user?.email || "",
+      avatarImage: user?.profile?.avatarImage || "",
+      age: user?.profile?.age || 0,
+    },
+    enableReinitialize: true,
+    validationSchema: Yup.object({
+      username: Yup.string().required("Нэр оруулах шаардлагатай"),
+      email: Yup.string().email("Зөв имэйл оруулна уу").required("Имэйл шаардлагатай"),
+    }),
+    onSubmit: handleProfileSave,
+  });
+
+  if (loading)
+    return (
+      <div className="max-w-md mx-auto p-8 text-center">
+        <Loader2 className="w-12 h-12 mx-auto text-purple-500 animate-spin" />
+        <p className="text-lg font-semibold text-purple-600 mt-4">Loading...</p>
+      </div>
+    );
+
+  if (!user)
+    return (
+      <div className="max-w-md mx-auto p-8 text-center bg-red-100 rounded-3xl">
+        <p className="text-lg font-semibold text-red-600">No user found</p>
+      </div>
+    );
 
   return (
-    <div className="max-w-md mx-auto bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl shadow-lg p-6">
-      <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
-        <span>👤</span> Хувийн мэдээлэл
-      </h2>
+    <div className="mt-12 max-w-md mx-auto bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-200 relative">
+      {/* bg imgg */}
+      <div className="relative h-40">
+        <img src="/kids.png" alt="Header background" className="absolute inset-0 w-full h-full object-cover" />
+        <div className="absolute inset-0 bg-black/20" />
+        <svg
+          className="absolute bottom-0 left-0 w-full h-16"
+          xmlns="http://www.w3.org/2000/svg"
+          preserveAspectRatio="none"
+          viewBox="0 0 1440 320"
+        >
+          <path
+            fill="#ffffff"
+            d="M0,224L60,213.3C120,203,240,181,360,181.3C480,181,600,203,720,208C840,213,960,203,1080,197.3C1200,192,1320,192,1380,192L1440,192L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"
+          />
+        </svg>
 
-      <div className="space-y-4">
-        {editing ? (
-          <>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Нэр
-              </label>
-              <input
-                name="name"
-                type="text"
-                value={form.name}
-                onChange={handleChange}
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                placeholder="Таны нэр"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Имэйл
-              </label>
-              <input
-                name="about"
-                type="text"
-                value={form.about}
-                onChange={handleChange}
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                placeholder="example@email.com"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Утас
-              </label>
-              <input
-                name="phone"
-                type="tel"
-                value={form.phone}
-                onChange={handleChange}
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                placeholder="+976 9999 9999"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Байршил
-              </label>
-              <input
-                name="location"
-                type="text"
-                value={form.location}
-                onChange={handleChange}
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                placeholder="Улаанбаатар, Монгол"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Төрсөн өдөр
-              </label>
-              <input
-                type="date"
-                name="birthDate"
-                value={form.birthDate}
-                onChange={handleChange}
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              />
-            </div>
-          </>
-        ) : (
-          <>
-            <div className="flex items-center gap-3 p-3 bg-white rounded-lg">
-              <span className="text-purple-500 text-xl">👤</span>
-              <div>
-                <p className="text-gray-500 text-sm">Нэр</p>
-                <p className="font-medium text-gray-800">
-                  {form.name || "Тодорхойгүй"}
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3 p-3 bg-white rounded-lg">
-              <span className="text-blue-500 text-xl">📧</span>
-              <div>
-                <p className="text-gray-500 text-sm">Имэйл</p>
-                <p className="font-medium text-gray-800">
-                  {form.about || "Тодорхойгүй"}
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3 p-3 bg-white rounded-lg">
-              <span className="text-green-500 text-xl">📞</span>
-              <div>
-                <p className="text-gray-500 text-sm">Утас</p>
-                <p className="font-medium text-gray-800">
-                  {form.phone || "Тодорхойгүй"}
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3 p-3 bg-white rounded-lg">
-              <span className="text-pink-500 text-xl">📍</span>
-              <div>
-                <p className="text-gray-500 text-sm">Байршил</p>
-                <p className="font-medium text-gray-800">
-                  {form.location || "Тодорхойгүй"}
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3 p-3 bg-white rounded-lg">
-              <span className="text-yellow-500 text-xl">📅</span>
-              <div>
-                <p className="text-gray-500 text-sm">Төрсөн өдөр</p>
-                <p className="font-medium text-gray-800">
-                  {form.birthDate
-                    ? new Date(form.birthDate).toLocaleDateString("mn-MN")
-                    : "Тодорхойгүй"}
-                </p>
-              </div>
-            </div>
-          </>
-        )}
+        {/* profile zurgg */}
+        <div className="absolute -bottom-12 left-1/2 -translate-x-1/2 cursor-pointer w-24 h-24 rounded-full overflow-hidden shadow-xl ring-4 ring-white bg-white">
+          <label htmlFor="avatar-input" className="w-full h-full block relative">
+            <img src="/avatar-bg.png" alt="avatar background" className="absolute inset-0 w-full h-full object-cover" />
+            <img
+              src={formik.values.avatarImage || "/default-avatar.png"}
+              alt="avatar"
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+          </label>
+          <input
+            type="file"
+            id="avatar-input"
+            accept="image/*"
+            className="hidden"
+            onChange={(e: ChangeEvent<HTMLInputElement>) => {
+              const file = e.target.files?.[0];
+              if (file) {
+                const reader = new FileReader();
+                reader.onloadend = () => {
+                  formik.setFieldValue("avatarImage", reader.result);
+                };
+                reader.readAsDataURL(file);
+              }
+            }}
+          />
+        </div>
       </div>
 
-      {editing ? (
-        <div className="flex gap-3 mt-6">
-          <button
-            onClick={handleCancel}
-            className="flex-1 bg-gray-500 text-white py-3 rounded-lg shadow hover:bg-gray-600 transition font-medium"
-          >
-            Цуцлах
-          </button>
-          <button
-            onClick={handleSave}
-            className="flex-1 bg-green-500 text-white py-3 rounded-lg shadow hover:bg-green-600 transition font-medium"
-          >
-            Хадгалах
-          </button>
-        </div>
-      ) : (
-        <button
-          onClick={() => setEditing(true)}
-          className="mt-6 w-full bg-gradient-to-r from-purple-500 to-blue-500 text-white py-3 rounded-lg shadow hover:opacity-90 transition font-medium"
-        >
-          Мэдээлэл засах
-        </button>
-      )}
+      
+      <div className="pt-16 pb-8 px-8">
+        {editing ? (
+          <form onSubmit={formik.handleSubmit} className="space-y-5">
+            {/* Username */}
+            <div>
+              <label className="flex items-center gap-2 text-gray-700 font-medium mb-1">
+                <User className="w-5 h-5 text-purple-500" /> Нэр
+              </label>
+              <input
+                name="username"
+                value={formik.values.username}
+                onChange={formik.handleChange}
+                className="w-full border rounded-xl p-3 focus:ring-2 focus:ring-purple-400 outline-none"
+                placeholder="Нэрээ бичнэ үү"
+              />
+              {formik.errors.username && <p className="text-red-500 text-sm mt-1">{formik.errors.username}</p>}
+            </div>
+
+            <div>
+              <label className="flex items-center gap-2 text-gray-700 font-medium mb-1">
+                <Mail className="w-5 h-5 text-blue-500" /> Имэйл
+              </label>
+              <input
+                name="email"
+                value={formik.values.email}
+                onChange={formik.handleChange}
+                className="w-full border rounded-xl p-3 focus:ring-2 focus:ring-blue-400 outline-none"
+                placeholder="Имэйл хаяг"
+              />
+              {formik.errors.email && <p className="text-red-500 text-sm mt-1">{formik.errors.email}</p>}
+            </div>
+
+            <div>
+              <label className="flex items-center gap-2 text-gray-700 font-medium mb-1">
+                <Calendar className="w-5 h-5 text-orange-500" /> Нас
+              </label>
+              <input
+                type="number"
+                name="age"
+                value={formik.values.age}
+                onChange={formik.handleChange}
+                className="w-full border rounded-xl p-3 focus:ring-2 focus:ring-orange-400 outline-none"
+                placeholder="Нас"
+              />
+            </div>
+
+            {/* savee */}
+            <div className="flex gap-3">
+              <button
+                type="button"
+                onClick={() => setEditing(false)}
+                className="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-800 py-3 rounded-xl font-semibold transition"
+              >
+                Цуцлах
+              </button>
+              <button
+                type="submit"
+                className="flex-1 bg-emerald-500 hover:bg-emerald-600 text-white py-3 rounded-xl font-semibold transition"
+              >
+                Хадгалах
+              </button>
+            </div>
+          </form>
+        ) : (
+          <div className="text-center space-y-2">
+            <h2 className="text-2xl font-bold text-gray-900">{formik.values.username || "Нэр байхгүй"}</h2>
+            <p className="text-gray-600">{formik.values.email || "Имэйл байхгүй"}</p>
+            <p className="text-gray-700 font-medium">{formik.values.age} нас</p>
+            <div className="mt-6 flex gap-3">
+              <button
+                onClick={() => setEditing(true)}
+                className="flex-1 bg-purple-500 hover:bg-purple-600 text-white py-3 rounded-xl font-semibold transition flex items-center justify-center gap-2"
+              >
+                <Edit3 className="w-5 h-5" /> Засах
+              </button>
+              <button
+                onClick={() => router.push("/subscription")}
+                className="flex-1 bg-blue-500 hover:bg-blue-600 text-white py-3 rounded-xl font-semibold transition flex items-center justify-center gap-2"
+              >
+                <CreditCard className="w-5 h-5" /> Гишүүнчлэл
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
-};
-
-export default PersonalInfo;
+}

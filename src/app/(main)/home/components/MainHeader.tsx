@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Button } from "@/Components/ui/button";
 import {
   Menu,
@@ -14,10 +14,8 @@ import {
   Crown,
 } from "lucide-react";
 import Navigation from "./Navigation";
-
 import ProfileAvatar from "./ProfileAvatar";
 import MobileNavigation from "./MobileNavigation";
-import Link from "next/link";
 
 export type NavigationItem = {
   id: string;
@@ -28,7 +26,7 @@ export type NavigationItem = {
 
 export default function MainHeader() {
   const pathname = usePathname();
-
+  const router = useRouter();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const userScore = 2847;
@@ -38,67 +36,50 @@ export default function MainHeader() {
     { id: "home", label: "Home", icon: Home, href: "/home" },
     { id: "reading", label: "Reading", icon: BookOpen, href: "/reading" },
     { id: "games", label: "Games", icon: Gamepad2, href: "/games" },
-    {
-      id: "leaderboard",
-      label: "Leaderboard",
-      icon: Trophy,
-      href: "/leaderboard",
-    },
+    { id: "leaderboard", label: "Leaderboard", icon: Trophy, href: "/leaderboard" },
     { id: "stats", label: "Stats", icon: Crown, href: "/stats" },
-    {
-      id: "incorrect-words",
-      label: "Incorrect Words",
-      icon: Crown,
-      href: "/incorrect-words",
-    },
+    { id: "incorrect-words", label: "Incorrect Words", icon: Crown, href: "/incorrect-words" },
   ];
 
   let activeSection = "home";
+  if (pathname?.startsWith("/games")) activeSection = "games";
+  else if (pathname?.startsWith("/reading")) activeSection = "reading";
+  else if (pathname?.startsWith("/leaderboard")) activeSection = "leaderboard";
+  else if (pathname === "/" || pathname === "/home") activeSection = "home";
+  else if (pathname?.startsWith("/subscription")) activeSection = "subscription";
 
-  if (pathname?.startsWith("/games")) {
-    activeSection = "games";
-  } else if (pathname?.startsWith("/reading")) {
-    activeSection = "reading";
-  } else if (pathname?.startsWith("/leaderboard")) {
-    activeSection = "leaderboard";
-  } else if (pathname === "/" || pathname === "/home") {
-    activeSection = "home";
-  } else if (pathname?.startsWith("/subscription")) {
-    activeSection = "subscription";
-  }
   return (
     <header className="bg-white/80 backdrop-blur-md border-b border-purple-100 sticky top-0 z-50 cursor-pointer">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 ">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <Link href="/home">
-            <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-gradient-to-br from-purple-400 to-pink-400 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">L</span>
-              </div>
-              <span className="font-bold text-xl text-gray-800">60sec</span>
+          <div
+            className="flex items-center space-x-2 cursor-pointer"
+            onClick={() => router.push("/home")}
+          >
+            <div className="w-8 h-8 bg-gradient-to-br from-purple-400 to-pink-400 rounded-lg flex items-center justify-center">
+              <span className="text-white font-bold text-sm">L</span>
             </div>
-          </Link>
+            <span className="font-bold text-xl text-gray-800">60sec</span>
+          </div>
+
           <Navigation
             navigationItems={navigationItems}
-            activeSection={activeSection} // pass activeSection derived from router
-            setActiveSection={() => {}} // no-op setter or remove if not needed
+            activeSection={activeSection}
+            setActiveSection={() => {}}
           />
 
           <div className="flex items-center space-x-4">
-            <div className="hidden sm:flex"></div>
-            <Link href="/subscription">
-              <Button
-                className="hidden md:flex items-center space-x-2 bg-gradient-to-r cursor-pointer from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-md hover:shadow-lg transition-all duration-300"
-                onClick={() => {}}
-              >
-                <Crown size={16} />
-                <span>Subscribe</span>
-              </Button>
-            </Link>
-            <Link href="/profile">
-              <ProfileAvatar />
-            </Link>
+
+            <Button
+              className="hidden md:flex items-center space-x-2 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-md hover:shadow-lg transition-all duration-300"
+              onClick={() => router.push("/subscription")}
+            >
+              <Crown size={16} />
+              <span>Subscribe</span>
+            </Button>
+
+
+            <ProfileAvatar />
 
             <Button
               variant="ghost"
@@ -110,12 +91,11 @@ export default function MainHeader() {
             </Button>
           </div>
         </div>
-
         {isMobileMenuOpen && (
           <MobileNavigation
             navigationItems={navigationItems}
             activeSection={activeSection}
-            setActiveSection={() => {}} // no-op setter
+            setActiveSection={() => {}}
             userRating={userRating}
             userScore={userScore}
             closeMenu={() => setIsMobileMenuOpen(false)}

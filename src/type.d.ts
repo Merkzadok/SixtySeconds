@@ -22,21 +22,17 @@ declare module "/game-app.json" {
   export default value;
 }
 
-// User type
-export type UserType = {
-  avatarImage: string;
+export type ProfileType = {
+  id: number;
   name: string;
+  about?: string;
+  avatarImage: string;
+  age: number;
+};
+
+export type UserType = {
   id: number;
   email: string;
-  phone: string;
-  birthDate: Date;
-  location: string;
-  username: string;
-  password: string;
-  profile: {
-    id: number;
-    name: string;
-    about: string;
-  };
-  profileId: number;
+  username:string,
+  profile: ProfileType;
 };
