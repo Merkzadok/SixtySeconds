@@ -1,7 +1,7 @@
 "use client";
 import { BarChart3, Clock, TrendingUp, Trophy } from "lucide-react";
 import { useEffect, useState } from "react";
-import { Reading } from "../../../../../types/types";
+import { Reading } from "../../../../types/types";
 import { useUser } from "@/provider/CurrentUser";
 
 const ReadingStats = () => {
@@ -22,18 +22,16 @@ const ReadingStats = () => {
   }, [user]);
 
   return (
-    <div className="min-h-screen pt-16 bg-gradient-to-br from-pink-50 via-purple-50 to-blue-50">
-      <div className="max-w-7xl mx-auto p-8">
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-800 mb-2">
-            Stats Dashboard
-          </h1>
-          <p className="text-gray-600">
-            Track User&apos;s reading progress and achievements
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+    <div>
+      <div className=" flex flex-col items-center text-center mb-7 mt-12 ">
+        <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent">
+          Амжилтын самбар
+        </h1>
+        <p className="text-muted-foreground text-lg md:text-xl mt-2">
+          Бусад суралцагчидтай өөрийгөө харьцуулж үзээрэй!
+        </p>
+      </div>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8 ">
           {/* Stats Overview */}
           <div className="lg:col-span-2 space-y-6">
             {/* Quick Stats */}
@@ -72,7 +70,6 @@ const ReadingStats = () => {
           </div>
         </div>
       </div>
-    </div>
   );
 };
 

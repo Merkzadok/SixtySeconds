@@ -2,6 +2,7 @@
 import React from "react";
 import { BarChart3, Book } from "lucide-react";
 import LeaderboardUser from "./LeaderboardUser";
+import ReadingStats from "./ReadingStats";
 
 const users = [
   { name: "Emma", lessons: 12, points: 980, rank: 1 },
@@ -15,17 +16,8 @@ const currentUser = "Liam";
 const LeaderBoard = () => {
   return (
     <div className="max-w-6xl mx-auto px-4 ">
-      <div className="flex flex-col items-center text-center mb-10 mt-12 ">
-        <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent">
-          Амжилтын самбар
-        </h1>
-        <p className="text-muted-foreground text-lg md:text-xl mt-2">
-          Бусад суралцагчидтай өөрийгөө харьцуулж үзээрэй!
-        </p>
-      </div>
-
-      {/* Rankings */}
       <div className="max-w-3xl mx-auto space-y-8">
+    <ReadingStats/>
         <div className="bg-white/90 backdrop-blur rounded-2xl p-6 shadow-md border border-gray-200">
           <h2 className="text-xl font-semibold mb-4 text-gray-800">
             Шилдэг суралцагчид
