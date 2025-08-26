@@ -1,12 +1,7 @@
 "use client";
 
-<<<<<<< HEAD
 import { useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
-=======
-import { useEffect, useState } from "react";
-import { usePathname } from "next/navigation";
->>>>>>> 916f06e (green)
 import { Button } from "@/Components/ui/button";
 import {
   Menu,
@@ -33,10 +28,7 @@ export type NavigationItem = {
 
 export default function MainHeader() {
   const pathname = usePathname();
-<<<<<<< HEAD
   const router = useRouter();
-=======
->>>>>>> 916f06e (green)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const userScore = 2847;
@@ -112,7 +104,6 @@ export default function MainHeader() {
           <Navigation
             navigationItems={navigationItems}
             activeSection={activeSection}
-<<<<<<< HEAD
             setActiveSection={() => {}}
           />
 
@@ -129,17 +120,6 @@ export default function MainHeader() {
 
             <ProfileAvatar />
 
-=======
-            setActiveSection={() => {
-              setActiveSection;
-            }}
-          />
-
-          <div className="flex items-center space-x-4">
-            <Link href="/profile">
-              <ProfileAvatar />
-            </Link>
->>>>>>> 916f06e (green)
             <Button
               variant="ghost"
               size="sm"
@@ -154,13 +134,7 @@ export default function MainHeader() {
           <MobileNavigation
             navigationItems={navigationItems}
             activeSection={activeSection}
-<<<<<<< HEAD
             setActiveSection={() => {}}
-=======
-            setActiveSection={() => {
-              setActiveSection;
-            }}
->>>>>>> 916f06e (green)
             userRating={userRating}
             userScore={userScore}
             closeMenu={() => setIsMobileMenuOpen(false)}
