@@ -43,11 +43,18 @@ export default function ProfileCard() {
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
-          name: values.username,
-          avatarImage: values.avatarImage,
-          age: values.age,
+        username: values.username,
+        avatarImage: values.avatarImage,
+        age: values.age,
         }),
       });
+
+      console.log("Request body:", {
+      username: values.username,
+      avatarImage: values.avatarImage,
+      age: values.age,
+      });
+
 
       if (!res.ok) throw new Error("Failed to save profile");
 
@@ -68,6 +75,34 @@ export default function ProfileCard() {
       console.error(err);
     }
   };
+
+    const handleImageUpload = async (event: ChangeEvent<HTMLInputElement>) => {
+  const file = event.target.files?.[0];
+  if (!file) return;
+
+  const formData = new FormData();
+  formData.append("file", file);
+  formData.append("upload_preset", "profileImage");
+
+  try {
+    const response = await fetch("https://api.cloudinary.com/v1_1/daywx3gsj/image/upload", {
+      method: "POST",
+      body: formData,
+    });
+
+    const data = await response.json();
+
+    if (data.secure_url) {
+      formik.setFieldValue("avatarImage", data.secure_url);
+    }
+
+    console.log("uploaded image data:", data);
+  } catch (error) {
+    console.error("Image upload failed:", error);
+  }
+};
+
+
 
   const formik = useFormik<ProfileForm>({
     initialValues: {
@@ -128,21 +163,13 @@ export default function ProfileCard() {
             />
           </label>
           <input
-            type="file"
-            id="avatar-input"
-            accept="image/*"
-            className="hidden"
-            onChange={(e: ChangeEvent<HTMLInputElement>) => {
-              const file = e.target.files?.[0];
-              if (file) {
-                const reader = new FileReader();
-                reader.onloadend = () => {
-                  formik.setFieldValue("avatarImage", reader.result);
-                };
-                reader.readAsDataURL(file);
-              }
-            }}
-          />
+  type="file"
+  id="avatar-input"
+  accept="image/*"
+  className="hidden"
+  onChange={handleImageUpload}
+/>
+
         </div>
       </div>
 

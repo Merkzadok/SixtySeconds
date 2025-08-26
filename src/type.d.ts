@@ -35,4 +35,5 @@ export type UserType = {
   email: string;
   username:string,
   profile: ProfileType;
+  profileId?: number;
 };
