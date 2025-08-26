@@ -9,10 +9,15 @@ import { Button } from "@/Components/ui/button";
 import { Mail, Lock, User } from "lucide-react";
 import Link from "next/link";
 
-export default function SignInForm() {
+export default function SignUpForm() {
   const router = useRouter();
-  const [formData, setFormData] = useState({ email: "", password: "" });
+  const [formData, setFormData] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
   const [isLoading, setIsLoading] = useState(false);
+  const [usernameError, setUsernameError] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
 
@@ -20,43 +25,50 @@ export default function SignInForm() {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
-  const handleLogin = async (e: FormEvent) => {
+  const handleSignup = async (e: FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
+    setUsernameError("");
     setEmailError("");
     setPasswordError("");
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/create-user`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            username: formData.username,
+            email: formData.email,
+            password: formData.password,
+          }),
+        }
+      );
 
       if (!res.ok) {
         const errorData = await res.json();
         const msg = (errorData.message || "").toLowerCase();
-        if (msg.includes("email")) setEmailError(errorData.message);
+        if (msg.includes("username")) setUsernameError(errorData.message);
+        else if (msg.includes("email")) setEmailError(errorData.message);
         else if (msg.includes("password")) setPasswordError(errorData.message);
-        else throw new Error(errorData.message || "Login failed");
+        else throw new Error(errorData.message || "Signup failed");
         return;
       }
 
-      const data = await res.json();
-      toast.success("Welcome back! 🎉", {
-        description: "Great to see you again!",
-        duration: 1000,
+      toast.success("Welcome to our learning adventure! 🚀", {
+        description: "Account created successfully!",
+        duration: 1200,
       });
-      localStorage.setItem("Token:", data.accesstoken);
 
-      setTimeout(() => router.push("/profile"), 1000);
+      setTimeout(() => router.push("/login"), 1200);
     } catch (err: unknown) {
       const msg =
         err instanceof Error
           ? err.message
-          : "Something went wrong during login";
+          : "Something went wrong during signup";
       setEmailError(msg);
-      console.error("Login error:", err);
+      console.error("Signup error:", err);
     } finally {
       setIsLoading(false);
     }
@@ -69,33 +81,64 @@ export default function SignInForm() {
       <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl animate-pulse"></div>
       <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
 
-      {/* Sign-up Button - Top Right */}
+      {/* Login Button - Top Right */}
       <div className="absolute top-4 right-4 md:top-8 md:right-8 z-10">
-        <Link href="/register">
+        <Link href="/login">
           <Button className="bg-gradient-to-r from-slate-900 to-black cursor-pointer border-b-indigo-200 border-2 hover:from-blue-700 hover:to-purple-700 text-white font-bold px-4 py-2 md:px-6 md:py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2">
-            <User size={18} />
-            <span className="hidden sm:inline">Sign Up</span>
+            <Mail size={18} />
+            <span className="hidden sm:inline">Sign In</span>
           </Button>
         </Link>
       </div>
 
-      {/* Main Login Form */}
+      {/* Main Sign Up Form */}
       <div className="relative z-20 w-full max-w-md mx-auto">
-        {/* Glassmorphism Card */}
         <div className="bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
-          {/* Header Section */}
           <div className="bg-gradient-to-r from-slate-800 to-gray-800 p-6 text-center">
             <h2 className="text-3xl font-black text-white mb-2">
-              Welcome Back
+              Create Account
             </h2>
           </div>
-
-          {/* Form Section */}
-          <form onSubmit={handleLogin} className="p-8 space-y-6">
-            {/* Email Field */}
+          <form onSubmit={handleSignup} className="p-8 space-y-6">
+            {/* Username */}
             <div className="space-y-2">
               <Label
-                htmlFor="login-email"
+                htmlFor="signup-username"
+                className="text-gray-700 font-semibold"
+              >
+                Your Name
+              </Label>
+              <div className="relative">
+                <div className="flex items-center bg-gray-50 border-2 rounded-xl overflow-hidden border-gray-200 focus-within:border-blue-500 focus-within:bg-white transition-all duration-300 hover:shadow-md">
+                  <span className="px-4 text-gray-500">
+                    <User size={20} />
+                  </span>
+                  <Input
+                    id="signup-username"
+                    type="text"
+                    placeholder="Name or Nickname"
+                    value={formData.username}
+                    onChange={(e) =>
+                      handleInputChange("username", e.target.value)
+                    }
+                    required
+                    className="flex-1 bg-transparent border-0 focus:outline-none focus:ring-0 py-4 text-gray-800 placeholder-gray-400"
+                  />
+                </div>
+                {usernameError && (
+                  <p className="text-red-500 text-sm mt-2 flex items-center gap-1">
+                    <span className="w-4 h-4 bg-red-500 rounded-full flex items-center justify-center text-white text-xs">
+                      !
+                    </span>
+                    {usernameError}
+                  </p>
+                )}
+              </div>
+            </div>
+            {/* Email */}
+            <div className="space-y-2">
+              <Label
+                htmlFor="signup-email"
                 className="text-gray-700 font-semibold"
               >
                 Email Address
@@ -106,9 +149,9 @@ export default function SignInForm() {
                     <Mail size={20} />
                   </span>
                   <Input
-                    id="login-email"
+                    id="signup-email"
                     type="email"
-                    placeholder="your.email@example.com"
+                    placeholder="Email"
                     value={formData.email}
                     onChange={(e) => handleInputChange("email", e.target.value)}
                     required
@@ -125,14 +168,13 @@ export default function SignInForm() {
                 )}
               </div>
             </div>
-
-            {/* Password Field */}
+            {/* Password */}
             <div className="space-y-2">
               <Label
-                htmlFor="login-password"
+                htmlFor="signup-password"
                 className="text-gray-700 font-semibold"
               >
-                Password
+                Create Password
               </Label>
               <div className="relative">
                 <div className="flex items-center bg-gray-50 border-2 rounded-xl overflow-hidden border-gray-200 focus-within:border-blue-500 focus-within:bg-white transition-all duration-300 hover:shadow-md">
@@ -140,9 +182,9 @@ export default function SignInForm() {
                     <Lock size={20} />
                   </span>
                   <Input
-                    id="login-password"
+                    id="signup-password"
                     type="password"
-                    placeholder="Enter your password"
+                    placeholder="Password"
                     value={formData.password}
                     onChange={(e) =>
                       handleInputChange("password", e.target.value)
@@ -150,10 +192,6 @@ export default function SignInForm() {
                     required
                     className="flex-1 bg-transparent border-0 focus:outline-none focus:ring-0 py-4 text-gray-800 placeholder-gray-400"
                   />
-                  <button
-                    type="button"
-                    className="px-4 text-gray-500 hover:text-gray-700 transition-colors"
-                  ></button>
                 </div>
                 {passwordError && (
                   <p className="text-red-500 text-sm mt-2 flex items-center gap-1">
@@ -165,18 +203,7 @@ export default function SignInForm() {
                 )}
               </div>
             </div>
-
-            {/* Remember Me & Forgot Password */}
-            <div className="flex items-center justify-between text-sm">
-              <Link
-                href="/forgot-password"
-                className="text-blue-600 hover:text-blue-700 font-semibold hover:underline"
-              >
-                Forgot password?
-              </Link>
-            </div>
-
-            {/* Sign In Button */}
+            {/* Sign Up Button */}
             <Button
               type="submit"
               disabled={isLoading}
@@ -185,10 +212,10 @@ export default function SignInForm() {
               {isLoading ? (
                 <div className="flex items-center gap-2">
                   <div className="w-5 h-5 border-2 border-white/20 border-t-white rounded-full animate-spin"></div>
-                  Signing In...
+                  Creating Account...
                 </div>
               ) : (
-                "Sign In"
+                "Begin Adventure! 🌟"
               )}
             </Button>
           </form>
@@ -197,3 +224,4 @@ export default function SignInForm() {
     </div>
   );
 }
+// ...exist

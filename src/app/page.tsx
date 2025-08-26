@@ -5,6 +5,7 @@ import { Button } from "@/Components/ui/button";
 import Lottie from "lottie-react";
 import globeAnimation from "@/data/animations/WelcomeAnimation.json";
 import logoAnimation from "@/data/animations/flyingBird.json";
+import Link from "next/link";
 
 const fredoka = Fredoka({ subsets: ["latin"], weight: ["400", "500", "700"] });
 
@@ -51,7 +52,7 @@ export default function LandingPage() {
                 Bonjour
               </div>
               <div className="absolute -bottom-2 -right-4 bg-green-600 text-white px-4 py-2 rounded-full text-sm font-bold animate-bounce delay-500 shadow-md">
-                こんにちは
+                Hallo
               </div>
             </div>
           </div>
@@ -67,21 +68,30 @@ export default function LandingPage() {
               way to learn a language!
             </h1>
 
+            {/* <p className="text-xl md:text-2xl text-gray-600 max-w-lg font-medium leading-relaxed">
+              Join millions of learners worldwide and start your language
+              journey today with interactive lessons and engaging exercises.
+            </p> */}
+
             {/* Stacked Buttons */}
             <div className="flex flex-col gap-4 justify-center md:justify-start max-w-sm mx-auto md:mx-0">
-              <Button
-                size="lg"
-                className="bg-gradient-to-r cursor-pointer from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white px-8 py-4 text-lg font-black rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 border-2 border-green-400"
-              >
-                GET STARTED
-              </Button>
-              <Button
-                variant="outline"
-                size="lg"
-                className="bg-white cursor-pointer text-cyan-600 hover:bg-cyan-50 px-8 py-4 text-lg font-bold rounded-xl shadow-md hover:shadow-lg transition-all duration-200 border-2 border-cyan-200 hover:border-cyan-300"
-              >
-                I ALREADY HAVE AN ACCOUNT
-              </Button>
+              <Link href="/register">
+                <Button
+                  size="lg"
+                  className="bg-gradient-to-r cursor-pointer from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white px-8 py-4 text-lg font-black rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 border-2 border-green-400"
+                >
+                  GET STARTED
+                </Button>
+              </Link>
+              <Link href="/login">
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="bg-white cursor-pointer text-cyan-600 hover:bg-cyan-50 px-8 py-4 text-lg font-bold rounded-xl shadow-md hover:shadow-lg transition-all duration-200 border-2 border-cyan-200 hover:border-cyan-300"
+                >
+                  I ALREADY HAVE AN ACCOUNT
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
