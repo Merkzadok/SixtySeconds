@@ -17,19 +17,27 @@ const UserContext = createContext<UserContextType>({
 });
 
 export default function UserContextProvider({ children }: { children: React.ReactNode }) {
-
   const [user, setUser] = useState<UserType | null>(null);
   const [loading, setLoading] = useState(true);
 
+  console.log({ loading, user });
+
   useEffect(() => {
     const fetchCurrentUser = async () => {
+  
       const token = localStorage.getItem("Token:");
-      if (!token) return setLoading(false);
+      if (!token) {
+        setLoading(false);
+        return;
+      }
 
       try {
-        const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/profile/current-user`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const res = await axios.get(
+          `${process.env.NEXT_PUBLIC_API_URL}/profile/current-user`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
         setUser(res.data.user);
       } catch (err) {
         console.error("Error fetching user:", err);
@@ -42,7 +50,11 @@ export default function UserContextProvider({ children }: { children: React.Reac
     fetchCurrentUser();
   }, []);
 
-  return <UserContext.Provider value={{ user, setUser, loading }}>{children}</UserContext.Provider>;
+  return (
+    <UserContext.Provider value={{ user, setUser, loading }}>
+      {children}
+    </UserContext.Provider>
+  );
 }
 
 export const useUser = () => useContext(UserContext);
