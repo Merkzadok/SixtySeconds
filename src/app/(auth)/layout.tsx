@@ -14,7 +14,7 @@ export default function RootLayout({
 }>) {
   return (
     <div>
-      <MainHeader />
+      {/* <MainHeader /> */}
       {children}
       <ToasterProvider />
     </div>
