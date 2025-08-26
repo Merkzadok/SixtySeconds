@@ -74,7 +74,7 @@ export default function ProfileCard() {
             name: data.profile?.name || user.profile.username,
           },
         });
- 
+
         setEditing(false);
       } catch (err) {
         console.error(err);
@@ -137,12 +137,14 @@ export default function ProfileCard() {
             ))}
           </div>
         )}
- 
+
         {!editing ? (
           <div className="space-y-4 text-center">
-            <h2 className="text-2xl font-semibold">{user.profile.username}</h2>
+            <h2 className="text-2xl font-semibold">
+              {user?.profile?.username}
+            </h2>
             <p className="text-gray-600">{user.email}</p>
-            <p>Нас: {user.profile.age}</p>
+            <p>Нас: {user?.profile?.age}</p>
           </div>
         ) : (
           <form onSubmit={formik.handleSubmit} className="space-y-5">
@@ -176,12 +178,16 @@ export default function ProfileCard() {
                 placeholder="Имэйл хаяг"
               />
               {formik.errors.email && formik.touched.email && (
-                <p className="text-red-500 text-sm mt-1">{formik.errors.email}</p>
+                <p className="text-red-500 text-sm mt-1">
+                  {formik.errors.email}
+                </p>
               )}
             </div>
 
             <div>
-              <label className="block text-gray-700 mb-1 font-semibold">Нас</label>
+              <label className="block text-gray-700 mb-1 font-semibold">
+                Нас
+              </label>
               <input
                 type="number"
                 name="age"
@@ -225,20 +231,19 @@ export default function ProfileCard() {
       </div>
 
       <div className="max-w-md w-full border-2 border-[#B960FF] rounded-3xl p-6 bg-[#F3E9FF] shadow-md text-center">
-          <p className="text-[#B960FF] font-semibold text-lg">
-            🎉 Та идэвхтэй гишүүнчлэлтэй байна
-          </p>
-          <>
-            {/* <p className="text-gray-600 mb-4">Таны гишүүнчлэл идэвхгүй байна</p> */}
-            <button
-              onClick={() => router.push("/subscription")}
-              type="button"
-              className="w-full bg-[#B960FF] hover:bg-[#9f4dd8] text-white py-3 rounded-xl font-semibold transition"
-            >
-              Гишүүн болох
-            </button>
-          </>
-      
+        <p className="text-[#B960FF] font-semibold text-lg">
+          🎉 Та идэвхтэй гишүүнчлэлтэй байна
+        </p>
+        <>
+          {/* <p className="text-gray-600 mb-4">Таны гишүүнчлэл идэвхгүй байна</p> */}
+          <button
+            onClick={() => router.push("/subscription")}
+            type="button"
+            className="w-full bg-[#B960FF] hover:bg-[#9f4dd8] text-white py-3 rounded-xl font-semibold transition"
+          >
+            Гишүүн болох
+          </button>
+        </>
       </div>
     </div>
   );
