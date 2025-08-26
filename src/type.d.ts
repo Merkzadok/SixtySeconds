@@ -24,7 +24,7 @@ declare module "/game-app.json" {
 
 export type ProfileType = {
   id: number;
-  name: string;
+  username: string;
   about?: string;
   avatarImage: string;
   age: number;

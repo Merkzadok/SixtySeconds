@@ -37,7 +37,6 @@ export default function MainHeader() {
     { id: "reading", label: "Reading", icon: BookOpen, href: "/reading" },
     { id: "games", label: "Games", icon: Gamepad2, href: "/games" },
     { id: "leaderboard", label: "Leaderboard", icon: Trophy, href: "/leaderboard" },
-    { id: "stats", label: "Stats", icon: Crown, href: "/stats" },
     { id: "incorrect-words", label: "Incorrect Words", icon: Crown, href: "/incorrect-words" },
   ];
 

@@ -71,7 +71,7 @@ export default function ProfileCard() {
             avatarImage: data.profile?.avatarImage || values.avatarImage,
             age: data.profile?.age || values.age,
             username: data.profile?.username || values.username,
-            name: data.profile?.name || user.profile.name,
+            name: data.profile?.name || user.profile.username,
           },
         });
  
@@ -225,13 +225,11 @@ export default function ProfileCard() {
       </div>
 
       <div className="max-w-md w-full border-2 border-[#B960FF] rounded-3xl p-6 bg-[#F3E9FF] shadow-md text-center">
-        {user.isSubscribed ? (
           <p className="text-[#B960FF] font-semibold text-lg">
             🎉 Та идэвхтэй гишүүнчлэлтэй байна
           </p>
-        ) : (
           <>
-            <p className="text-gray-600 mb-4">Таны гишүүнчлэл идэвхгүй байна</p>
+            {/* <p className="text-gray-600 mb-4">Таны гишүүнчлэл идэвхгүй байна</p> */}
             <button
               onClick={() => router.push("/subscription")}
               type="button"
@@ -240,7 +238,7 @@ export default function ProfileCard() {
               Гишүүн болох
             </button>
           </>
-        )}
+      
       </div>
     </div>
   );
