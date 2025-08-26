@@ -33,7 +33,7 @@ export interface Statistics {
 
 export type ProfileType = {
   id: number;
-  username: string;      
+  username: string;
   about?: string;
   avatarImage: string;
   age: number;
@@ -45,4 +45,11 @@ export type UserType = {
   email: string;
   isSubscribed: boolean;
   profile: ProfileType;
+};
+
+export type RankType = {
+  username: string;
+  avatarImage: string;
+  totalScore: number;
+  id: number;
 };
