@@ -1,37 +1,61 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { BarChart3, Book } from "lucide-react";
 import LeaderboardUser from "./LeaderboardUser";
 import ReadingStats from "./ReadingStats";
-
-const users = [
-  { name: "Emma", lessons: 12, points: 980, rank: 1 },
-  { name: "Liam", lessons: 10, points: 850, rank: 2 },
-  { name: "Olivia", lessons: 9, points: 790, rank: 3 },
-  { name: "Noah", lessons: 7, points: 720, rank: 4 },
-  {name: "Ava", lessons: 6, points: 680, rank: 5 },
-];
-
-const currentUser = "Liam";
+import { RankType } from "../../../../types/types";
+import { useUser } from "@/provider/CurrentUser";
 
 const LeaderBoard = () => {
+  const [board, setBoard] = useState<RankType[]>([]);
+  const { user } = useUser();
+  useEffect(() => {
+    const showRank = async () => {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/leaderboard`
+      );
+      const data = await response.json();
+      console.log("dad", data);
+      setBoard(data.result);
+    };
+    showRank();
+    fetchCurrentUser();
+  }, []);
+
+  const [currentUser, setCurrentUser] = useState<string | null>(null);
+
+  const fetchCurrentUser = async () => {
+    if (!user) return;
+
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/profile/${user.profileId}`
+      );
+      const data = await response.json();
+      setCurrentUser(data.username);
+    } catch (error) {}
+  };
+
   return (
     <div className="max-w-6xl mx-auto px-4 ">
       <div className="max-w-3xl mx-auto space-y-8">
-    <ReadingStats/>
-        <div className="bg-white/90 backdrop-blur rounded-2xl p-6 shadow-md border border-gray-200">
+        <ReadingStats />
+        <div className="bg-white/90 backdrop-blur rounded-2xl p-6 shadow-md border border-gray-200 max-h-[400px] overflow-y-auto">
           <h2 className="text-xl font-semibold mb-4 text-gray-800">
             Шилдэг суралцагчид
           </h2>
-          <div className="space-y-4">
-            {users.map((user, idx) => (
+          <div className="space-y-4 h-[400px]">
+            {board.map((user, idx) => (
               <LeaderboardUser
-                key={idx}
-                name={user.name}
-                lessons={user.lessons}
-                points={user.points}
-                rank={user.rank}
-                isCurrentUser={user.name === currentUser}
+                avatarImage={user.avatarImage}
+                key={user.id}
+                username={user.username}
+                // lessons={user.lessons}
+                totalScore={user.totalScore}
+                rank={idx + 1}
+                isCurrentUser={
+                  currentUser ? user.username === currentUser : false
+                }
               />
             ))}
           </div>

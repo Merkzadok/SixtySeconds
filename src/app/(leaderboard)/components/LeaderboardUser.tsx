@@ -1,17 +1,18 @@
 import { Crown, Star, Trophy, Zap } from "lucide-react";
+import { RankType } from "../../../../types/types";
 
 type LeaderboardUserProps = {
-  name: string;
-  lessons: number;
-  points: number;
+  username: string;
+  avatarImage: string;
+  totalScore: number;
   rank: number;
   isCurrentUser: boolean;
 };
 
 export default function LeaderboardUser({
-  name,
-  lessons,
-  points,
+  username,
+  avatarImage,
+  totalScore,
   rank,
   isCurrentUser,
 }: LeaderboardUserProps) {
@@ -41,23 +42,21 @@ export default function LeaderboardUser({
       <div className="flex items-center space-x-4">
         {getIcon()}
         <div className="text-2xl">
-          <img 
-          src="/avatars/avatar6.png" 
-          alt="" 
-  className="w-10 h-10 rounded-full"
-/>
+          <img
+            src={avatarImage || "/avatar1.png"}
+            alt={username}
+            className="w-10 h-10 rounded-full"
+          />
         </div>
         <div>
-          <p className="font-semibold text-gray-800">{name}</p>
-          <p className="text-sm text-gray-500">{lessons} хичээл</p>
+          <p className="font-semibold text-gray-800">{username}</p>
         </div>
       </div>
 
       <div className="flex items-center space-x-1 text-gray-700">
-          <Zap className="text-yellow-500 w-5 h-5" />
-        <span className="font-Monaco text-md ">{points}</span>
+        <Zap className="text-yellow-500 w-5 h-5" />
+        <span className="font-Monaco text-md">{totalScore}</span>
       </div>
     </div>
-    //aaaaa test 
   );
 }
