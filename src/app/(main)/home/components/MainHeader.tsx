@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { Button } from "@/Components/ui/button";
 import {
@@ -18,6 +18,7 @@ import {
 import Navigation from "./Navigation";
 import ProfileAvatar from "./ProfileAvatar";
 import MobileNavigation from "./MobileNavigation";
+import Link from "next/link";
 
 export type NavigationItem = {
   id: string;
@@ -79,47 +80,42 @@ export default function MainHeader() {
   }, [pathname]);
 
   return (
-    <header className=" bg-[#B0DB9C] backdrop-blur-md border-b border-green-200 sticky top-0 z-50 cursor-pointer shadow-md">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 ">
+    <header className="bg-[#B0DB9C] backdrop-blur-md border-b border-green-200 sticky top-0 z-50 shadow-md">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <Link href="/home">
-            <div className="flex items-center space-x-2">
-              <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-emerald-500 rounded-full flex items-center justify-center shadow-lg border-2 border-white">
-                <span
-                  className="text-white font-black text-2xl"
-                  role="img"
-                  aria-label="owl"
-                >
-                  🦉
+          {/* Left side: Logo + Nav */}
+          <div className="flex items-center space-x-8">
+            {/* Logo */}
+            <Link href="/home">
+              <div className="flex items-center space-x-2 cursor-pointer">
+                <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-emerald-500 rounded-full flex items-center justify-center shadow-lg border-2 border-white">
+                  <span
+                    className="text-white font-black text-2xl"
+                    role="img"
+                    aria-label="owl"
+                  >
+                    🦉
+                  </span>
+                </div>
+                <span className="font-black text-2xl text-green-900 tracking-tight drop-shadow">
+                  SixtySeconds
                 </span>
               </div>
-              <span className="pr-3 font-black text-2xl text-green-900 tracking-tight drop-shadow">
-                SixtySeconds
-              </span>
+            </Link>
+
+            {/* Desktop Navigation */}
+            <div className="hidden md:block">
+              <Navigation
+                navigationItems={navigationItems}
+                activeSection={activeSection}
+                setActiveSection={() => {}}
+              />
             </div>
-            <span className="font-bold text-xl text-gray-800">60sec</span>
           </div>
 
-          <Navigation
-            navigationItems={navigationItems}
-            activeSection={activeSection}
-            setActiveSection={() => {}}
-          />
-
+          {/* Right side: Avatar + Mobile Menu */}
           <div className="flex items-center space-x-4">
-
-            <Button
-              className="hidden md:flex items-center space-x-2 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-md hover:shadow-lg transition-all duration-300"
-              onClick={() => router.push("/subscription")}
-            >
-              <Crown size={16} />
-              <span>Subscribe</span>
-            </Button>
-
-
             <ProfileAvatar />
-
             <Button
               variant="ghost"
               size="sm"
@@ -130,17 +126,19 @@ export default function MainHeader() {
             </Button>
           </div>
         </div>
-        {isMobileMenuOpen && (
-          <MobileNavigation
-            navigationItems={navigationItems}
-            activeSection={activeSection}
-            setActiveSection={() => {}}
-            userRating={userRating}
-            userScore={userScore}
-            closeMenu={() => setIsMobileMenuOpen(false)}
-          />
-        )}
       </div>
+
+      {/* Mobile Navigation */}
+      {isMobileMenuOpen && (
+        <MobileNavigation
+          navigationItems={navigationItems}
+          activeSection={activeSection}
+          setActiveSection={() => {}}
+          userRating={userRating}
+          userScore={userScore}
+          closeMenu={() => setIsMobileMenuOpen(false)}
+        />
+      )}
     </header>
   );
 }
