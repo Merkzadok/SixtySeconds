@@ -58,7 +58,7 @@ export default function LandingPage() {
 
           {/* Right Side - Content */}
           <div className="text-center md:text-left space-y-8">
-            <h1 className="text-4xl md:text-4xl font-black text-gray-800 leading-tight">
+            <h1 className="text-4xl md:text-4xl font-black text-gray-700 leading-tight">
               The free, fun, and
               <span className="bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
                 {" "}
@@ -66,11 +66,6 @@ export default function LandingPage() {
               </span>{" "}
               way to learn a language!
             </h1>
-
-            <p className="text-xl md:text-2xl text-gray-600 max-w-lg font-medium leading-relaxed">
-              Join millions of learners worldwide and start your language
-              journey today with interactive lessons and engaging exercises.
-            </p>
 
             {/* Stacked Buttons */}
             <div className="flex flex-col gap-4 justify-center md:justify-start max-w-sm mx-auto md:mx-0">
