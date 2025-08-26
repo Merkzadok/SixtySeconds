@@ -1,8 +1,11 @@
+// types.ts
+
 export type Reading = {
   averageAccuracy: number;
   averageDuration: number;
   count: number;
 };
+
 export interface User {
   id: number;
   name: string;
@@ -27,16 +30,19 @@ export interface Statistics {
   activelearners: number;
   languagesAvailable: number;
 }
+
 export type ProfileType = {
   id: number;
-  name: string;
+  username: string;      
   about?: string;
   avatarImage: string;
   age: number;
 };
 
 export type UserType = {
+  username: string;
   id: number;
   email: string;
+  isSubscribed: boolean;
   profile: ProfileType;
 };
