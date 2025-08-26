@@ -86,8 +86,8 @@ export default function ProfileCard() {
   if (loading)
     return (
       <div className="max-w-md mx-auto p-8 text-center">
-        <Loader2 className="w-12 h-12 mx-auto text-purple-500 animate-spin" />
-        <p className="text-lg font-semibold text-purple-600 mt-4">Loading...</p>
+        <Loader2 className="w-12 h-12 mx-auto text-green-600 animate-spin" />
+        <p className="text-lg font-semibold text-green-600 mt-4">Loading...</p>
       </div>
     );
 
@@ -100,13 +100,13 @@ export default function ProfileCard() {
 
   return (
     <div className="flex flex-col items-center py-10 bg-white min-h-screen space-y-8 px-4 md:px-0">
-      <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent mb-4">
-        {editing ? "Edit Profile" : "Profile"}
+      <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-[#2a7b9b] via-[#57c785] to-[#eddd53] bg-clip-text text-transparent mb-6">
+        Миний профайл
       </h1>
 
-      <div className="max-w-md w-full bg-white rounded-3xl shadow-lg border-2 border-[#B960FF] p-6 space-y-6 relative">
+      <div className="max-w-md w-full bg-white rounded-3xl shadow-lg border-2 border-[#0AA84C] p-6 space-y-6 relative">
         <div className="flex justify-center">
-          <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-[#B960FF] shadow-md">
+          <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-[#0AA84C] shadow-md">
             <img
               src={formik.values.avatarImage || "/default-avatar.png"}
               alt="avatar"
@@ -124,8 +124,8 @@ export default function ProfileCard() {
                 onClick={() => formik.setFieldValue("avatarImage", avatar)}
                 className={`w-14 h-14 rounded-full overflow-hidden border-4 transition-all duration-300 ${
                   formik.values.avatarImage === avatar
-                    ? "border-[#B960FF] scale-110 shadow-lg"
-                    : "border-transparent hover:border-[#B960FF]"
+                    ? "border-[#0AA84C] scale-110 shadow-lg"
+                    : "border-transparent hover:border-[#0AA84C]"
                 }`}
               >
                 <img
@@ -154,7 +154,7 @@ export default function ProfileCard() {
                 name="username"
                 value={formik.values.username}
                 onChange={formik.handleChange}
-                className="w-full border rounded-xl p-3 focus:ring-2 focus:ring-[#B960FF] outline-none transition"
+                className="w-full border rounded-xl p-3 focus:ring-2 focus:ring-[#0AA84C] outline-none transition"
                 placeholder="Нэрээ бичнэ үү"
               />
               {formik.errors.username && formik.touched.username && (
@@ -172,7 +172,7 @@ export default function ProfileCard() {
                 name="email"
                 value={formik.values.email}
                 onChange={formik.handleChange}
-                className="w-full border rounded-xl p-3 focus:ring-2 focus:ring-[#B960FF] outline-none transition"
+                className="w-full border rounded-xl p-3 focus:ring-2 focus:ring-[#068F3F] outline-none transition"
                 placeholder="Имэйл хаяг"
               />
               {formik.errors.email && formik.touched.email && (
@@ -187,7 +187,7 @@ export default function ProfileCard() {
                 name="age"
                 value={formik.values.age}
                 onChange={formik.handleChange}
-                className="w-full border rounded-xl p-3 focus:ring-2 focus:ring-[#B960FF] outline-none transition"
+                className="w-full border rounded-xl p-3 focus:ring-2 focus:ring-[#057534] outline-none transition"
                 placeholder="Нас"
               />
             </div>
@@ -195,7 +195,7 @@ export default function ProfileCard() {
             <div className="flex justify-between space-x-4">
               <button
                 type="submit"
-                className="flex items-center justify-center gap-2 bg-[#B960FF] hover:bg-[#9f4dd8] text-white font-semibold py-3 rounded-xl transition w-full"
+                className="flex items-center justify-center gap-2 bg-[#55E691] hover:bg-[#32C971] text-white font-semibold py-3 rounded-xl transition w-full"
               >
                 <Check size={20} /> Хадгалах
               </button>
@@ -205,7 +205,7 @@ export default function ProfileCard() {
                   formik.resetForm();
                   setEditing(false);
                 }}
-                className="flex items-center justify-center gap-2 border border-gray-300 text-gray-700 font-semibold py-3 rounded-xl transition w-full hover:bg-gray-100"
+                className="flex items-center justify-center gap-2 bg-[#3ACAF2] hover:bg-[#2397B8] text-white font-semibold py-3 rounded-xl transition w-full"
               >
                 <X size={20} /> Болих
               </button>
@@ -216,7 +216,7 @@ export default function ProfileCard() {
         {!editing && (
           <button
             onClick={() => setEditing(true)}
-            className="absolute top-4 right-4 p-2 rounded-full bg-[#B960FF] text-white hover:bg-[#9f4dd8] transition"
+            className="absolute top-4 right-4 p-2 rounded-full bg-[#55E691] text-white hover:bg-[#0E9654] transition"
             aria-label="Edit profile"
           >
             <Edit2 size={20} />
