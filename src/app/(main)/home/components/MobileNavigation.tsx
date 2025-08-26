@@ -2,6 +2,7 @@
 import { Dispatch, SetStateAction } from "react";
 import { Button } from "@/Components/ui/button";
 import { NavigationItem } from "./MainHeader";
+import { useRouter } from "next/navigation"; // <-- Add this
 
 interface MobileNavigationProps {
   navigationItems: NavigationItem[];
@@ -16,11 +17,12 @@ export default function MobileNavigation({
   navigationItems,
   activeSection,
   setActiveSection,
-
   closeMenu,
 }: MobileNavigationProps) {
+  const router = useRouter(); // <-- Add this
+
   return (
-    <div className="md:hidden py-4 border-t border-purple-100">
+    <div className="md:hidden py-4 border-t border-green-100">
       <div className="flex flex-col space-y-2">
         {navigationItems.map((item) => {
           const Icon = item.icon;
@@ -30,12 +32,13 @@ export default function MobileNavigation({
               variant={activeSection === item.id ? "default" : "ghost"}
               className={`flex items-center justify-start space-x-3 w-full px-4 py-3 rounded-lg ${
                 activeSection === item.id
-                  ? "bg-gradient-to-r from-purple-500 to-pink-500 text-white"
-                  : "text-gray-600 hover:text-purple-600 hover:bg-purple-50"
+                  ? "bg-gradient-to-r from-green-500 to-green-800 text-white"
+                  : "text-gray-600 hover:text-green-600 hover:bg-green-50"
               }`}
               onClick={() => {
                 setActiveSection(item.id);
                 closeMenu();
+                router.push(item.href); // <-- Add this to navigate
               }}
             >
               <Icon size={20} />

@@ -26,7 +26,7 @@ export default function Navigation({
               variant={activeSection === item.id ? "default" : "ghost"}
               className={`flex items-center space-x-2 px-4 py-2 rounded-full transition-all duration-200 ${
                 activeSection === item.id
-                  ? "bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg"
+                  ? "bg-gradient-to-r from-green-500 to-green-600 text-white shadow-lg"
                   : "text-gray-600 hover:text-purple-600 hover:bg-purple-50"
               }`}
               onClick={() => setActiveSection(item.id)}

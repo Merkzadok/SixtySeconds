@@ -42,7 +42,7 @@ const Games = () => {
     {
       id: "wordle" as const,
       title: "Wordle",
-      description: "Guess the 5-letter word in 6 tries",
+      description: "Guess the 5-letter word in 6 tries or less",
       component: <Wordle />,
     },
   ];
@@ -76,7 +76,7 @@ const Games = () => {
           {games.map((game) => (
             <Card
               key={game.id}
-              className="cursor-pointer hover:sh    adow-lg transition-shadow"
+              className="cursor-pointer hover:shadow-lg transition-shadow"
               onClick={() => setSelectedGame(game.id)}
             >
               <CardHeader>
@@ -85,7 +85,7 @@ const Games = () => {
               </CardHeader>
               <CardContent>
                 <Button
-                  className="w-full bg-gradient-to-r from-orange-300 via-pink-400 to-purple-500
+                  className="w-full bg-gradient-to-r from-green-500 via-green-600 to-green-700
 "
                 >
                   Play {game.title}
