@@ -1,6 +1,7 @@
 "use client";
 
 import { LoaderScreen } from "@/Components/loader/loading";
+import { useUser } from "@/provider/CurrentUser";
 import React, { useEffect, useState } from "react";
 
 type Sentence = {
@@ -20,13 +21,17 @@ const IncorrectWordPage: React.FC = () => {
     correct: boolean;
     score: number;
   } | null>(null);
+  const { user } = useUser();
 
   const fetchSentence = async () => {
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/wrong/1`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-      });
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/wrong/${user?.profileId}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+        }
+      );
       const data = await res.json();
 
       setSentence(data);
@@ -46,11 +51,14 @@ const IncorrectWordPage: React.FC = () => {
     if (!sentence?.sentence || !selectedWord) return;
 
     const correct = selectedWord === sentence?.wrongWord;
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/wrong/1`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ id: sentence.id, correct, selectedWord }),
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/wrong/${user?.profileId}`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: sentence.id, correct, selectedWord }),
+      }
+    );
 
     const data = await res.json();
 
