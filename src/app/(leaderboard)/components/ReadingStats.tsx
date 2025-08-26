@@ -24,12 +24,9 @@ const ReadingStats = () => {
   return (
     <div>
       <div className=" flex flex-col items-center text-center mb-7 mt-12 ">
-        <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent">
+        <h1 className="text-6xl md:text-6xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent">
           Амжилтын самбар
         </h1>
-        <p className="text-muted-foreground text-lg md:text-xl mt-2">
-          Бусад суралцагчидтай өөрийгөө харьцуулж үзээрэй!
-        </p>
       </div>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8 ">
           {/* Stats Overview */}

@@ -1,4 +1,4 @@
-import { Crown, Star, Trophy } from "lucide-react";
+import { Crown, Star, Trophy, Zap } from "lucide-react";
 
 type LeaderboardUserProps = {
   name: string;
@@ -40,7 +40,13 @@ export default function LeaderboardUser({
     >
       <div className="flex items-center space-x-4">
         {getIcon()}
-        <div className="text-2xl">👤</div>
+        <div className="text-2xl">
+          <img 
+          src="/avatars/avatar6.png" 
+          alt="" 
+  className="w-10 h-10 rounded-full"
+/>
+        </div>
         <div>
           <p className="font-semibold text-gray-800">{name}</p>
           <p className="text-sm text-gray-500">{lessons} хичээл</p>
@@ -48,8 +54,8 @@ export default function LeaderboardUser({
       </div>
 
       <div className="flex items-center space-x-1 text-gray-700">
-        <Star className="w-4 h-4 text-yellow-400" />
-        <span className="font-semibold text-md">{points} оноо</span>
+          <Zap className="text-yellow-500 w-5 h-5" />
+        <span className="font-Monaco text-md ">{points}</span>
       </div>
     </div>
   );
