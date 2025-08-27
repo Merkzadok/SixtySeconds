@@ -119,7 +119,7 @@ export default function SignUpForm() {
                     <Input
                       id="signup-username"
                       type="text"
-                      placeholder="Name or Nickname"
+                      placeholder="Name"
                       value={formData.username}
                       onChange={(e) =>
                         handleInputChange("username", e.target.value)
