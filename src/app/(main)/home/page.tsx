@@ -128,19 +128,20 @@ export default function HomePage() {
               href="#"
               className="hover:text-green-600 transition-colors font-medium"
             >
-              Privacy
+
+              Аюулгүй байдал
             </a>
             <a
               href="#"
               className="hover:text-green-600 transition-colors font-medium"
             >
-              Terms
+              Нөхцөл
             </a>
             <a
               href="#"
               className="hover:text-green-600 transition-colors font-medium"
             >
-              Help
+              Тусламж
             </a>
           </div>
         </footer>

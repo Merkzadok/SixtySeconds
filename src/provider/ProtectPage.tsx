@@ -14,7 +14,8 @@ export default function ProtectedRoute({
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+
+    const token = localStorage.getItem("Token:");
 
     if (!token) {
       router.push("/login");
