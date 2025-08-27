@@ -128,7 +128,6 @@ export default function HomePage() {
               href="#"
               className="hover:text-green-600 transition-colors font-medium"
             >
-
               Аюулгүй байдал
             </a>
             <a
