@@ -59,9 +59,13 @@ export default function LandingPage() {
 
           {/* Right Side - Content */}
           <div className="text-center md:text-left space-y-8">
-            <h1 className="text-4xl font-black text-gray-700 font-Comfortaa">Чөлөөт цагаараа хөгжилтэй аргаар 
-            <span className="bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">уншиж
-            </span>{" "}сурцгаая!</h1>
+            <h1 className="text-4xl font-black text-gray-700 font-Comfortaa">
+              Чөлөөт цагаараа хөгжилтэй аргаар
+              <span className="bg-gradient-to-r from-green-600 to-emerald-600 pl-2 bg-clip-text text-transparent">
+                уншиж
+              </span>{" "}
+              сурцгаая!
+            </h1>
             {/* <p className="text-xl md:text-2xl text-gray-600 max-w-lg font-medium leading-relaxed">
               Join millions of learners worldwide and start your language
               journey today with interactive lessons and engaging exercises.
