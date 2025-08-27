@@ -35,7 +35,7 @@ const ReadingStats = () => {
           <div className="text-3xl font-bold text-blue-600">
             {readingStats?.count}
           </div>
-          <div className="text-sm text-gray-600 mt-1">Reading</div>
+          <div className="text-sm text-gray-600 mt-1">уншсан өгүүлбэр</div>
         </div>
         <div className="bg-white rounded-2xl p-6 shadow-lg border-2 border-purple-200 min-h-[160px] flex flex-col items-center justify-center text-center">
           <Clock className="h-10 w-10 text-purple-600 mb-4" />

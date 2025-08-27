@@ -40,17 +40,16 @@ const LeaderBoard = () => {
     <div className="max-w-6xl mx-auto px-4 ">
       <div className="max-w-3xl mx-auto space-y-8">
         <ReadingStats />
-        <div className="bg-white/90 backdrop-blur rounded-2xl p-6 shadow-md border-2 border-[#0AA84C]  max-h-[400px] overflow-y-auto">
-          <h2 className="text-xl  mb-4. font-bold bg-gradient-to-r from-[#2a7b9b] via-[#57c785] to-[#eddd53] bg-clip-text text-transparent mb-6">
+        <div className="rounded-2xl p-6 shadow-md  ">
+          <h2 className="text-xl font-semibold mb-4. font-bold bg-gradient-to-r from-[#2a7b9b] via-[#57c785] to-[#eddd53] bg-clip-text text-transparent mb-6">
             Шилдэг суралцагчид
           </h2>
-          <div className="space-y-4 h-[400px]">
+          <div className="space-y-4">
             {board.map((user, idx) => (
               <LeaderboardUser
                 avatarImage={user.avatarImage}
                 key={user.id}
                 username={user.username}
-                // lessons={user.lessons}
                 totalScore={user.totalScore}
                 rank={idx + 1}
                 isCurrentUser={
@@ -58,29 +57,6 @@ const LeaderBoard = () => {
                 }
               />
             ))}
-          </div>
-        </div>
-
-        {/* Statistics */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          <div className="rounded-xl p-6 shadow border border-gray-200 hover:shadow-md transition">
-            <div className="flex flex-col items-center">
-              <div className="w-14 h-14 bg-gradient-to-br from-pink-400 to-purple-500 rounded-xl flex items-center justify-center mb-3">
-                <BarChart3 className="w-7 h-7 text-white" />
-              </div>
-              <div className="text-xl font-bold">Идэвхтэй суралцагчид</div>
-              <div className="text-sm text-gray-600">99 суралцагч</div>
-            </div>
-          </div>
-
-          <div className="bg-white/90 backdrop-blur rounded-xl p-6 shadow border border-gray-200 hover:shadow-md transition">
-            <div className="flex flex-col items-center">
-              <div className="w-14 h-14 bg-gradient-to-br from-green-400 to-teal-500 rounded-xl flex items-center justify-center mb-3">
-                <Book className="w-7 h-7 text-white" />
-              </div>
-              <div className="text-xl font-bold">Номд дурлагчид</div>
-              <div className="text-sm text-gray-600">20+ хичээл судалсан</div>
-            </div>
           </div>
         </div>
       </div>

@@ -66,16 +66,11 @@ export default function SignInForm() {
   return (
     <>
       {isLoading && <LoaderScreen />}
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-gray-900 to-black flex items-center justify-center p-4 relative overflow-hidden">
-        {/* Background Effects */}
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 via-purple-600/10 to-teal-600/10"></div>
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
-
+      <div className="min-h-screen bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 flex items-center justify-center p-4 relative overflow-hidden">
         {/* Sign-up Button - Top Right */}
         <div className="absolute top-4 right-4 md:top-8 md:right-8 z-10">
           <Link href="/register">
-            <Button className="bg-gradient-to-r from-slate-900 to-black cursor-pointer border-b-indigo-200 border-2 hover:from-blue-700 hover:to-purple-700 text-white font-bold px-4 py-2 md:px-6 md:py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2">
+            <Button className="bg-gradient-to-r  cursor-pointer border-b-indigo-200 border-2 from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white font-bold px-4 py-2 md:px-6 md:py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2">
               <User size={18} />
               <span className="hidden sm:inline">Sign Up</span>
             </Button>
@@ -87,7 +82,7 @@ export default function SignInForm() {
           {/* Glassmorphism Card */}
           <div className="bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
             {/* Header Section */}
-            <div className="bg-gradient-to-r from-slate-800 to-gray-800 p-6 text-center">
+            <div className="bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 p-6 text-center">
               <h2 className="text-3xl font-black text-white mb-2">
                 Welcome Back
               </h2>
@@ -171,21 +166,11 @@ export default function SignInForm() {
                 </div>
               </div>
 
-              {/* Remember Me & Forgot Password */}
-              <div className="flex items-center justify-between text-sm">
-                <Link
-                  href="/forgot-password"
-                  className="text-blue-600 hover:text-blue-700 font-semibold hover:underline"
-                >
-                  Forgot password?
-                </Link>
-              </div>
-
               {/* Sign In Button */}
               <Button
                 type="submit"
                 disabled={isLoading}
-                className="w-full bg-gradient-to-r from-slate-800 to-gray-800 hover:from-slate-900 hover:to-gray-900 text-white font-bold py-4 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+                className="w-full bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white font-bold py-4 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
               >
                 {isLoading ? (
                   <div className="flex items-center gap-2">

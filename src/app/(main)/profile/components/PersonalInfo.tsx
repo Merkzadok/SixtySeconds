@@ -1,6 +1,6 @@
 "use client";
 
-import { UserType } from "@/type";
+import { UserType } from "../../../../../types/type";
 import React, { useState } from "react";
 import { useUser } from "@/provider/CurrentUser";
 import { useFormik } from "formik";

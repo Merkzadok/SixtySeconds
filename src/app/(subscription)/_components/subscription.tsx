@@ -5,13 +5,13 @@ import axios from "axios";
 import { Check } from "lucide-react";
 import MainHeader from "@/app/(main)/home/components/MainHeader";
 
-type BillingPeriod = "free" | "monthly" | "quarterly" | "yearly";
+type BillingPeriod = "7 Өдөр үнэгүй" | "Сарын эрх" | "3-Сарын эрх" | "Жилээр";
 
 const billingOptions = [
-  { key: "free" as BillingPeriod, label: "Free", price: 0, planId: 1 },
-  { key: "monthly" as BillingPeriod, label: "Monthly", price: 19900, planId: 2 },
-  { key: "quarterly" as BillingPeriod, label: "Three Month", price: 49900, planId: 3 },
-  { key: "yearly" as BillingPeriod, label: "Yearly", price: 179900, planId: 4 },
+  { key: "7 Өдөр үнэгүй" as BillingPeriod, label: "7 Өдөр үнэгүй", price: 0, planId: 1 },
+  { key: "Сарын эрх" as BillingPeriod, label: "Сарын эрх", price: 19900, planId: 2 },
+  { key: "3-Сарын эрх" as BillingPeriod, label: "3-Сарын эрх", price: 49900, planId: 3 },
+  { key: "Жилээр" as BillingPeriod, label: "Жилээр", price: 179900, planId: 4 },
 ];
 
 const features = [
@@ -26,14 +26,14 @@ const features = [
 ];
 
 export default function Subscription() {
-  const [billingPeriod, setBillingPeriod] = useState<BillingPeriod>("free");
+  const [billingPeriod, setBillingPeriod] = useState<BillingPeriod>("7 Өдөр үнэгүй");
   const { user } = useUser();
   const currentOption = billingOptions.find((o) => o.key === billingPeriod)!;
 
   const formatPrice = (price: number) =>
     new Intl.NumberFormat("mn-MN").format(price);
   const getMonthlyEquivalent = (price: number, period: BillingPeriod) => {
-    const months = period === "quarterly" ? 3 : period === "yearly" ? 12 : 1;
+    const months = period === "3-Сарын эрх" ? 3 : period === "Жилээр" ? 12 : 1;
     return Math.floor(price / months);
   };
 const handleSubscribe = async () => {
@@ -112,7 +112,7 @@ const handleSubscribe = async () => {
               ₮{formatPrice(currentOption.price)}
             </p>
           )}
-          {billingPeriod !== "free" && (
+          {billingPeriod !== "7 Өдөр үнэгүй" && (
             <p className="text-gray-600 mt-1">
               Сард ₮
               {formatPrice(
@@ -126,7 +126,7 @@ const handleSubscribe = async () => {
           <h4 className="text-center text-lg font-semibold text-gray-800 mb-4">
             Багтсан боломжууд
           </h4>
-          {billingPeriod === "free" ? (
+          {billingPeriod === "7 Өдөр үнэгүй" ? (
             <div className="flex items-center justify-center text-gray-700">
               <Check className="w-5 h-5 text-green-400 mr-2" />7 өдөр бүх хичээл
               үнэгүй
@@ -147,7 +147,7 @@ const handleSubscribe = async () => {
           onClick={handleSubscribe}
           className="w-full py-4 bg-gray-200 hover:bg-gray-300 text-black font-bold text-lg rounded-2xl shadow-lg "
         >
-          {billingPeriod === "free" ? "Start Free" : "BUY NOW"}
+          {billingPeriod === "7 Өдөр үнэгүй" ? "үнэгүй эхлүүлэх" : "худалдаж авахы"}
         </button>
       </div>
     </div>
