@@ -7,6 +7,7 @@ import { Trophy, Star } from "lucide-react";
 import MainSectionCard from "./components/MainSectionCard";
 import QuickStatCard from "./components/QuickCard";
 import Link from "next/link";
+import ProtectedRoute from "@/provider/ProtectPage";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -75,71 +76,75 @@ export default function HomePage() {
   }, []);
 
   return (
-    <div className="flex flex-col min-h-screen">
-      {/* Main Content */}
-      <main className="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="text-center space-y-8">
-          {/* Main Sections */}
-          <div
-            className={`grid grid-cols-1 sm:grid-cols-2 ${
-              mainSectionItems.length > 2 ? "lg:grid-cols-3" : "lg:grid-cols-2"
-            } gap-6 mt-12`}
-          >
-            {mainSectionItems.map((item, i) => (
-              <div
-                key={item.id}
-                ref={(el) => {
-                  cardsRef.current[i] = el;
-                }}
-              >
-                <Link href={item.href}>
-                  <MainSectionCard item={item} />
-                </Link>
-              </div>
-            ))}
-          </div>
-
-          {/* Quick Stats */}
-          <div className="flex justify-center mt-12">
-            <div className="inline-grid grid-cols-2 md:grid-cols-4 gap-4">
-              {quickStats.map((stat, i) => (
+    <ProtectedRoute>
+      <div className="flex flex-col min-h-screen">
+        {/* Main Content */}
+        <main className="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="text-center space-y-8">
+            {/* Main Sections */}
+            <div
+              className={`grid grid-cols-1 sm:grid-cols-2 ${
+                mainSectionItems.length > 2
+                  ? "lg:grid-cols-3"
+                  : "lg:grid-cols-2"
+              } gap-6 mt-12`}
+            >
+              {mainSectionItems.map((item, i) => (
                 <div
-                  key={stat.label}
+                  key={item.id}
                   ref={(el) => {
-                    quickStatsRef.current[i] = el;
+                    cardsRef.current[i] = el;
                   }}
                 >
-                  <QuickStatCard stat={stat} />
+                  <Link href={item.href}>
+                    <MainSectionCard item={item} />
+                  </Link>
                 </div>
               ))}
             </div>
-          </div>
-        </div>
-      </main>
 
-      {/* Footer (always bottom) */}
-      <footer className="py-6 px-4 md:px-8 border-t-2 border-green-200 bg-gradient-to-r from-green-50 to-emerald-50">
-        <div className="flex justify-center items-center gap-8 text-sm text-green-700">
-          <a
-            href="#"
-            className="hover:text-green-600 transition-colors font-medium"
-          >
-            Аюулгүй байдал
-          </a>
-          <a
-            href="#"
-            className="hover:text-green-600 transition-colors font-medium"
-          >
-            Нөхцөл
-          </a>
-          <a
-            href="#"
-            className="hover:text-green-600 transition-colors font-medium"
-          >
-            Тусламж
-          </a>
-        </div>
-      </footer>
-    </div>
+            {/* Quick Stats */}
+            <div className="flex justify-center mt-12">
+              <div className="inline-grid grid-cols-2 md:grid-cols-4 gap-4">
+                {quickStats.map((stat, i) => (
+                  <div
+                    key={stat.label}
+                    ref={(el) => {
+                      quickStatsRef.current[i] = el;
+                    }}
+                  >
+                    <QuickStatCard stat={stat} />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </main>
+
+        {/* Footer (always bottom) */}
+        <footer className="py-6 px-4 md:px-8 border-t-2 border-green-200 bg-gradient-to-r from-green-50 to-emerald-50">
+          <div className="flex justify-center items-center gap-8 text-sm text-green-700">
+            <a
+              href="#"
+              className="hover:text-green-600 transition-colors font-medium"
+            >
+              Privacy
+            </a>
+            <a
+              href="#"
+              className="hover:text-green-600 transition-colors font-medium"
+            >
+              Terms
+            </a>
+            <a
+              href="#"
+              className="hover:text-green-600 transition-colors font-medium"
+            >
+              Help
+            </a>
+          </div>
+        </footer>
+      </div>
+    </ProtectedRoute>
   );
 }
