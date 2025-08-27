@@ -45,7 +45,6 @@ export default function MainHeader() {
       icon: Trophy,
       href: "/leaderboard",
     },
-    { id: "stats", label: "Stats", icon: Crown, href: "/stats" },
     {
       id: "incorrect-words",
       label: "Incorrect Words",
