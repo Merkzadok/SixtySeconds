@@ -14,6 +14,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/Components/ui/card";
+import ProtectedRoute from "@/provider/ProtectPage";
 
 type GameType = "mastermind" | "memory" | "snake" | "wordle" | null;
 
@@ -50,52 +51,58 @@ const Games = () => {
   if (selectedGame) {
     const currentGame = games.find((game) => game.id === selectedGame);
     return (
-      <div className="min-h-screen bg-background p-4">
-        <div className="max-w-4xl mx-auto">
-          <div className="mb-6 flex items-center justify-between">
-            <h1 className="text-3xl font-bold">{currentGame?.title}</h1>
-            <Button variant="outline" onClick={() => setSelectedGame(null)}>
-              ← Back to Games
-            </Button>
+      <ProtectedRoute>
+        <div className="min-h-screen bg-background p-4">
+          <div className="max-w-4xl mx-auto">
+            <div className="mb-6 flex items-center justify-between">
+              <h1 className="text-3xl font-bold">{currentGame?.title}</h1>
+              <Button variant="outline" onClick={() => setSelectedGame(null)}>
+                ← Back to Games
+              </Button>
+            </div>
+            {currentGame?.component}
           </div>
-          {currentGame?.component}
         </div>
-      </div>
+      </ProtectedRoute>
     );
   }
 
   return (
-    <div className="min-h-screen bg-background p-4">
-      <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-8 mt-12">
-          <h1 className="text-4xl font-bold mb-4">Game Collection</h1>
-          <p className="text-muted-foreground text-lg">Choose a game to play</p>
-        </div>
+    <ProtectedRoute>
+      <div className="min-h-screen bg-background p-4">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-8 mt-12">
+            <h1 className="text-4xl font-bold mb-4">Game Collection</h1>
+            <p className="text-muted-foreground text-lg">
+              Choose a game to play
+            </p>
+          </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {games.map((game) => (
-            <Card
-              key={game.id}
-              className="cursor-pointer hover:shadow-lg transition-shadow"
-              onClick={() => setSelectedGame(game.id)}
-            >
-              <CardHeader>
-                <CardTitle className="text-xl">{game.title}</CardTitle>
-                <CardDescription>{game.description}</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Button
-                  className="w-full bg-gradient-to-r from-green-500 via-green-600 to-green-700
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {games.map((game) => (
+              <Card
+                key={game.id}
+                className="cursor-pointer hover:shadow-lg transition-shadow"
+                onClick={() => setSelectedGame(game.id)}
+              >
+                <CardHeader>
+                  <CardTitle className="text-xl">{game.title}</CardTitle>
+                  <CardDescription>{game.description}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <Button
+                    className="w-full bg-gradient-to-r from-green-500 via-green-600 to-green-700
 "
-                >
-                  Play {game.title}
-                </Button>
-              </CardContent>
-            </Card>
-          ))}
+                  >
+                    Play {game.title}
+                  </Button>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         </div>
       </div>
-    </div>
+    </ProtectedRoute>
   );
 };
 

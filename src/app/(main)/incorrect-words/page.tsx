@@ -2,6 +2,7 @@
 
 import { LoaderScreen } from "@/Components/loader/loading";
 import { useUser } from "@/provider/CurrentUser";
+import ProtectedRoute from "@/provider/ProtectPage";
 import React, { useEffect, useState } from "react";
 
 type Sentence = {
@@ -75,75 +76,78 @@ const IncorrectWordPage: React.FC = () => {
   if (!sentence) return <LoaderScreen />;
 
   return (
-    <div className="max-w-2xl mx-auto p-6 space-y-6">
-      <h2 className="text-2xl font-bold text-center text-purple-700">
-        🔍 Алдаатай үг хайх
-      </h2>
-      <p className="text-center text-gray-600 text-md">
-        Доорх өгүүлбэрээс алдаатай үгийг сонгоорой.
-      </p>
+    <ProtectedRoute>
+      {" "}
+      <div className="max-w-2xl mx-auto p-6 space-y-6">
+        <h2 className="text-2xl font-bold text-center text-purple-700">
+          🔍 Алдаатай үг хайх
+        </h2>
+        <p className="text-center text-gray-600 text-md">
+          Доорх өгүүлбэрээс алдаатай үгийг сонгоорой.
+        </p>
 
-      {/* Өгүүлбэр */}
-      <div className="bg-gray-400 p-5 rounded-lg shadow-sm text-xl text-center leading-relaxed">
-        {sentence &&
-          sentence?.words.map((word, index) => (
-            <span
-              key={index}
-              onClick={() => setSelectedWord(word)}
-              className={`inline-block px-2 py-1 mx-[2px] rounded-md cursor-pointer transition-all duration-200 ${
-                selectedWord === word
-                  ? "bg-yellow-300 text-black underline underline-offset-4"
-                  : "hover:bg-blue-200 hover:underline"
-              }`}
-            >
-              {word}
-            </span>
-          ))}
-      </div>
+        {/* Өгүүлбэр */}
+        <div className="bg-gray-400 p-5 rounded-lg shadow-sm text-xl text-center leading-relaxed">
+          {sentence &&
+            sentence?.words.map((word, index) => (
+              <span
+                key={index}
+                onClick={() => setSelectedWord(word)}
+                className={`inline-block px-2 py-1 mx-[2px] rounded-md cursor-pointer transition-all duration-200 ${
+                  selectedWord === word
+                    ? "bg-yellow-300 text-black underline underline-offset-4"
+                    : "hover:bg-blue-200 hover:underline"
+                }`}
+              >
+                {word}
+              </span>
+            ))}
+        </div>
 
-      {/* Баталгаажуулах товч */}
-      <div className="flex justify-center">
-        <button
-          disabled={!selectedWord}
-          onClick={submitSelection}
-          className={`px-6 py-2 text-white font-bold rounded-md transition duration-200 ${
-            !selectedWord
-              ? "bg-gray-400 cursor-not-allowed"
-              : "bg-green-500 hover:bg-green-600"
-          }`}
-        >
-          Баталгаажуулах
-        </button>
-      </div>
-
-      {/* Feedback хэсэг */}
-      {feedback && (
-        <div className="text-center space-y-3">
-          <p
-            className={`text-lg font-bold ${
-              feedback.correct ? "text-green-600" : "text-red-500"
+        {/* Баталгаажуулах товч */}
+        <div className="flex justify-center">
+          <button
+            disabled={!selectedWord}
+            onClick={submitSelection}
+            className={`px-6 py-2 text-white font-bold rounded-md transition duration-200 ${
+              !selectedWord
+                ? "bg-gray-400 cursor-not-allowed"
+                : "bg-green-500 hover:bg-green-600"
             }`}
           >
-            {feedback.correct
-              ? "🎉 Зөв сонголт!"
-              : "😅 Уучлаарай, буруу байна."}
-          </p>
-          <p className="text-sm text-gray-600">
-            Энэ өгүүлбэрийн оноо:{" "}
-            <span className="font-semibold">{feedback.score}</span>
-          </p>
-          <p className="text-sm text-gray-700 font-semibold">
-            🏆 Нийт оноо: <span className="text-blue-600">{totalScore}</span>
-          </p>
-          <button
-            onClick={fetchSentence}
-            className="mt-2 px-6 py-2 bg-indigo-500 text-white rounded-md hover:bg-indigo-600 transition"
-          >
-            ➡️ Дараагийн өгүүлбэр
+            Баталгаажуулах
           </button>
         </div>
-      )}
-    </div>
+
+        {/* Feedback хэсэг */}
+        {feedback && (
+          <div className="text-center space-y-3">
+            <p
+              className={`text-lg font-bold ${
+                feedback.correct ? "text-green-600" : "text-red-500"
+              }`}
+            >
+              {feedback.correct
+                ? "🎉 Зөв сонголт!"
+                : "😅 Уучлаарай, буруу байна."}
+            </p>
+            <p className="text-sm text-gray-600">
+              Энэ өгүүлбэрийн оноо:{" "}
+              <span className="font-semibold">{feedback.score}</span>
+            </p>
+            <p className="text-sm text-gray-700 font-semibold">
+              🏆 Нийт оноо: <span className="text-blue-600">{totalScore}</span>
+            </p>
+            <button
+              onClick={fetchSentence}
+              className="mt-2 px-6 py-2 bg-indigo-500 text-white rounded-md hover:bg-indigo-600 transition"
+            >
+              ➡️ Дараагийн өгүүлбэр
+            </button>
+          </div>
+        )}
+      </div>
+    </ProtectedRoute>
   );
 };
 

@@ -1,10 +1,12 @@
+import ProtectedRoute from "@/provider/ProtectPage";
 import PersonalInfo from "./components/PersonalInfo";
 
 export default function ProfilePage() {
   return (
-     
-        <div>
-          <PersonalInfo />
-        </div>
+    <ProtectedRoute>
+      <div>
+        <PersonalInfo />
+      </div>
+    </ProtectedRoute>
   );
 }
