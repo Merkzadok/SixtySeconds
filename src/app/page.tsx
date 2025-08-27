@@ -20,8 +20,8 @@ export default function LandingPage() {
           <div className="w-10 h-10 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full flex items-center justify-center shadow-md">
             <Lottie animationData={logoAnimation} loop={true} />
           </div>
-          <span className="font-black text-2xl text-gray-800 tracking-tight">
-            SixtySeconds
+          <span className="font-black text-4xl text-gray-800 tracking-tight">
+            60 Секунд
           </span>
         </div>
       </header>
@@ -43,7 +43,7 @@ export default function LandingPage() {
 
               {/* Floating Language Bubbles */}
               <div className="absolute -top-4 -left-4 bg-green-500 text-white px-4 py-2 rounded-full text-sm font-bold animate-bounce delay-100 shadow-md">
-                Hello
+                Сайн уу
               </div>
               <div className="absolute -top-2 -right-6 bg-emerald-500 text-white px-4 py-2 rounded-full text-sm font-bold animate-bounce delay-200 shadow-md">
                 Hola
@@ -59,15 +59,9 @@ export default function LandingPage() {
 
           {/* Right Side - Content */}
           <div className="text-center md:text-left space-y-8">
-            <h1 className="text-4xl md:text-4xl font-black text-gray-700 leading-tight">
-              The free, fun, and
-              <span className="bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
-                {" "}
-                effective
-              </span>{" "}
-              way to learn a language!
-            </h1>
-
+            <h1 className="text-4xl font-black text-gray-700 font-Comfortaa">Чөлөөт цагаараа хөгжилтэй аргаар 
+            <span className="bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">уншиж
+            </span>{" "}сурцгаая!</h1>
             {/* <p className="text-xl md:text-2xl text-gray-600 max-w-lg font-medium leading-relaxed">
               Join millions of learners worldwide and start your language
               journey today with interactive lessons and engaging exercises.
@@ -80,7 +74,7 @@ export default function LandingPage() {
                   size="lg"
                   className="bg-gradient-to-r cursor-pointer from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white px-8 py-4 text-lg font-black rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 border-2 border-green-400"
                 >
-                  GET STARTED
+                  БҮРТГҮҮЛЭХ
                 </Button>
               </Link>
               <Link href="/login">
@@ -89,7 +83,7 @@ export default function LandingPage() {
                   size="lg"
                   className="bg-white cursor-pointer text-cyan-600 hover:bg-cyan-50 px-8 py-4 text-lg font-bold rounded-xl shadow-md hover:shadow-lg transition-all duration-200 border-2 border-cyan-200 hover:border-cyan-300"
                 >
-                  I ALREADY HAVE AN ACCOUNT
+                  НЭВТРЭХ
                 </Button>
               </Link>
             </div>

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Fredoka, Geist, Geist_Mono } from "next/font/google";
+import { Comfortaa,  Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import UserContextProvider from "@/provider/CurrentUser";
 
@@ -13,8 +13,10 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const fredoka = Fredoka({
-  subsets: ["latin"],
+
+
+const comfortaa= Comfortaa({
+  subsets: ["latin","cyrillic","cyrillic-ext"],
   weight: ["400", "500", "700"], // you can adjust weights if needed
 });
 
@@ -30,7 +32,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${fredoka.className} antialiased`}>
+      <body className={`${comfortaa.className} antialiased`}>
         <UserContextProvider>{children}</UserContextProvider>
       </body>
     </html>

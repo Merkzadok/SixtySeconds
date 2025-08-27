@@ -72,7 +72,7 @@ export default function SignInForm() {
           <Link href="/register">
             <Button className="bg-gradient-to-r  cursor-pointer border-b-indigo-200 border-2 from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white font-bold px-4 py-2 md:px-6 md:py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2">
               <User size={18} />
-              <span className="hidden sm:inline">Sign Up</span>
+              <span className="hidden sm:inline">Бүртгүүлэх</span>
             </Button>
           </Link>
         </div>
@@ -84,7 +84,7 @@ export default function SignInForm() {
             {/* Header Section */}
             <div className="bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 p-6 text-center">
               <h2 className="text-3xl font-black text-white mb-2">
-                Welcome Back
+                Тавтай морил!
               </h2>
             </div>
 
@@ -96,7 +96,7 @@ export default function SignInForm() {
                   htmlFor="login-email"
                   className="text-gray-700 font-semibold"
                 >
-                  Email Address
+                  Email 
                 </Label>
                 <div className="relative">
                   <div className="flex items-center bg-gray-50 border-2 rounded-xl overflow-hidden border-gray-200 focus-within:border-blue-500 focus-within:bg-white transition-all duration-300 hover:shadow-md">
@@ -106,7 +106,7 @@ export default function SignInForm() {
                     <Input
                       id="login-email"
                       type="email"
-                      placeholder="your.email@example.com"
+                      placeholder="email оруулна уу"
                       value={formData.email}
                       onChange={(e) =>
                         handleInputChange("email", e.target.value)
@@ -132,7 +132,7 @@ export default function SignInForm() {
                   htmlFor="login-password"
                   className="text-gray-700 font-semibold"
                 >
-                  Password
+                  Нууц үг
                 </Label>
                 <div className="relative">
                   <div className="flex items-center bg-gray-50 border-2 rounded-xl overflow-hidden border-gray-200 focus-within:border-blue-500 focus-within:bg-white transition-all duration-300 hover:shadow-md">
@@ -142,7 +142,7 @@ export default function SignInForm() {
                     <Input
                       id="login-password"
                       type="password"
-                      placeholder="Enter your password"
+                      placeholder="Нууц үгээ оруулна уу"
                       value={formData.password}
                       onChange={(e) =>
                         handleInputChange("password", e.target.value)
@@ -175,10 +175,10 @@ export default function SignInForm() {
                 {isLoading ? (
                   <div className="flex items-center gap-2">
                     <div className="w-5 h-5 border-2 border-white/20 border-t-white rounded-full animate-spin"></div>
-                    Signing In...
+                    Нэвтрэч байна...
                   </div>
                 ) : (
-                  "Sign In"
+                  "Нэвтрэх"
                 )}
               </Button>
             </form>

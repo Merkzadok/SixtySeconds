@@ -89,7 +89,7 @@ export default function SignUpForm() {
           <Link href="/login">
             <Button className="bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 cursor-pointer border-b-indigo-200 border-2 text-white font-bold px-4 py-2 md:px-6 md:py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2">
               <Mail size={18} />
-              <span className="hidden sm:inline">Sign In</span>
+              <span className="hidden sm:inline">Нэвтрэх</span>
             </Button>
           </Link>
         </div>
@@ -99,7 +99,7 @@ export default function SignUpForm() {
           <div className="bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
             <div className="bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 p-6 text-center">
               <h2 className="text-3xl font-black text-white mb-2">
-                Create Account
+                Шинэ хэрэглэгч бүртгүүлэх
               </h2>
             </div>
             <form onSubmit={handleSignup} className="p-8 space-y-6">
@@ -109,7 +109,7 @@ export default function SignUpForm() {
                   htmlFor="signup-username"
                   className="text-gray-700 font-semibold"
                 >
-                  Your Name
+                  Нэр
                 </Label>
                 <div className="relative">
                   <div className="flex items-center bg-gray-50 border-2 rounded-xl overflow-hidden border-gray-200 focus-within:border-blue-500 focus-within:bg-white transition-all duration-300 hover:shadow-md">
@@ -144,7 +144,7 @@ export default function SignUpForm() {
                   htmlFor="signup-email"
                   className="text-gray-700 font-semibold"
                 >
-                  Email Address
+                  Имэйл
                 </Label>
                 <div className="relative">
                   <div className="flex items-center bg-gray-50 border-2 rounded-xl overflow-hidden border-gray-200 focus-within:border-blue-500 focus-within:bg-white transition-all duration-300 hover:shadow-md">
@@ -179,7 +179,7 @@ export default function SignUpForm() {
                   htmlFor="signup-password"
                   className="text-gray-700 font-semibold"
                 >
-                  Create Password
+                  Нууц үг
                 </Label>
                 <div className="relative">
                   <div className="flex items-center bg-gray-50 border-2 rounded-xl overflow-hidden border-gray-200 focus-within:border-blue-500 focus-within:bg-white transition-all duration-300 hover:shadow-md">

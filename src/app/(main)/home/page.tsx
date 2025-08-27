@@ -19,16 +19,16 @@ export default function HomePage() {
   const mainSectionItems = [
     {
       id: "reading",
-      label: "Reading",
-      description: "Discover amazing books and stories",
+      label: "Унших",
+      description: "Гайхалтай ном түүхийн ертөнцөөр аялцгаая",
       gradient: "from-lime-400 via-green-400 to-emerald-500",
       bgPattern: "bg-gradient-to-br from-lime-100 via-green-50 to-emerald-100",
       href: "/reading",
     },
     {
       id: "rankings",
-      label: "Rankings",
-      description: "See where you stand among peers",
+      label: "Түвшин",
+      description: "Амжилтаа шалгаад түвшингээ ахиулцгаая",
       gradient: "from-emerald-400 via-green-400 to-lime-500",
       bgPattern: "bg-gradient-to-br from-emerald-100 via-green-50 to-lime-100",
       href: "/leaderboard",
@@ -37,8 +37,8 @@ export default function HomePage() {
 
   // Quick stats data
   const quickStats = [
-    { label: "Rank", value: "#47", icon: Trophy },
-    { label: "Points", value: "2,847", icon: Star },
+    { label: "Түвшин", value: "#47", icon: Trophy },
+    { label: "Оноо", value: "2,847", icon: Star },
   ];
 
   useLayoutEffect(() => {
@@ -124,19 +124,19 @@ export default function HomePage() {
             href="#"
             className="hover:text-green-600 transition-colors font-medium"
           >
-            Privacy
+            Аюулгүй байдал
           </a>
           <a
             href="#"
             className="hover:text-green-600 transition-colors font-medium"
           >
-            Terms
+            Нөхцөл
           </a>
           <a
             href="#"
             className="hover:text-green-600 transition-colors font-medium"
           >
-            Help
+            Тусламж
           </a>
         </div>
       </footer>

@@ -97,7 +97,7 @@ export default function MainHeader() {
                   </span>
                 </div>
                 <span className="font-black text-2xl text-green-900 tracking-tight drop-shadow">
-                  SixtySeconds
+                  60 Секунд
                 </span>
               </div>
             </Link>
