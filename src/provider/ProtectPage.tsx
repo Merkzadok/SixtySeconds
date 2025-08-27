@@ -17,7 +17,7 @@ export default function ProtectedRoute({
     const token = localStorage.getItem("Token:");
 
     if (!token) {
-      router.push("/login");
+      router.push("/");
       return;
     }
 
