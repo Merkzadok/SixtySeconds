@@ -111,18 +111,16 @@ const SpeechToTextMongolian: React.FC = () => {
   if (!sentence) return <LoaderScreen />;
 
   return (
-    <div className="bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 min-h-screen flex items-center justify-center">
-      <div className="max-w-md mx-auto mt-20 px-6 py-8 bg-gradient-to-b from-white to-gray-50 rounded-2xl shadow-xl font-sans space-y-8">
-        <h1 className="text-center text-3xl font-extrabold text-indigo-600 drop-shadow-sm">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-50 via-yellow-50 to-blue-50 p-4">
+      <div className="max-w-md w-full px-6 py-8 rounded-3xl shadow-xl bg-gradient-to-b from-white via-green-50 to-white space-y-6 animate-[fadeIn_0.5s_ease-in-out]">
+        <h1 className="text-center text-3xl font-extrabold text-green-600 drop-shadow-md animate-[bounce_0.6s_ease-in-out] ">
           Монгол яриаг текст рүү
         </h1>
 
-        {sentence && (
-          <ExpectedText
-            expectedText={sentence?.sentence}
-            actualText={fullTranscript}
-          />
-        )}
+        <ExpectedText
+          expectedText={sentence.sentence}
+          actualText={fullTranscript}
+        />
 
         <ControlButtons
           listening={listening}
@@ -141,45 +139,59 @@ const SpeechToTextMongolian: React.FC = () => {
         <ResultStats matchCount={matchCount} total={total} accuracy={accuracy}>
           <VoiceRecorder
             ref={recorderRef}
-            onUploadComplete={(url) => {
-              setAudioUrl(url || null);
-            }}
+            onUploadComplete={(url) => setAudioUrl(url || null)}
           />
 
           <button
             onClick={handleSaveAndNext}
-            className="block w-full py-3 bg-indigo-500 hover:bg-indigo-600 text-white text-lg font-semibold rounded-xl shadow-md transition-transform hover:scale-105"
+            className="w-full py-3 mt-2 bg-green-500 hover:bg-green-600 text-white text-lg font-bold rounded-2xl shadow-lg transition-transform hover:scale-105 active:scale-95"
           >
             ✅ Хадгалах ба Дараагийн
           </button>
         </ResultStats>
 
         {audioUrl && (
-          <div className="mt-6 text-center space-y-3">
+          <div className="mt-6 text-center space-y-2">
             <audio
               src={audioUrl}
               controls
-              className="w-full rounded-lg shadow-sm"
+              className="w-full rounded-lg shadow-md"
             />
             <a
               href={audioUrl}
               download="recording.webm"
-              className="inline-block text-indigo-600 hover:text-indigo-800 underline text-sm"
+              className="text-green-600 hover:text-green-800 underline text-sm"
             >
               ⬇️ Татаж авах
             </a>
           </div>
         )}
 
-        {sentence && (
-          <p className="text-center text-sm text-gray-600">
-            📚 Энэ өгүүлбэрийг уншсан удаа:{" "}
-            <span className="font-bold text-indigo-600">
-              {sentence.readCount}
-            </span>
-          </p>
-        )}
+        <p className="text-center text-sm text-gray-700">
+          📚 Энэ өгүүлбэрийг уншсан удаа:{" "}
+          <span className="font-bold text-green-600">{sentence.readCount}</span>
+        </p>
       </div>
+
+      <style jsx>{`
+        @keyframes bounce {
+          0%,
+          100% {
+            transform: translateY(0);
+          }
+          50% {
+            transform: translateY(-6px);
+          }
+        }
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+          }
+          to {
+            opacity: 1;
+          }
+        }
+      `}</style>
     </div>
   );
 };

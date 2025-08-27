@@ -41,7 +41,7 @@ const LeaderBoard = () => {
       <div className="max-w-3xl mx-auto space-y-8">
         <ReadingStats />
         <div className="bg-white/90 backdrop-blur rounded-2xl p-6 shadow-md border-2 border-[#0AA84C]  max-h-[400px] overflow-y-auto">
-          <h2 className="text-xl font-semibold mb-4. font-bold bg-gradient-to-r from-[#2a7b9b] via-[#57c785] to-[#eddd53] bg-clip-text text-transparent mb-6">
+          <h2 className="text-xl  mb-4. font-bold bg-gradient-to-r from-[#2a7b9b] via-[#57c785] to-[#eddd53] bg-clip-text text-transparent mb-6">
             Шилдэг суралцагчид
           </h2>
           <div className="space-y-4 h-[400px]">
