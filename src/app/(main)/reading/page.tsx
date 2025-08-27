@@ -1,194 +1,59 @@
-"use client";
+import { Button } from "@/Components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/Components/ui/card";
+import Link from "next/link";
+import path from "path";
 
-import React, { useEffect, useState, useRef } from "react";
-import dynamic from "next/dynamic";
+ const level = [
+   {
+     title: "Level 1",
+     description: "1 dugeer angiin huuhduuded amar sedew",
+     path: "/reading/levelOne",
+   },
+   {
+     title: "Level 2",
+     description: "1 dugeer angiin huuhduuded jaahan hetsuu sedew",
+     path: "/reading/levelTwo",
+   },
+   {
+     title: "Level 3",
+     description: "1 dugeer angiin huuhduuded hetsuu sedew",
+     path: "/reading/levelThree",
+   }
+ ];
 
-import { createRecognition } from "@/app/utils/recognitionHandler";
-import { compareTexts } from "@/app/utils/compareTexts";
-import ExpectedText from "./components/ExpectedText";
-import ControlButtons from "./components/ControlButtons";
-import TranscriptBox from "./components/TranscriptBox";
-import ResultStats from "./components/ResultStats";
-import { VoiceRecorderHandle } from "./components/VoiceRecorder";
-import { useUser } from "@/provider/CurrentUser";
-import { LoaderScreen } from "@/Components/loader/loading";
-import ProtectedRoute from "@/provider/ProtectPage";
-
-const VoiceRecorder = dynamic(() => import("./components/VoiceRecorder"), {
-  ssr: false,
-});
-
-const SpeechToTextMongolian: React.FC = () => {
-  const [startTime, setStartTime] = useState<Date | null>(null);
-  const [stopTime, setStopTime] = useState<Date | null>(null);
-  const [audioUrl, setAudioUrl] = useState<string | null>(null);
-  const { user } = useUser();
-
-  const [sentence, setSentence] = useState<{
-    readingId: number;
-    sentence: string;
-    readCount: number;
-  } | null>(null);
-  const [fullTranscript, setFullTranscript] = useState("");
-  const [interimTranscript, setInterimTranscript] = useState("");
-  const [listening, setListening] = useState(false);
-  const recorderRef = useRef<VoiceRecorderHandle>(null);
-  const recognitionRef = useRef<SpeechRecognition | null>(null);
-
-  const fetchNextSentence = async () => {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/gemini/${user?.profileId}`,
-      {
-        method: "POST",
-        // body:JSON.stringify({sentence})
-      }
-    );
-    const data = await res.json();
-
-    setSentence(data);
-  };
-
-  useEffect(() => {
-    if (!user) return;
-    recognitionRef.current = createRecognition(
-      setFullTranscript,
-      setInterimTranscript,
-      setListening
-    );
-    fetchNextSentence();
-
-    return () => recognitionRef.current?.stop();
-  }, [user]);
-
-  const handleSaveAndNext = async () => {
-    if (!sentence) return;
-
-    try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/gemini/finish/${sentence?.readingId}`,
-        {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            id: sentence.readingId,
-            startTime,
-            stopTime,
-            audioUrl,
-            accuracy: compareTexts(sentence.sentence, fullTranscript).accuracy,
-          }),
-        }
-      );
-
-      setFullTranscript("");
-      setInterimTranscript("");
-      setListening(false);
-      recognitionRef.current?.stop();
-      fetchNextSentence();
-      setAudioUrl("");
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const { matchCount, total, accuracy } = compareTexts(
-    sentence?.sentence || "",
-    fullTranscript
-  );
-
-  const onToggle = () => {
-    if (listening) {
-      setStopTime(new Date()); // 🟢 ЭНЭ
-
-      recognitionRef.current?.stop();
-      recorderRef.current?.stop();
-      setListening(false);
-    } else {
-      setStartTime(new Date()); // 🟢 ЭНЭ
-      recognitionRef.current?.start();
-      recorderRef.current?.start();
-      setListening(true);
-    }
-  };
-  if (!sentence) return <LoaderScreen />;
-
+const ReadingPage = () => {
+ 
   return (
-    <ProtectedRoute>
-      <div className="bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 min-h-screen flex items-center justify-center">
-        <div className="max-w-md mx-auto mt-20 px-6 py-8 bg-gradient-to-b from-white to-gray-50 rounded-2xl shadow-xl font-sans space-y-8">
-          <h1 className="text-center text-3xl font-extrabold text-indigo-600 drop-shadow-sm">
-            Монгол яриаг текст рүү
-          </h1>
+    <div className="min-h-screen bg-background p-4">
+      <div className="max-w-6xl mx-auto">
+        <div className="text-center mb-8 mt-12">
+          <h1 className="text-4xl font-bold mb-4">Reading</h1>
+          <p className="text-muted-foreground text-lg">Choose your level</p>
+        </div>
 
-          {sentence && (
-            <ExpectedText
-              expectedText={sentence?.sentence}
-              actualText={fullTranscript}
-            />
-          )}
-
-          <ControlButtons
-            listening={listening}
-            onToggle={onToggle}
-            onClear={() => {
-              setFullTranscript("");
-              setInterimTranscript("");
-            }}
-          />
-
-          <TranscriptBox
-            fullTranscript={fullTranscript}
-            interimTranscript={interimTranscript}
-          />
-
-          <ResultStats
-            matchCount={matchCount}
-            total={total}
-            accuracy={accuracy}
-          >
-            <VoiceRecorder
-              ref={recorderRef}
-              onUploadComplete={(url) => {
-                setAudioUrl(url || null);
-              }}
-            />
-
-            <button
-              onClick={handleSaveAndNext}
-              className="block w-full py-3 bg-indigo-500 hover:bg-indigo-600 text-white text-lg font-semibold rounded-xl shadow-md transition-transform hover:scale-105"
-            >
-              ✅ Хадгалах ба Дараагийн
-            </button>
-          </ResultStats>
-
-          {audioUrl && (
-            <div className="mt-6 text-center space-y-3">
-              <audio
-                src={audioUrl}
-                controls
-                className="w-full rounded-lg shadow-sm"
-              />
-              <a
-                href={audioUrl}
-                download="recording.webm"
-                className="inline-block text-indigo-600 hover:text-indigo-800 underline text-sm"
-              >
-                ⬇️ Татаж авах
-              </a>
-            </div>
-          )}
-
-          {sentence && (
-            <p className="text-center text-sm text-gray-600">
-              📚 Энэ өгүүлбэрийг уншсан удаа:{" "}
-              <span className="font-bold text-indigo-600">
-                {sentence.readCount}
-              </span>
-            </p>
-          )}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {level.map((route, index) => (
+            <Link href={route.path} key={index}>
+            <Card className="cursor-pointer hover:shadow-lg transition-shadow">
+              <CardHeader>
+                <CardTitle className="text-xl">{route.title}</CardTitle>
+                <CardDescription>{route.description}</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Button
+                  className="w-full bg-gradient-to-r from-green-500 via-green-600 to-green-700 cursor-pointer
+"
+                >
+                  Play
+                </Button>
+              </CardContent>
+            </Card>
+            </Link>
+          ))}
         </div>
       </div>
-    </ProtectedRoute>
+    </div>
   );
-};
+}
 
-export default SpeechToTextMongolian;
+export default ReadingPage
