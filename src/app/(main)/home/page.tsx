@@ -102,6 +102,22 @@ export default function HomePage() {
                 </div>
               ))}
             </div>
+
+            {/* Quick Stats */}
+            <div className="flex justify-center mt-12">
+              <div className="inline-grid grid-cols-2 md:grid-cols-4 gap-4">
+                {quickStats.map((stat, i) => (
+                  <div
+                    key={stat.label}
+                    ref={(el) => {
+                      quickStatsRef.current[i] = el;
+                    }}
+                  >
+                    <QuickStatCard stat={stat} />
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </main>
 
@@ -112,6 +128,7 @@ export default function HomePage() {
               href="#"
               className="hover:text-green-600 transition-colors font-medium"
             >
+
               Аюулгүй байдал
             </a>
             <a

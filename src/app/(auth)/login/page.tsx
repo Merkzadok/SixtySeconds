@@ -43,14 +43,21 @@ export default function SignInForm() {
         return;
       }
 
-      const data = await res.json();
+      const data = (await res.json()) as {
+        accesstoken: string;
+        user: { profileId: number | null };
+      };
       toast.success("Welcome back! 🎉", {
         description: "Great to see you again!",
         duration: 1000,
       });
       localStorage.setItem("Token:", data.accesstoken);
 
-      setTimeout(() => router.push("/profile"), 1000);
+      if (data.user.profileId) {
+        setTimeout(() => router.push("/profile"), 1000);
+      } else {
+        setTimeout(() => router.push("/create-profile"), 1000);
+      }
     } catch (err: unknown) {
       const msg =
         err instanceof Error
