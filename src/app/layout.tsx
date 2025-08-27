@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 const fredoka = Fredoka({
-  subsets: ["latin"],
+  subsets: ["latin", "hebrew"],
   weight: ["400", "500", "700"], // you can adjust weights if needed
 });
 
