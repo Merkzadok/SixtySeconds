@@ -1,6 +1,6 @@
 "use client";
 
-import { UserType } from "@/type";
+import { UserType } from "../../types/type";
 import axios from "axios";
 import React, { createContext, useContext, useEffect, useState } from "react";
 
@@ -16,7 +16,11 @@ const UserContext = createContext<UserContextType>({
   loading: true,
 });
 
-export default function UserContextProvider({ children }: { children: React.ReactNode }) {
+export default function UserContextProvider({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const [user, setUser] = useState<UserType | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -24,7 +28,6 @@ export default function UserContextProvider({ children }: { children: React.Reac
 
   useEffect(() => {
     const fetchCurrentUser = async () => {
-  
       const token = localStorage.getItem("Token:");
       if (!token) {
         setLoading(false);
