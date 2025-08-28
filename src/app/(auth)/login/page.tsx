@@ -74,7 +74,6 @@ export default function SignInForm() {
     <>
       {isLoading && <LoaderScreen />}
       <div className="min-h-screen bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 flex items-center justify-center p-4 relative overflow-hidden">
-        {/* Sign-up Button - Top Right */}
         <div className="absolute top-4 right-4 md:top-8 md:right-8 z-10">
           <Link href="/register">
             <Button className="bg-gradient-to-r  cursor-pointer border-b-indigo-200 border-2 from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white font-bold px-4 py-2 md:px-6 md:py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2">
@@ -84,20 +83,15 @@ export default function SignInForm() {
           </Link>
         </div>
 
-        {/* Main Login Form */}
         <div className="relative z-20 w-full max-w-md mx-auto">
-          {/* Glassmorphism Card */}
           <div className="bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
-            {/* Header Section */}
             <div className="bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 p-6 text-center">
               <h2 className="text-3xl font-black text-white mb-2">
                 Тавтай морил!
               </h2>
             </div>
 
-            {/* Form Section */}
             <form onSubmit={handleLogin} className="p-8 space-y-6">
-              {/* Email Field */}
               <div className="space-y-2">
                 <Label
                   htmlFor="login-email"
@@ -133,7 +127,6 @@ export default function SignInForm() {
                 </div>
               </div>
 
-              {/* Password Field */}
               <div className="space-y-2">
                 <Label
                   htmlFor="login-password"
@@ -173,7 +166,6 @@ export default function SignInForm() {
                 </div>
               </div>
 
-              {/* Sign In Button */}
               <Button
                 type="submit"
                 disabled={isLoading}

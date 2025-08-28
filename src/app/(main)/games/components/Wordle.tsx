@@ -63,7 +63,6 @@ export const Wordle = () => {
     setKeyboardState({});
   }, []);
 
-  // Initialize game
   useEffect(() => {
     resetGame();
   }, [resetGame]);
@@ -108,7 +107,6 @@ export const Wordle = () => {
     setGuesses((prevGuesses) => {
       const newGuesses = [...prevGuesses, newGuess];
 
-      // Check win/lose conditions
       if (currentGuess === targetWord) {
         setGameStatus("won");
       } else if (newGuesses.length >= 6) {
@@ -118,7 +116,6 @@ export const Wordle = () => {
       return newGuesses;
     });
 
-    // Update keyboard state
     setKeyboardState((prevKeyboardState) => {
       const newKeyboardState = { ...prevKeyboardState };
       guessLetters.forEach(({ letter, state }) => {
@@ -136,7 +133,6 @@ export const Wordle = () => {
     setCurrentGuess("");
   }, [gameStatus, currentGuess, targetWord]);
 
-  // Handle keyboard input
   useEffect(() => {
     const handleKeyPress = (event: KeyboardEvent) => {
       if (gameStatus !== "playing") return;
@@ -175,9 +171,11 @@ export const Wordle = () => {
 
       {gameStatus === "lost" && (
         <div className="text-center">
-          <p className="text-2xl font-bold text-red-600 mb-2">Тоглоом дууслаа 😔</p>
+          <p className="text-2xl font-bold text-red-600 mb-2">
+            Тоглоом дууслаа 😔
+          </p>
           <p className="text-muted-foreground">
-           Үг нь...байсан &quot;{targetWord}&quot;
+            Үг нь...байсан &quot;{targetWord}&quot;
           </p>
         </div>
       )}

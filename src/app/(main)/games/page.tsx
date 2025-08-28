@@ -73,9 +73,7 @@ const Games = () => {
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-8 mt-12">
             <h1 className="text-4xl font-bold mb-4">Тоглоом цуглуулга</h1>
-            <p className="text-muted-foreground text-lg">
-              Тоглоомоо сонгоорой
-            </p>
+            <p className="text-muted-foreground text-lg">Тоглоомоо сонгоорой</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">

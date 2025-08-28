@@ -79,12 +79,10 @@ export default function SignUpForm() {
     <>
       {isLoading && <LoaderScreen />}
       <div className="min-h-screen bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 flex items-center justify-center p-4 relative overflow-hidden">
-        {/* Background Effects */}
         <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 via-purple-600/10 to-teal-600/10"></div>
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl animate-pulse"></div>
         <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
 
-        {/* Login Button - Top Right */}
         <div className="absolute top-4 right-4 md:top-8 md:right-8 z-10">
           <Link href="/login">
             <Button className="bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 cursor-pointer border-b-indigo-200 border-2 text-white font-bold px-4 py-2 md:px-6 md:py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2">
@@ -94,7 +92,6 @@ export default function SignUpForm() {
           </Link>
         </div>
 
-        {/* Main Sign Up Form */}
         <div className="relative z-20 w-full max-w-md mx-auto">
           <div className="bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
             <div className="bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 p-6 text-center">
@@ -103,7 +100,6 @@ export default function SignUpForm() {
               </h2>
             </div>
             <form onSubmit={handleSignup} className="p-8 space-y-6">
-              {/* Username */}
               <div className="space-y-2">
                 <Label
                   htmlFor="signup-username"
@@ -138,7 +134,6 @@ export default function SignUpForm() {
                   )}
                 </div>
               </div>
-              {/* Email */}
               <div className="space-y-2">
                 <Label
                   htmlFor="signup-email"
@@ -173,7 +168,6 @@ export default function SignUpForm() {
                   )}
                 </div>
               </div>
-              {/* Password */}
               <div className="space-y-2">
                 <Label
                   htmlFor="signup-password"
@@ -208,7 +202,6 @@ export default function SignUpForm() {
                   )}
                 </div>
               </div>
-              {/* Sign Up Button */}
               <Button
                 type="submit"
                 disabled={isLoading}

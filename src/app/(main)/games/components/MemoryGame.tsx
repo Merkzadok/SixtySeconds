@@ -11,7 +11,6 @@ type Card = {
 
 type GameState = "playing" | "won";
 
-// Expanded listКАРТАЛ of words to simulate AI-generated variety
 const WORD_POOL = [
   "Хонь",
   "Арслан",
@@ -39,7 +38,6 @@ const WORD_POOL = [
   "Зам",
 ];
 
-// Function to randomly select 8 unique words for the game
 const getRandomWords = () => {
   const shuffled = [...WORD_POOL].sort(() => Math.random() - 0.5);
   return shuffled.slice(0, 8);
@@ -55,10 +53,8 @@ export function MemoryGame() {
   const [gameTime, setGameTime] = useState(0);
 
   const initializeGame = useCallback(() => {
-    // Get 8 random words for this game session
     const WORDS = getRandomWords();
 
-    // Create word pairs (2 of each word)
     const gameCards: Card[] = WORDS.flatMap((word, index) => [
       {
         id: index * 2,
@@ -74,7 +70,6 @@ export function MemoryGame() {
       },
     ]);
 
-    // Shuffle the cards
     for (let i = gameCards.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [gameCards[i], gameCards[j]] = [gameCards[j], gameCards[i]];
@@ -111,7 +106,6 @@ export function MemoryGame() {
       const secondCard = cards.find((c) => c.id === secondCardId);
 
       if (firstCard && secondCard && firstCard.word === secondCard.word) {
-        // Match found
         setTimeout(() => {
           setCards((prevCards) =>
             prevCards.map((c) =>
@@ -124,7 +118,6 @@ export function MemoryGame() {
           setFlippedCards([]);
         }, 1000);
       } else {
-        // No match
         setTimeout(() => {
           setCards((prevCards) =>
             prevCards.map((c) =>
@@ -139,14 +132,12 @@ export function MemoryGame() {
     }
   };
 
-  // Check win condition
   useEffect(() => {
     if (matches === 8 && gameState === "playing") {
       setGameState("won");
     }
   }, [matches, gameState]);
 
-  // Timer update
   useEffect(() => {
     let interval: NodeJS.Timeout;
     if (gameState === "playing") {
@@ -169,7 +160,6 @@ export function MemoryGame() {
 
   return (
     <div className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-lg">
-      {/* Header */}
       <div className="text-center mb-4">
         <h2 className="text-2xl font-bold text-gray-800 mb-2">Санах ой</h2>
         <div className="flex justify-between text-sm text-gray-600">
@@ -179,15 +169,12 @@ export function MemoryGame() {
         </div>
       </div>
 
-      {/* Game Status */}
       {gameState === "won" && (
         <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4 text-center">
-          🎉 Баяр хүргэе! Чи хожлоо{moves}{" "}
-          {formatTime(gameTime)}!
+          🎉 Баяр хүргэе! Чи хожлоо{moves} {formatTime(gameTime)}!
         </div>
       )}
 
-      {/* Game Grid */}
       <div className="grid grid-cols-4 gap-2 mb-6">
         {cards.map((card) => (
           <button
@@ -217,15 +204,13 @@ export function MemoryGame() {
         ))}
       </div>
 
-      {/* Controls */}
       <button
         onClick={initializeGame}
         className="w-full px-4 py-2 bg-transparent border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-100 transition-all mb-4"
       >
-       Шинэ тоглоом
+        Шинэ тоглоом
       </button>
 
-      {/* Instructions */}
       <div className="p-4 bg-gray-50 rounded-lg">
         <h4 className="font-semibold text-gray-700 mb-2">Тоглох заавар:</h4>
         <ul className="text-sm text-gray-600 space-y-1">
