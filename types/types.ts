@@ -52,4 +52,5 @@ export type RankType = {
   avatarImage: string;
   totalScore: number;
   id: number;
+  isCurrentUser: boolean;
 };

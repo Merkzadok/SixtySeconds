@@ -9,10 +9,12 @@ import { useUser } from "@/provider/CurrentUser";
 const LeaderBoard = () => {
   const [board, setBoard] = useState<RankType[]>([]);
   const { user } = useUser();
+
   useEffect(() => {
+    if (!user?.profileId) return;
     const showRank = async () => {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/leaderboard`
+        `${process.env.NEXT_PUBLIC_API_URL}/leaderboard?userId=${user?.profileId}`
       );
       const data = await response.json();
       console.log("dad", data);
@@ -20,7 +22,7 @@ const LeaderBoard = () => {
     };
     showRank();
     fetchCurrentUser();
-  }, []);
+  }, [user?.id]);
 
   const [currentUser, setCurrentUser] = useState<string | null>(null);
 
@@ -52,9 +54,7 @@ const LeaderBoard = () => {
                 username={user.username}
                 totalScore={user.totalScore}
                 rank={idx + 1}
-                isCurrentUser={
-                  currentUser ? user.username === currentUser : false
-                }
+                isCurrentUser={user.isCurrentUser}
               />
             ))}
           </div>

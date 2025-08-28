@@ -1,3 +1,4 @@
+"use client";
 import { Button } from "@/Components/ui/button";
 import {
   Card,
@@ -24,6 +25,11 @@ const level = [
     title: "Түвшин 3",
     description: "1 дүгээр ангийн хүүхдүүдэд хэцүү сэдэв",
     path: "/reading/levelThree",
+  },
+  {
+    title: "60 sec",
+    description: "1 дүгээр ангийн хүүхдүүдэд хэцүү сэдэв",
+    path: "/reading/reading-timer",
   },
 ];
 

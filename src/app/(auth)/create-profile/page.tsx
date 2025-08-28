@@ -81,8 +81,9 @@ export default function ProfileForm() {
     setPreviewImage(url);
     setFormData((prev) => ({ ...prev, profileImage: url }));
   };
-
+  console.log(user);
   const handleSubmit = async (e: FormEvent) => {
+    if (!user?.id) return;
     e.preventDefault();
     setLoadingSave(true);
     try {
