@@ -5,18 +5,18 @@ import path from "path";
 
  const level = [
    {
-     title: "Level 1",
-     description: "1 dugeer angiin huuhduuded amar sedew",
+     title: "Түвшин 1",
+     description: "1 дүгээр ангийн хүүхдүүдэд амар сэдэв",
      path: "/reading/levelOne",
    },
    {
-     title: "Level 2",
-     description: "1 dugeer angiin huuhduuded jaahan hetsuu sedew",
+     title: "Түвшин 2",
+     description: "1 дүгээр ангийн хүүхдүүдэд дунд зэргийн сэдэв",
      path: "/reading/levelTwo",
    },
    {
-     title: "Level 3",
-     description: "1 dugeer angiin huuhduuded hetsuu sedew",
+     title: "Түвшин 3",
+     description: "1 дүгээр ангийн хүүхдүүдэд хэцүү сэдэв",
      path: "/reading/levelThree",
    }
  ];
@@ -27,8 +27,8 @@ const ReadingPage = () => {
     <div className="min-h-screen bg-background p-4">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-8 mt-12">
-          <h1 className="text-4xl font-bold mb-4">Reading</h1>
-          <p className="text-muted-foreground text-lg">Choose your level</p>
+          <h1 className="text-4xl font-bold mb-4">Унших</h1>
+          <p className="text-muted-foreground text-lg">Түвшингээ сонгоорой</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -44,7 +44,7 @@ const ReadingPage = () => {
                   className="w-full bg-gradient-to-r from-green-500 via-green-600 to-green-700 cursor-pointer
 "
                 >
-                  Play
+                  Түвшин рүү орох
                 </Button>
               </CardContent>
             </Card>

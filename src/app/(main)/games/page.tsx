@@ -24,26 +24,26 @@ const Games = () => {
   const games = [
     {
       id: "mastermind" as const,
-      title: "Mastermind",
-      description: "Crack the secret code using logic and deduction",
+      title: "Оюун ухаан",
+      description: "Ухаанаа ажиллуулж код таах тоглоом",
       component: <MastermindGame />,
     },
     {
       id: "memory" as const,
-      title: "Memory Game",
-      description: "Match pairs of cards to test your memory",
+      title: "Санах ой",
+      description: "Ижил картуудыг олж тоглох тоглоом",
       component: <MemoryGame />,
     },
     {
       id: "snake" as const,
-      title: "Snake Game",
-      description: "Classic snake game - eat food and grow longer",
+      title: "Могой",
+      description: "Могойгоо хооллоод урт болгоё тоглоом",
       component: <SnakeGame />,
     },
     {
       id: "wordle" as const,
-      title: "Wordle",
-      description: "Guess the 5-letter word in 6 tries or less",
+      title: "Үг таах",
+      description: "5 үсэгтэй үгийг 6 оролдлогоор ба багатайгаар таах тоглоом",
       component: <Wordle />,
     },
   ];
@@ -57,7 +57,7 @@ const Games = () => {
             <div className="mb-6 flex items-center justify-between">
               <h1 className="text-3xl font-bold">{currentGame?.title}</h1>
               <Button variant="outline" onClick={() => setSelectedGame(null)}>
-                ← Back to Games
+                ← Тоглоом сонгох руу буцах
               </Button>
             </div>
             {currentGame?.component}
@@ -72,9 +72,9 @@ const Games = () => {
       <div className="min-h-screen bg-background p-4">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-8 mt-12">
-            <h1 className="text-4xl font-bold mb-4">Game Collection</h1>
+            <h1 className="text-4xl font-bold mb-4">Тоглоом цуглуулга</h1>
             <p className="text-muted-foreground text-lg">
-              Choose a game to play
+              Тоглоомоо сонгоорой
             </p>
           </div>
 
@@ -94,7 +94,7 @@ const Games = () => {
                     className="w-full bg-gradient-to-r from-green-500 via-green-600 to-green-700
 "
                   >
-                    Play {game.title}
+                    Тоглох {game.title}
                   </Button>
                 </CardContent>
               </Card>
