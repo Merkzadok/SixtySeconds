@@ -14,18 +14,6 @@ export default function LandingPage() {
     <div
       className={`${fredoka.className} min-h-screen bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 flex flex-col`}
     >
-      {/* Header */}
-      <header className="flex items-center justify-start p-4 md:p-6">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full flex items-center justify-center shadow-md">
-            <Lottie animationData={logoAnimation} loop={true} />
-          </div>
-          <span className="font-black text-4xl text-gray-800 tracking-tight">
-            60 Секунд
-          </span>
-        </div>
-      </header>
-
       {/* Main Content */}
       <main className="flex-1 flex items-center  justify-center px-4  md:px-6">
         <div className="w-full max-w-6xl  grid md:grid-cols-2 gap-15 items-center">
