@@ -15,7 +15,10 @@ export default function ProfileAvatar() {
   // Dropdown-г гадна даралт дээр хаах
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
         setOpen(false);
       }
     };
@@ -47,13 +50,12 @@ export default function ProfileAvatar() {
       </div>
 
       {/* Жижиг сум → dropdown toggle */}
-    <button
-  onClick={() => setOpen(!open)}
-  className="flex items-center gap-1 px-2 py-1 rounded-lg border border-gray-200 hover:bg-purple-50 hover:border-purple-300 transition"
->
-  <ChevronDown size={16} className="text-purple-600" />
-</button>
-
+      <button
+        onClick={() => setOpen(!open)}
+        className="flex items-center gap-1 px-2 py-1 rounded-lg border border-gray-200 hover:bg-purple-50 hover:border-purple-300 transition"
+      >
+        <ChevronDown size={16} className="text-purple-600" />
+      </button>
 
       {/* Dropdown → зөвхөн Logout */}
       {open && (
