@@ -97,13 +97,13 @@ const SpeechToTextMongolian: React.FC = () => {
 
   const onToggle = () => {
     if (listening) {
-      setStopTime(new Date()); // 🟢 ЭНЭ
+      setStopTime(new Date());
 
       recognitionRef.current?.stop();
       recorderRef.current?.stop();
       setListening(false);
     } else {
-      setStartTime(new Date()); // 🟢 ЭНЭ
+      setStartTime(new Date());
       recognitionRef.current?.start();
       recorderRef.current?.start();
       setListening(true);

@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 
 const comfortaa = Comfortaa({
   subsets: ["latin", "cyrillic", "cyrillic-ext"],
-  weight: ["400", "500", "700"], // you can adjust weights if needed
+  weight: ["400", "500", "700"],
 });
 
 export const metadata: Metadata = {
