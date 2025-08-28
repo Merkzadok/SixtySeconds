@@ -6,17 +6,17 @@ import path from "path";
  const level = [
    {
      title: "Түвшин 1",
-     description: "1 дүгээр ангийн хүүхдүүдэд амар сэдэв",
+     description: "1 дүгээр ангийн хүүхдийн амархан сэдэв",
      path: "/reading/levelOne",
    },
    {
      title: "Түвшин 2",
-     description: "1 дүгээр ангийн хүүхдүүдэд дунд зэргийн сэдэв",
+     description: "1 дүгээр ангийн хүүхдийн дунд зэргийн сэдэв",
      path: "/reading/levelTwo",
    },
    {
      title: "Түвшин 3",
-     description: "1 дүгээр ангийн хүүхдүүдэд хэцүү сэдэв",
+     description: "1 дүгээр ангийн хүүхдийн хэцүү сэдэв",
      path: "/reading/levelThree",
    }
  ];

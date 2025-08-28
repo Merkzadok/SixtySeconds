@@ -166,18 +166,18 @@ export const Wordle = () => {
 
       {gameStatus === "won" && (
         <div className="text-center">
-          <p className="text-2xl font-bold text-green-600 mb-2">You Win! 🎉</p>
+          <p className="text-2xl font-bold text-green-600 mb-2">Чи яллаа! 🎉</p>
           <p className="text-muted-foreground">
-            You guessed &quot;{targetWord}&quot; correctly!
+            Чи зөв &quot;{targetWord}&quot; тааллаа!
           </p>
         </div>
       )}
 
       {gameStatus === "lost" && (
         <div className="text-center">
-          <p className="text-2xl font-bold text-red-600 mb-2">Game Over 😔</p>
+          <p className="text-2xl font-bold text-red-600 mb-2">Тоглоом дууслаа 😔</p>
           <p className="text-muted-foreground">
-            The word was &quot;{targetWord}&quot;
+           Үг нь...байсан &quot;{targetWord}&quot;
           </p>
         </div>
       )}
@@ -192,7 +192,7 @@ export const Wordle = () => {
 
       {gameStatus !== "playing" && (
         <Button onClick={resetGame} className="mt-4">
-          Play Again
+          Дахин тоглох
         </Button>
       )}
     </div>

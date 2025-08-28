@@ -121,22 +121,22 @@ export function MastermindGame() {
     <div className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-lg">
       {/* Header */}
       <div className="text-center mb-6">
-        <h2 className="text-2xl font-bold text-gray-800 mb-2">Mastermind</h2>
+        <h2 className="text-2xl font-bold text-gray-800 mb-2">Оюун Ухаан</h2>
         <p className="text-sm text-gray-600">
-          Crack the 4-color code in 8 attempts or less!
+         4 өнгийн нууц кодыг 8 оролдлогоор таахыг хичээгээрэй!
         </p>
       </div>
 
       {/* Game Status */}
       {gameState === "won" && (
         <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4 text-center">
-          🎉 Congratulations! You cracked the code!
+          🎉 Баяр хүргэе! Чи кодыг тааллаа!
         </div>
       )}
 
       {gameState === "lost" && (
         <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4 text-center">
-          💔 Game Over! The code was:
+          💔 Тоглоом дууслаа! Код...байлаа:
           <div className="flex justify-center gap-1 mt-2">
             {secretCode.map((colorIndex, i) => (
               <div
@@ -151,7 +151,7 @@ export function MastermindGame() {
       {/* Previous Guesses */}
       <div className="mb-6">
         <h3 className="text-lg font-semibold text-gray-700 mb-3">
-          Attempts ({guesses.length}/8)
+          Оролдлогууд ({guesses.length}/8)
         </h3>
         <div className="space-y-2">
           {guesses.map((guess, guessIndex) => (
@@ -193,7 +193,7 @@ export function MastermindGame() {
       {gameState === "playing" && (
         <div className="mb-6">
           <h3 className="text-lg font-semibold text-gray-700 mb-3">
-            Current Guess
+            Одоо таах оролдлого
           </h3>
           <div className="flex gap-2 justify-center mb-4">
             {Array.from({ length: 4 }, (_, i) => (
@@ -231,7 +231,7 @@ export function MastermindGame() {
             disabled={currentGuess.length !== 4}
             className="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-blue-300 disabled:cursor-not-allowed transition-all"
           >
-            Submit Guess
+           Таамаг оруулах
           </button>
         </div>
       )}
@@ -241,17 +241,17 @@ export function MastermindGame() {
         onClick={initializeGame}
         className="w-full px-4 py-2 bg-transparent border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-100 transition-all"
       >
-        New Game
+       Шинэ тоглоом 
       </button>
 
       {/* Instructions */}
       <div className="mt-6 p-4 bg-gray-50 rounded-lg">
-        <h4 className="font-semibold text-gray-700 mb-2">How to Play:</h4>
+        <h4 className="font-semibold text-gray-700 mb-2">Тоглох заавар:</h4>
         <ul className="text-sm text-gray-600 space-y-1">
-          <li>• Click a position, then select a color</li>
-          <li>• Black peg = correct color & position</li>
-          <li>• White peg = correct color, wrong position</li>
-          <li>• Crack the code in 8 attempts!</li>
+          <li>• Босгон дээр дараад өнгөө сонгох</li>
+          <li>• Хар шон = зөв өнгө ба зөв байрлал</li>
+          <li>• Цагаан шон = зөв өнгө ба буруу байрлал</li>
+          <li>• 8 оролдлогоор кодыг таал!</li>
         </ul>
       </div>
     </div>
