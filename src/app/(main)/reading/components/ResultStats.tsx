@@ -13,30 +13,70 @@ const ResultStats: React.FC<Props> = ({
   accuracy,
   children,
 }) => (
-  <div className="bg-violet-100 border border-violet-300 p-4 rounded-xl text-gray-900 shadow-inner space-y-2">
-    <h3 className="text-lg font-semibold text-purple-700">📊 Үр дүн:</h3>
-    <p>
-      🔠 <span className="font-medium">Нийт үгс:</span>{" "}
-      <span className="text-gray-800 font-semibold">{total}</span>
-    </p>
-    <p>
-      ✅ <span className="font-medium">Зөв таарсан үгс:</span>{" "}
-      <span className="text-gray-800 font-semibold">{matchCount}</span>
-    </p>
-    <p>
-      🎯{" "}
-      <span className="font-bold text-orange-600">Нарийвчлал (Accuracy):</span>{" "}
-      <span
-        className={
-          accuracy === "100.00"
-            ? "text-green-600 font-bold"
-            : "text-orange-500 font-bold"
+  <div className="relative p-6 rounded-3xl bg-gradient-to-br from-green-50 via-yellow-50 to-blue-50 border border-green-200 shadow-lg space-y-3 hover:scale-[1.02] transition-transform duration-300">
+    {/* Decorative shine */}
+    <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-white/30 via-white/10 to-white/30 animate-pulse pointer-events-none"></div>
+
+    <div className="relative z-10">
+      <h3 className="text-2xl font-extrabold text-green-600 drop-shadow-sm animate-[bounce_0.6s_ease-in-out]">
+        📊 Үр дүн:
+      </h3>
+
+      <p className="text-lg mt-2">
+        🔠 <span className="font-medium text-blue-600">Нийт үгс:</span>{" "}
+        <span className="text-gray-900 font-bold">{total}</span>
+      </p>
+
+      <p className="text-lg">
+        ✅ <span className="font-medium text-green-600">Зөв таарсан үгс:</span>{" "}
+        <span className="text-green-700 font-bold animate-[pop_0.5s_ease-out]">
+          {matchCount}
+        </span>
+      </p>
+
+      <p className="text-lg">
+        🎯{" "}
+        <span className="font-semibold text-orange-500">
+          Нарийвчлал (Accuracy):
+        </span>{" "}
+        <span
+          className={`font-bold animate-[pop_0.5s_ease-out] ${
+            accuracy === "100.00" ? "text-green-600" : "text-orange-500"
+          }`}
+        >
+          {accuracy}%
+        </span>
+      </p>
+
+      {children && <div className="pt-2">{children}</div>}
+    </div>
+
+    {/* Custom keyframes */}
+    <style jsx>{`
+      @keyframes pop {
+        0% {
+          transform: scale(0.8);
+          opacity: 0.5;
         }
-      >
-        {accuracy}%
-      </span>
-    </p>
-    {children}
+        50% {
+          transform: scale(1.1);
+          opacity: 1;
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      @keyframes bounce {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-6px);
+        }
+      }
+    `}</style>
   </div>
 );
 
