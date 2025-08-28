@@ -17,7 +17,6 @@ const LeaderBoard = () => {
         `${process.env.NEXT_PUBLIC_API_URL}/leaderboard?userId=${user?.profileId}`
       );
       const data = await response.json();
-      console.log("dad", data);
       setBoard(data.result);
     };
     showRank();
