@@ -175,7 +175,7 @@ export default function Subscription() {
           >
             {billingPeriod === "7 Өдөр үнэгүй"
               ? "үнэгүй эхлүүлэх"
-              : "худалдаж авахы"}
+              : "худалдаж авах"}
           </button>
         </div>
       </div>
