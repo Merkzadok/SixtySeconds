@@ -233,23 +233,23 @@ export function SnakeGame() {
     <div className="mx-auto max-w-md rounded-lg bg-white p-6 shadow-lg">
       {/* Header */}
       <div className="mb-4 text-center">
-        <h2 className="mb-2 text-2xl font-bold text-gray-800">Snake Game</h2>
+        <h2 className="mb-2 text-2xl font-bold text-gray-800">Могой</h2>
         <div className="flex justify-between text-sm text-gray-600">
-          <span>Score: {score}</span>
-          <span>High Score: {highScore}</span>
+          <span>Оноо: {score}</span>
+          <span>Өндөр оноо: {highScore}</span>
         </div>
       </div>
 
       {/* Game Status */}
       {gameState === "gameOver" && (
         <div className="mb-4 rounded border border-red-400 bg-red-100 px-4 py-3 text-center text-red-700">
-          Game Over! Final Score: {score}
+          Тоглоом дууслаа! Нийт оноо: {score}
         </div>
       )}
 
       {gameState === "paused" && (
         <div className="mb-4 rounded border border-yellow-400 bg-yellow-100 px-4 py-3 text-center text-yellow-700">
-          Game Paused - Press Space or Start to continue
+           Түр зогслоо- Тоглоомыг эхлүүлэх эсвэл үргэлжлүүлэхийн тулд товчийг дарна уу
         </div>
       )}
 
@@ -318,7 +318,7 @@ export function SnakeGame() {
             onClick={startNewGame}
             className="w-full bg-green-600 text-white hover:bg-green-700"
           >
-            {gameState === "gameOver" ? "New Game" : "Start Game"}
+            {gameState === "gameOver" ? "Шинэ Тоглоом" : "Үргэлжлүүлэх"}
           </Button>
         ) : (
           <Button
@@ -326,7 +326,7 @@ export function SnakeGame() {
             variant="outline"
             className="w-full bg-transparent"
           >
-            Pause Game
+           Түр зогсоох
           </Button>
         )}
 
@@ -374,12 +374,12 @@ export function SnakeGame() {
 
       {/* Instructions */}
       <div className="mt-6 rounded-lg bg-gray-50 p-4">
-        <h4 className="mb-2 font-semibold text-gray-700">How to Play:</h4>
+        <h4 className="mb-2 font-semibold text-gray-700">Тоглох заавар:</h4>
         <ul className="space-y-1 text-sm text-gray-600">
-          <li>• Use arrow keys or swipe to move</li>
-          <li>• Eat red food to grow and score points</li>
-          <li>• Avoid hitting walls or yourself</li>
-          <li>• Press Space to pause/unpause</li>
+          <li>• Хулгана ба хуруугаараа дээш, доош, зүүн, баруун хөдөлгөөрэй</li>
+          <li>• Улаан хоолыг идэж оноо аваарай</li>
+          <li>• Хана эсвэл өөрийгөө бүү мөргөөрэй </li>
+          <li>• Түр зогсоох товчийг дарж зогсоох буюу үргэлжлүүлэх</li>
         </ul>
       </div>
     </div>

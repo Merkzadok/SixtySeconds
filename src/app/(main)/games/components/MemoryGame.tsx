@@ -171,18 +171,18 @@ export function MemoryGame() {
     <div className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-lg">
       {/* Header */}
       <div className="text-center mb-4">
-        <h2 className="text-2xl font-bold text-gray-800 mb-2">Memory Game</h2>
+        <h2 className="text-2xl font-bold text-gray-800 mb-2">Санах ой</h2>
         <div className="flex justify-between text-sm text-gray-600">
-          <span>Moves: {moves}</span>
-          <span>Matches: {matches}/8</span>
-          <span>Time: {formatTime(gameTime)}</span>
+          <span>Оролдлого: {moves}</span>
+          <span>Тохирол: {matches}/8</span>
+          <span>Хугацаа: {formatTime(gameTime)}</span>
         </div>
       </div>
 
       {/* Game Status */}
       {gameState === "won" && (
         <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4 text-center">
-          🎉 Congratulations! You won in {moves} moves and{" "}
+          🎉 Баяр хүргэе! Чи хожлоо{moves}{" "}
           {formatTime(gameTime)}!
         </div>
       )}
@@ -222,17 +222,17 @@ export function MemoryGame() {
         onClick={initializeGame}
         className="w-full px-4 py-2 bg-transparent border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-100 transition-all mb-4"
       >
-        New Game
+       Шинэ тоглоом
       </button>
 
       {/* Instructions */}
       <div className="p-4 bg-gray-50 rounded-lg">
-        <h4 className="font-semibold text-gray-700 mb-2">How to Play:</h4>
+        <h4 className="font-semibold text-gray-700 mb-2">Тоглох заавар:</h4>
         <ul className="text-sm text-gray-600 space-y-1">
-          <li>• Click cards to flip them over</li>
-          <li>• Find matching word pairs</li>
-          <li>• Match all pairs to win</li>
-          <li>• Try to win in as few moves as possible!</li>
+          <li>• Картан дээр дараад тэднийг эргүүл</li>
+          <li>• Ижил утгатай үгнүүдийг ол</li>
+          <li>• Бүх хосыг олж хожоорой</li>
+          <li>• Хамгийн цөөн оролдлогоор хожихыг хичээгээрэй!</li>
         </ul>
       </div>
     </div>
