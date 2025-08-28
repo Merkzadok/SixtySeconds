@@ -8,9 +8,24 @@ import MainHeader from "@/app/(main)/home/components/MainHeader";
 type BillingPeriod = "7 Өдөр үнэгүй" | "Сарын эрх" | "3-Сарын эрх" | "Жилээр";
 
 const billingOptions = [
-  { key: "7 Өдөр үнэгүй" as BillingPeriod, label: "7 Өдөр үнэгүй", price: 0, planId: 1 },
-  { key: "Сарын эрх" as BillingPeriod, label: "Сарын эрх", price: 19900, planId: 2 },
-  { key: "3-Сарын эрх" as BillingPeriod, label: "3-Сарын эрх", price: 49900, planId: 3 },
+  {
+    key: "7 Өдөр үнэгүй" as BillingPeriod,
+    label: "7 Өдөр үнэгүй",
+    price: 0,
+    planId: 1,
+  },
+  {
+    key: "Сарын эрх" as BillingPeriod,
+    label: "Сарын эрх",
+    price: 19900,
+    planId: 2,
+  },
+  {
+    key: "3-Сарын эрх" as BillingPeriod,
+    label: "3-Сарын эрх",
+    price: 49900,
+    planId: 3,
+  },
   { key: "Жилээр" as BillingPeriod, label: "Жилээр", price: 179900, planId: 4 },
 ];
 
@@ -26,7 +41,8 @@ const features = [
 ];
 
 export default function Subscription() {
-  const [billingPeriod, setBillingPeriod] = useState<BillingPeriod>("7 Өдөр үнэгүй");
+  const [billingPeriod, setBillingPeriod] =
+    useState<BillingPeriod>("7 Өдөр үнэгүй");
   const { user } = useUser();
   const currentOption = billingOptions.find((o) => o.key === billingPeriod)!;
 
@@ -36,47 +52,53 @@ export default function Subscription() {
     const months = period === "3-Сарын эрх" ? 3 : period === "Жилээр" ? 12 : 1;
     return Math.floor(price / months);
   };
-const handleSubscribe = async () => {
-  if (!user) {
-    alert("Та эхлээд нэвтэрнэ үү!");
-    return;
-  }
-
-  const token = localStorage.getItem("Token:");
-  if (!token) {
-    alert("Та нэвтэрсэн байх шаардлагатай.");
-    return;
-  }
-
-  try {
-    const res = await axios.post(
-      `${process.env.NEXT_PUBLIC_API_URL}/subscriptions/create`,
-      {
-        userId: user.id,
-        planId: currentOption.planId,
-      },
-      { headers: { Authorization: `Bearer ${token}` } }
-    );
-
-    if (res.data.activeSubscription) {
-      alert(
-        `Таны идэвхтэй subscription аль хэдийн бий.\n` +
-        `Төлөв: ${res.data.activeSubscription.status}\n` +
-        `Эхлэх: ${new Date(res.data.activeSubscription.startDate).toLocaleDateString()}\n` +
-        `Дуусах: ${new Date(res.data.activeSubscription.endDate).toLocaleDateString()}`
-      );
+  const handleSubscribe = async () => {
+    if (!user) {
+      alert("Та эхлээд нэвтэрнэ үү!");
       return;
     }
 
-    if (res.status === 201) {
-      alert("Таны subscription амжилттай бүртгэгдлээ!");
+    const token = localStorage.getItem("Token:");
+    if (!token) {
+      alert("Та нэвтэрсэн байх шаардлагатай.");
+      return;
     }
 
-  } catch (error: any) {
-    console.error("Front-end - Subscription error:", error.response?.data || error.message);
-    alert("Алдаа гарлаа, дахин оролдоно уу.");
-  }
-};
+    try {
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/subscriptions/create`,
+        {
+          userId: user.id,
+          planId: currentOption.planId,
+        },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+
+      if (res.data.activeSubscription) {
+        alert(
+          `Таны идэвхтэй subscription аль хэдийн бий.\n` +
+            `Төлөв: ${res.data.activeSubscription.status}\n` +
+            `Эхлэх: ${new Date(
+              res.data.activeSubscription.startDate
+            ).toLocaleDateString()}\n` +
+            `Дуусах: ${new Date(
+              res.data.activeSubscription.endDate
+            ).toLocaleDateString()}`
+        );
+        return;
+      }
+
+      if (res.status === 201) {
+        alert("Таны subscription амжилттай бүртгэгдлээ!");
+      }
+    } catch (error: any) {
+      console.error(
+        "Front-end - Subscription error:",
+        error.response?.data || error.message
+      );
+      alert("Алдаа гарлаа, дахин оролдоно уу.");
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-b ">
@@ -134,7 +156,10 @@ const handleSubscribe = async () => {
           ) : (
             <div className="grid md:grid-cols-2 gap-3">
               {features.map((f, i) => (
-                <div key={i} className="flex items-center text-gray-700 p-2 rounded-lg">
+                <div
+                  key={i}
+                  className="flex items-center text-gray-700 p-2 rounded-lg"
+                >
                   <Check className="w-5 h-5 text-green-400 mr-2" />
                   {f}
                 </div>
@@ -147,7 +172,9 @@ const handleSubscribe = async () => {
           onClick={handleSubscribe}
           className="w-full py-4 bg-gray-200 hover:bg-gray-300 text-black font-bold text-lg rounded-2xl shadow-lg "
         >
-          {billingPeriod === "7 Өдөр үнэгүй" ? "үнэгүй эхлүүлэх" : "худалдаж авахы"}
+          {billingPeriod === "7 Өдөр үнэгүй"
+            ? "үнэгүй эхлүүлэх"
+            : "худалдаж авахы"}
         </button>
       </div>
     </div>
