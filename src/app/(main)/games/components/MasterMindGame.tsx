@@ -16,7 +16,6 @@ type Guess = number[];
 type Feedback = { black: number; white: number };
 
 export function MastermindGame() {
-  // Game state
   const [secretCode, setSecretCode] = useState<number[]>([]);
   const [currentGuess, setCurrentGuess] = useState<number[]>([]);
   const [guesses, setGuesses] = useState<Guess[]>([]);
@@ -34,24 +33,21 @@ export function MastermindGame() {
     setSelectedPosition(null);
   };
 
-  // Calculate feedback for a guess
   const calculateFeedback = (guess: number[], secret: number[]): Feedback => {
-    let black = 0; // Correct color and position
-    let white = 0; // Correct color, wrong position
+    let black = 0;
+    let white = 0;
 
     const secretCopy = [...secret];
     const guessCopy = [...guess];
 
-    // First pass: count black pegs (exact matches)
     for (let i = 0; i < 4; i++) {
       if (guessCopy[i] === secretCopy[i]) {
         black++;
-        secretCopy[i] = -1; // Mark as used
-        guessCopy[i] = -2; // Mark as used
+        secretCopy[i] = -1;
+        guessCopy[i] = -2;
       }
     }
 
-    // Second pass: count white pegs (color matches in wrong position)
     for (let i = 0; i < 4; i++) {
       if (guessCopy[i] >= 0) {
         const foundIndex = secretCopy.findIndex(
@@ -59,7 +55,7 @@ export function MastermindGame() {
         );
         if (foundIndex !== -1) {
           white++;
-          secretCopy[foundIndex] = -1; // Mark as used
+          secretCopy[foundIndex] = -1;
         }
       }
     }
@@ -79,13 +75,11 @@ export function MastermindGame() {
     }
   };
 
-  // Handle position selection
   const selectPosition = (position: number) => {
     if (gameState !== "playing") return;
     setSelectedPosition(position);
   };
 
-  // Submit current guess
   const submitGuess = () => {
     if (currentGuess.length !== 4 || gameState !== "playing") return;
 
@@ -96,26 +90,22 @@ export function MastermindGame() {
     setGuesses(newGuesses);
     setFeedback(newFeedbackList);
 
-    // Check win condition
     if (newFeedback.black === 4) {
       setGameState("won");
     } else if (newGuesses.length >= 8) {
       setGameState("lost");
     }
 
-    // Reset for next guess
     setCurrentGuess([]);
     setSelectedPosition(0);
   };
 
-  // Initialize game on mount
   useEffect(() => {
     initializeGame();
   }, []);
 
   return (
     <div className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-lg">
-      {/* Header */}
       <div className="text-center mb-6">
         <h2 className="text-2xl font-bold text-gray-800 mb-2">Оюун Ухаан</h2>
         <p className="text-sm text-gray-600">
@@ -123,7 +113,6 @@ export function MastermindGame() {
         </p>
       </div>
 
-      {/* Game Status */}
       {gameState === "won" && (
         <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4 text-center">
           🎉 Баяр хүргэе! Чи кодыг тааллаа!
@@ -144,7 +133,6 @@ export function MastermindGame() {
         </div>
       )}
 
-      {/* Previous Guesses */}
       <div className="mb-6">
         <h3 className="text-lg font-semibold text-gray-700 mb-3">
           Оролдлогууд ({guesses.length}/8)
@@ -155,7 +143,6 @@ export function MastermindGame() {
               key={guessIndex}
               className="flex items-center gap-3 p-2 bg-gray-50 rounded"
             >
-              {/* Guess colors */}
               <div className="flex gap-1">
                 {guess.map((colorIndex, i) => (
                   <div
@@ -165,7 +152,6 @@ export function MastermindGame() {
                 ))}
               </div>
 
-              {/* Feedback pegs */}
               <div className="flex gap-1 ml-auto">
                 {Array.from({ length: feedback[guessIndex].black }, (_, i) => (
                   <div
@@ -185,7 +171,6 @@ export function MastermindGame() {
         </div>
       </div>
 
-      {/* Current Guess Input */}
       {gameState === "playing" && (
         <div className="mb-6">
           <h3 className="text-lg font-semibold text-gray-700 mb-3">
@@ -209,7 +194,6 @@ export function MastermindGame() {
             ))}
           </div>
 
-          {/* Color Palette */}
           <div className="grid grid-cols-3 gap-2 mb-4">
             {COLORS.map((color, index) => (
               <button
@@ -221,7 +205,6 @@ export function MastermindGame() {
             ))}
           </div>
 
-          {/* Submit Button */}
           <button
             onClick={submitGuess}
             disabled={currentGuess.length !== 4}
@@ -232,7 +215,6 @@ export function MastermindGame() {
         </div>
       )}
 
-      {/* Restart Button */}
       <button
         onClick={initializeGame}
         className="w-full px-4 py-2 bg-transparent border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-100 transition-all"
@@ -240,7 +222,6 @@ export function MastermindGame() {
         Шинэ тоглоом
       </button>
 
-      {/* Instructions */}
       <div className="mt-6 p-4 bg-gray-50 rounded-lg">
         <h4 className="font-semibold text-gray-700 mb-2">Тоглох заавар:</h4>
         <ul className="text-sm text-gray-600 space-y-1">

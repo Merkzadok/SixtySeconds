@@ -15,18 +15,15 @@ const INITIAL_DIRECTION: Direction = "RIGHT";
 const GAME_SPEED = 150;
 
 export function SnakeGame() {
-  // Game state
   const [snake, setSnake] = useState<Position[]>(INITIAL_SNAKE);
   const [food, setFood] = useState<Position>({ x: 15, y: 15 });
   const [gameState, setGameState] = useState<GameState>("paused");
   const [score, setScore] = useState(0);
   const [highScore, setHighScore] = useState(0);
 
-  // Refs for game loop
   const gameLoopRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const directionRef = useRef<Direction>(INITIAL_DIRECTION);
 
-  // Generate random food position
   const generateFood = useCallback((currentSnake: Position[]): Position => {
     let newFood: Position;
     do {
@@ -42,10 +39,8 @@ export function SnakeGame() {
     return newFood;
   }, []);
 
-  // Check collision with walls or self
   const checkCollision = useCallback(
     (head: Position, body: Position[]): boolean => {
-      // Wall collision
       if (
         head.x < 0 ||
         head.x >= GRID_SIZE ||
@@ -54,7 +49,6 @@ export function SnakeGame() {
       ) {
         return true;
       }
-      // Self collision
       return body.some(
         (segment) => segment.x === head.x && segment.y === head.y
       );
@@ -62,13 +56,11 @@ export function SnakeGame() {
     []
   );
 
-  // Move snake
   const moveSnake = useCallback(() => {
     setSnake((currentSnake) => {
       const newSnake = [...currentSnake];
       const head = { ...newSnake[0] };
 
-      // Move head based on direction
       switch (directionRef.current) {
         case "UP":
           head.y -= 1;
@@ -84,7 +76,6 @@ export function SnakeGame() {
           break;
       }
 
-      // Check collision
       if (checkCollision(head, newSnake)) {
         setGameState("gameOver");
         return currentSnake;
@@ -92,19 +83,17 @@ export function SnakeGame() {
 
       newSnake.unshift(head);
 
-      // Check if food is eaten
       if (head.x === food.x && head.y === food.y) {
         setScore((prev) => prev + 10);
         setFood(generateFood(newSnake));
       } else {
-        newSnake.pop(); // Remove tail if no food eaten
+        newSnake.pop();
       }
 
       return newSnake;
     });
   }, [food, generateFood, checkCollision]);
 
-  // Toggle pause
   const togglePause = useCallback(() => {
     if (gameState === "playing") {
       setGameState("paused");
@@ -113,12 +102,10 @@ export function SnakeGame() {
     }
   }, [gameState]);
 
-  // Handle direction change
   const changeDirection = useCallback(
     (newDirection: Direction) => {
       if (gameState !== "playing") return;
 
-      // Prevent reverse direction
       const opposites: Record<Direction, Direction> = {
         UP: "DOWN",
         DOWN: "UP",
@@ -133,7 +120,6 @@ export function SnakeGame() {
     [gameState]
   );
 
-  // Keyboard controls
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
       switch (e.key) {
@@ -164,7 +150,6 @@ export function SnakeGame() {
     return () => window.removeEventListener("keydown", handleKeyPress);
   }, [changeDirection, togglePause]);
 
-  // Game loop
   useEffect(() => {
     if (gameState === "playing") {
       gameLoopRef.current = setInterval(moveSnake, GAME_SPEED);
@@ -181,14 +166,12 @@ export function SnakeGame() {
     };
   }, [gameState, moveSnake]);
 
-  // Update high score
   useEffect(() => {
     if (score > highScore) {
       setHighScore(score);
     }
   }, [score, highScore]);
 
-  // Start new game
   const startNewGame = () => {
     setSnake(INITIAL_SNAKE);
     setFood({ x: 15, y: 15 });
@@ -197,7 +180,6 @@ export function SnakeGame() {
     setGameState("playing");
   };
 
-  // Touch controls for mobile
   const handleTouchStart = useRef<{ x: number; y: number } | null>(null);
 
   const onTouchStart = (e: React.TouchEvent) => {
@@ -215,12 +197,10 @@ export function SnakeGame() {
     const minSwipeDistance = 50;
 
     if (Math.abs(deltaX) > Math.abs(deltaY)) {
-      // Horizontal swipe
       if (Math.abs(deltaX) > minSwipeDistance) {
         changeDirection(deltaX > 0 ? "RIGHT" : "LEFT");
       }
     } else {
-      // Vertical swipe
       if (Math.abs(deltaY) > minSwipeDistance) {
         changeDirection(deltaY > 0 ? "DOWN" : "UP");
       }
@@ -231,7 +211,6 @@ export function SnakeGame() {
 
   return (
     <div className="mx-auto max-w-md rounded-lg bg-white p-6 shadow-lg">
-      {/* Header */}
       <div className="mb-4 text-center">
         <h2 className="mb-2 text-2xl font-bold text-gray-800">Могой</h2>
         <div className="flex justify-between text-sm text-gray-600">
@@ -240,7 +219,6 @@ export function SnakeGame() {
         </div>
       </div>
 
-      {/* Game Status */}
       {gameState === "gameOver" && (
         <div className="mb-4 rounded border border-red-400 bg-red-100 px-4 py-3 text-center text-red-700">
           Тоглоом дууслаа! Нийт оноо: {score}
@@ -249,11 +227,11 @@ export function SnakeGame() {
 
       {gameState === "paused" && (
         <div className="mb-4 rounded border border-yellow-400 bg-yellow-100 px-4 py-3 text-center text-yellow-700">
-           Түр зогслоо- Тоглоомыг эхлүүлэх эсвэл үргэлжлүүлэхийн тулд товчийг дарна уу
+          Түр зогслоо- Тоглоомыг эхлүүлэх эсвэл үргэлжлүүлэхийн тулд товчийг
+          дарна уу
         </div>
       )}
 
-      {/* Game Grid */}
       <div
         className="relative mx-auto mb-4 touch-none rounded-md border-4 border-blue-950"
         style={{
@@ -265,7 +243,6 @@ export function SnakeGame() {
         onTouchStart={onTouchStart}
         onTouchEnd={onTouchEnd}
       >
-        {/* Background Grid (chessboard-style) */}
         {[...Array(GRID_SIZE)].map((_, y) =>
           [...Array(GRID_SIZE)].map((_, x) => (
             <div
@@ -283,7 +260,6 @@ export function SnakeGame() {
           ))
         )}
 
-        {/* Snake */}
         {snake.map((segment, index) => (
           <div
             key={`snake-${index}`}
@@ -299,7 +275,6 @@ export function SnakeGame() {
           />
         ))}
 
-        {/* Food */}
         <div
           className="absolute z-10 rounded-full bg-red-500"
           style={{
@@ -311,7 +286,6 @@ export function SnakeGame() {
         />
       </div>
 
-      {/* Controls */}
       <div className="space-y-3">
         {gameState === "paused" || gameState === "gameOver" ? (
           <Button
@@ -326,11 +300,10 @@ export function SnakeGame() {
             variant="outline"
             className="w-full bg-transparent"
           >
-           Түр зогсоох
+            Түр зогсоох
           </Button>
         )}
 
-        {/* Mobile Controls */}
         <div className="mx-auto grid max-w-48 grid-cols-3 gap-2 md:hidden">
           <div></div>
           <Button
@@ -372,7 +345,6 @@ export function SnakeGame() {
         </div>
       </div>
 
-      {/* Instructions */}
       <div className="mt-6 rounded-lg bg-gray-50 p-4">
         <h4 className="mb-2 font-semibold text-gray-700">Тоглох заавар:</h4>
         <ul className="space-y-1 text-sm text-gray-600">
