@@ -2,7 +2,7 @@
 import { Dispatch, SetStateAction } from "react";
 import { Button } from "@/Components/ui/button";
 import { NavigationItem } from "./MainHeader";
-import { useRouter } from "next/navigation"; // <-- Add this
+import { useRouter } from "next/navigation";
 
 interface MobileNavigationProps {
   navigationItems: NavigationItem[];
@@ -19,7 +19,7 @@ export default function MobileNavigation({
   setActiveSection,
   closeMenu,
 }: MobileNavigationProps) {
-  const router = useRouter(); // <-- Add this
+  const router = useRouter();
 
   return (
     <div className="md:hidden py-4 border-t border-green-100">
@@ -38,7 +38,7 @@ export default function MobileNavigation({
               onClick={() => {
                 setActiveSection(item.id);
                 closeMenu();
-                router.push(item.href); // <-- Add this to navigate
+                router.push(item.href);
               }}
             >
               <Icon size={20} />

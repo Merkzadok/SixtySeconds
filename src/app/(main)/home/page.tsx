@@ -16,7 +16,6 @@ export default function HomePage() {
   const quickStatsRef = useRef<(HTMLDivElement | null)[]>([]);
   const gsapCtx = useRef<gsap.Context | null>(null);
 
-  // Main sections data
   const mainSectionItems = [
     {
       id: "reading",
@@ -36,7 +35,6 @@ export default function HomePage() {
     },
   ];
 
-  // Quick stats data
   const quickStats = [
     { label: "Түвшин", value: "#47", icon: Trophy },
     { label: "Оноо", value: "2,847", icon: Star },

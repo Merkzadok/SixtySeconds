@@ -15,7 +15,7 @@ type Sentence = {
 };
 
 const IncorrectWordPage: React.FC = () => {
-  const [totalScore, setTotalScore] = useState(0); // Нийт оноо хадгалах
+  const [totalScore, setTotalScore] = useState(0);
   const [sentence, setSentence] = useState<Sentence | null>(null);
   const [selectedWord, setSelectedWord] = useState<string | null>(null);
   const [feedback, setFeedback] = useState<{
@@ -66,7 +66,6 @@ const IncorrectWordPage: React.FC = () => {
     if (data.success) {
       setFeedback({ correct, score: data.score });
 
-      // ✔ Оноо зөв бол нэмнэ
       if (correct) {
         setTotalScore((prev) => prev + 1);
       }
@@ -86,7 +85,6 @@ const IncorrectWordPage: React.FC = () => {
           Доорх өгүүлбэрээс алдаатай үгийг сонгоорой.
         </p>
 
-        {/* Өгүүлбэр */}
         <div className="bg-gray-400 p-5 rounded-lg shadow-sm text-xl text-center leading-relaxed">
           {sentence &&
             sentence?.words.map((word, index) => (
@@ -104,7 +102,6 @@ const IncorrectWordPage: React.FC = () => {
             ))}
         </div>
 
-        {/* Баталгаажуулах товч */}
         <div className="flex justify-center">
           <button
             disabled={!selectedWord}
@@ -119,7 +116,6 @@ const IncorrectWordPage: React.FC = () => {
           </button>
         </div>
 
-        {/* Feedback хэсэг */}
         {feedback && (
           <div className="text-center space-y-3">
             <p
