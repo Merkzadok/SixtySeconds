@@ -67,7 +67,6 @@ export function MastermindGame() {
     return { black, white };
   };
 
-  // Handle color selection
   const selectColor = (colorIndex: number) => {
     if (gameState !== "playing" || selectedPosition === null) return;
 
@@ -75,7 +74,6 @@ export function MastermindGame() {
     newGuess[selectedPosition] = colorIndex;
     setCurrentGuess(newGuess);
 
-    // Auto-advance to next position
     if (selectedPosition < 3) {
       setSelectedPosition(selectedPosition + 1);
     }
