@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Check } from "lucide-react";
 import MainHeader from "@/app/(main)/home/components/MainHeader";
+import ProtectedRoute from "@/provider/ProtectPage";
 
 type BillingPeriod = "7 Өдөр үнэгүй" | "Сарын эрх" | "3-Сарын эрх" | "Жилээр";
 
@@ -101,82 +102,83 @@ export default function Subscription() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b ">
-      <MainHeader />
-      <div className="mt-12 flex flex-col items-center text-center mb-10">
-        <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent">
-          Subscription
-        </h1>
+    <ProtectedRoute>
+      <div className="min-h-screen bg-gradient-to-b ">
+        <div className="mt-12 flex flex-col items-center text-center mb-10">
+          <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent">
+            Subscription
+          </h1>
+        </div>
+
+        <div className="max-w-xl mx-auto bg-white rounded-3xl shadow-2xl p-8">
+          <div className="mb-6 grid grid-cols-4 gap-2 bg-gray-100 p-2 rounded-2xl">
+            {billingOptions.map((option) => (
+              <button
+                key={option.key}
+                onClick={() => setBillingPeriod(option.key)}
+                className={`py-2 rounded-xl font-semibold hover:bg-gray-300 transition-colors ${
+                  billingPeriod === option.key ? "bg-white shadow" : ""
+                }`}
+              >
+                {option.label}
+              </button>
+            ))}
+          </div>
+
+          <div className="text-center mb-6">
+            {currentOption.price === 0 ? (
+              <p className="text-3xl md:text-4xl font-bold text-green-500">
+                7 ӨДӨР ҮНЭГҮЙ
+              </p>
+            ) : (
+              <p className="text-3xl md:text-4xl font-bold text-purple-700">
+                ₮{formatPrice(currentOption.price)}
+              </p>
+            )}
+            {billingPeriod !== "7 Өдөр үнэгүй" && (
+              <p className="text-gray-600 mt-1">
+                Сард ₮
+                {formatPrice(
+                  getMonthlyEquivalent(currentOption.price, billingPeriod)
+                )}
+              </p>
+            )}
+          </div>
+
+          <div className="mb-6">
+            <h4 className="text-center text-lg font-semibold text-gray-800 mb-4">
+              Багтсан боломжууд
+            </h4>
+            {billingPeriod === "7 Өдөр үнэгүй" ? (
+              <div className="flex items-center justify-center text-gray-700">
+                <Check className="w-5 h-5 text-green-400 mr-2" />7 өдөр бүх
+                хичээл үнэгүй
+              </div>
+            ) : (
+              <div className="grid md:grid-cols-2 gap-3">
+                {features.map((f, i) => (
+                  <div
+                    key={i}
+                    className="flex items-center text-gray-700 p-2 rounded-lg"
+                  >
+                    <Check className="w-5 h-5 text-green-400 mr-2" />
+                    {f}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          <button
+            onClick={handleSubscribe}
+            className="w-full py-4 bg-gray-200 hover:bg-gray-300 text-black font-bold text-lg rounded-2xl shadow-lg "
+          >
+            {billingPeriod === "7 Өдөр үнэгүй"
+              ? "үнэгүй эхлүүлэх"
+              : "худалдаж авахы"}
+          </button>
+        </div>
       </div>
-
-      <div className="max-w-xl mx-auto bg-white rounded-3xl shadow-2xl p-8">
-        <div className="mb-6 grid grid-cols-4 gap-2 bg-gray-100 p-2 rounded-2xl">
-          {billingOptions.map((option) => (
-            <button
-              key={option.key}
-              onClick={() => setBillingPeriod(option.key)}
-              className={`py-2 rounded-xl font-semibold hover:bg-gray-300 transition-colors ${
-                billingPeriod === option.key ? "bg-white shadow" : ""
-              }`}
-            >
-              {option.label}
-            </button>
-          ))}
-        </div>
-
-        <div className="text-center mb-6">
-          {currentOption.price === 0 ? (
-            <p className="text-3xl md:text-4xl font-bold text-green-500">
-              7 ӨДӨР ҮНЭГҮЙ
-            </p>
-          ) : (
-            <p className="text-3xl md:text-4xl font-bold text-purple-700">
-              ₮{formatPrice(currentOption.price)}
-            </p>
-          )}
-          {billingPeriod !== "7 Өдөр үнэгүй" && (
-            <p className="text-gray-600 mt-1">
-              Сард ₮
-              {formatPrice(
-                getMonthlyEquivalent(currentOption.price, billingPeriod)
-              )}
-            </p>
-          )}
-        </div>
-
-        <div className="mb-6">
-          <h4 className="text-center text-lg font-semibold text-gray-800 mb-4">
-            Багтсан боломжууд
-          </h4>
-          {billingPeriod === "7 Өдөр үнэгүй" ? (
-            <div className="flex items-center justify-center text-gray-700">
-              <Check className="w-5 h-5 text-green-400 mr-2" />7 өдөр бүх хичээл
-              үнэгүй
-            </div>
-          ) : (
-            <div className="grid md:grid-cols-2 gap-3">
-              {features.map((f, i) => (
-                <div
-                  key={i}
-                  className="flex items-center text-gray-700 p-2 rounded-lg"
-                >
-                  <Check className="w-5 h-5 text-green-400 mr-2" />
-                  {f}
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-
-        <button
-          onClick={handleSubscribe}
-          className="w-full py-4 bg-gray-200 hover:bg-gray-300 text-black font-bold text-lg rounded-2xl shadow-lg "
-        >
-          {billingPeriod === "7 Өдөр үнэгүй"
-            ? "үнэгүй эхлүүлэх"
-            : "худалдаж авахы"}
-        </button>
-      </div>
-    </div>
+    </ProtectedRoute>
   );
 }
