@@ -26,7 +26,6 @@ export function MastermindGame() {
 
   // Initialize game
   const initializeGame = () => {
-    // Generate random 4-color code
     const code = Array.from({ length: 4 }, () => Math.floor(Math.random() * 6));
     setSecretCode(code);
     setCurrentGuess([]);
@@ -69,7 +68,6 @@ export function MastermindGame() {
     return { black, white };
   };
 
-  // Handle color selection
   const selectColor = (colorIndex: number) => {
     if (gameState !== "playing" || selectedPosition === null) return;
 
@@ -77,7 +75,6 @@ export function MastermindGame() {
     newGuess[selectedPosition] = colorIndex;
     setCurrentGuess(newGuess);
 
-    // Auto-advance to next position
     if (selectedPosition < 3) {
       setSelectedPosition(selectedPosition + 1);
     }
@@ -123,7 +120,7 @@ export function MastermindGame() {
       <div className="text-center mb-6">
         <h2 className="text-2xl font-bold text-gray-800 mb-2">Оюун Ухаан</h2>
         <p className="text-sm text-gray-600">
-         4 өнгийн нууц кодыг 8 оролдлогоор таахыг хичээгээрэй!
+          4 өнгийн нууц кодыг 8 оролдлогоор таахыг хичээгээрэй!
         </p>
       </div>
 
@@ -231,7 +228,7 @@ export function MastermindGame() {
             disabled={currentGuess.length !== 4}
             className="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-blue-300 disabled:cursor-not-allowed transition-all"
           >
-           Таамаг оруулах
+            Таамаг оруулах
           </button>
         </div>
       )}
@@ -241,7 +238,7 @@ export function MastermindGame() {
         onClick={initializeGame}
         className="w-full px-4 py-2 bg-transparent border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-100 transition-all"
       >
-       Шинэ тоглоом 
+        Шинэ тоглоом
       </button>
 
       {/* Instructions */}
