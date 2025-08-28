@@ -24,7 +24,6 @@ export function MastermindGame() {
   const [gameState, setGameState] = useState<GameState>("playing");
   const [selectedPosition, setSelectedPosition] = useState<number | null>(null);
 
-  // Initialize game
   const initializeGame = () => {
     // Generate random 4-color code
     const code = Array.from({ length: 4 }, () => Math.floor(Math.random() * 6));
