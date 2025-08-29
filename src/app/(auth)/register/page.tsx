@@ -58,7 +58,7 @@ export default function SignUpForm() {
       }
 
       toast.success("Welcome to our learning adventure! 🚀", {
-        description: "Account created successfully!",
+        description: "Хаяг амжилттай үүслээ.",
         duration: 1200,
       });
 
@@ -67,7 +67,7 @@ export default function SignUpForm() {
       const msg =
         err instanceof Error
           ? err.message
-          : "Something went wrong during signup";
+          : "Имэйл эсвэл нууц үг буруу байна.";
       setEmailError(msg);
       console.error("Signup error:", err);
     } finally {

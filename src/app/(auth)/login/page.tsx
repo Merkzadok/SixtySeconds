@@ -68,9 +68,9 @@ export default function SignInForm() {
       const msg =
         err instanceof Error
           ? err.message
-          : "Something went wrong during login";
+          : "Имэйл эсвэл нууц үг буруу байна.";
       setEmailError(msg);
-      console.error("Login error:", err);
+  
     } finally {
       setIsLoading(false);
     }
