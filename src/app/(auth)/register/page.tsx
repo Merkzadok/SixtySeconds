@@ -65,9 +65,7 @@ export default function SignUpForm() {
       setTimeout(() => router.push("/login"), 1200);
     } catch (err: unknown) {
       const msg =
-        err instanceof Error
-          ? err.message
-          : "Имэйл эсвэл нууц үг буруу байна.";
+        err instanceof Error ? err.message : "Имэйл эсвэл нууц үг буруу байна.";
       setEmailError(msg);
       console.error("Signup error:", err);
     } finally {
@@ -115,7 +113,7 @@ export default function SignUpForm() {
                     <Input
                       id="signup-username"
                       type="text"
-                      placeholder="Name"
+                      placeholder="нэр"
                       value={formData.username}
                       onChange={(e) =>
                         handleInputChange("username", e.target.value)
@@ -149,7 +147,7 @@ export default function SignUpForm() {
                     <Input
                       id="signup-email"
                       type="email"
-                      placeholder="Email"
+                      placeholder="имэйл"
                       value={formData.email}
                       onChange={(e) =>
                         handleInputChange("email", e.target.value)
@@ -183,7 +181,7 @@ export default function SignUpForm() {
                     <Input
                       id="signup-password"
                       type="password"
-                      placeholder="Password"
+                      placeholder="нууц үг"
                       value={formData.password}
                       onChange={(e) =>
                         handleInputChange("password", e.target.value)
