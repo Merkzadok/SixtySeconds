@@ -236,7 +236,6 @@ export default function ProfileCard() {
           🎉 Та идэвхтэй гишүүнчлэлтэй байна
         </p>
         <>
-          {/* <p className="text-gray-600 mb-4">Таны гишүүнчлэл идэвхгүй байна</p> */}
           <button
             onClick={() => router.push("/subscription")}
             type="button"
@@ -249,4 +248,3 @@ export default function ProfileCard() {
     </div>
   );
 }
-//aaaaa test

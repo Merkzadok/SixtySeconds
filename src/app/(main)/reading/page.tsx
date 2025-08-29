@@ -8,7 +8,6 @@ import {
   CardTitle,
 } from "@/Components/ui/card";
 import Link from "next/link";
-import path from "path";
 
 const level = [
   {

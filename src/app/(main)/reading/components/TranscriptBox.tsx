@@ -10,7 +10,6 @@ const TranscriptBox: React.FC<Props> = ({
   interimTranscript,
 }) => (
   <div className="min-h-[140px] p-6 rounded-3xl bg-gradient-to-br from-green-50 via-yellow-50 to-blue-50 shadow-lg relative overflow-hidden">
-    {/* Decorative shine */}
     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-pulse rounded-3xl pointer-events-none"></div>
 
     <div className="relative z-10 space-y-2">

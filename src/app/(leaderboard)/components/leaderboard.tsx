@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { BarChart3, Book } from "lucide-react";
 import LeaderboardUser from "./LeaderboardUser";
 import ReadingStats from "./ReadingStats";
 import { RankType } from "../../../../types/types";

@@ -8,7 +8,6 @@ type Props = {
 
 const ControlButtons: React.FC<Props> = ({ listening, onToggle, onClear }) => (
   <div className="flex justify-center gap-8 mb-8">
-    {/* Start/Stop button */}
     <button
       onClick={onToggle}
       className={`w-32 h-32 flex flex-col items-center justify-center rounded-full text-lg font-bold shadow-md transition-all duration-300

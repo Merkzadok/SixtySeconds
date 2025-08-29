@@ -4,7 +4,6 @@ import { Fredoka } from "next/font/google";
 import { Button } from "@/Components/ui/button";
 import Lottie from "lottie-react";
 import globeAnimation from "@/data/animations/WelcomeAnimation.json";
-import logoAnimation from "@/data/animations/flyingBird.json";
 import Link from "next/link";
 
 const fredoka = Fredoka({ subsets: ["latin"], weight: ["400", "500", "700"] });
@@ -14,13 +13,10 @@ export default function LandingPage() {
     <div
       className={`${fredoka.className} min-h-screen bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 flex flex-col`}
     >
-      {/* Main Content */}
       <main className="flex-1 flex items-center  justify-center px-4  md:px-6">
         <div className="w-full max-w-6xl  grid md:grid-cols-2 gap-15 items-center">
-          {/* Left Side - Animation */}
           <div className="flex justify-center md:justify-end">
             <div className="relative w-64 h-64 md:w-80 md:h-80">
-              {/* Animated Globe */}
               <div className="relative w-64 h-64 md:w-80 md:h-80">
                 <Lottie
                   animationData={globeAnimation}
@@ -29,7 +25,6 @@ export default function LandingPage() {
                 />
               </div>
 
-              {/* Floating Language Bubbles */}
               <div className="absolute -top-4 -left-4 bg-green-500 text-white px-4 py-2 rounded-full text-sm font-bold animate-bounce delay-100 shadow-md">
                 Сайн уу
               </div>
@@ -45,7 +40,6 @@ export default function LandingPage() {
             </div>
           </div>
 
-          {/* Right Side - Content */}
           <div className="text-center md:text-left space-y-8">
             <h1 className="text-4xl font-black text-gray-700 font-Comfortaa">
               Чөлөөт цагаараа хөгжилтэй аргаар
@@ -54,12 +48,7 @@ export default function LandingPage() {
               </span>{" "}
               сурцгаая!
             </h1>
-            {/* <p className="text-xl md:text-2xl text-gray-600 max-w-lg font-medium leading-relaxed">
-              Join millions of learners worldwide and start your language
-              journey today with interactive lessons and engaging exercises.
-            </p> */}
 
-            {/* Stacked Buttons */}
             <div className="flex flex-col gap-4 justify-center md:justify-start max-w-sm mx-auto md:mx-0">
               <Link href="/register">
                 <Button
@@ -83,7 +72,6 @@ export default function LandingPage() {
         </div>
       </main>
 
-      {/* Minimal Footer */}
       <footer className="py-6 px-4 md:px-6 border-t-2 border-gray-200 bg-white/50 backdrop-blur-sm">
         <div className="flex justify-center items-center gap-8 text-sm text-gray-600">
           <a

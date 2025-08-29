@@ -4,16 +4,6 @@ import "./globals.css";
 import UserContextProvider from "@/provider/CurrentUser";
 import TransitionLayout from "@/Components/Transition-Layout";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
 const comfortaa = Comfortaa({
   subsets: ["latin", "cyrillic", "cyrillic-ext"],
   weight: ["400", "500", "700"],

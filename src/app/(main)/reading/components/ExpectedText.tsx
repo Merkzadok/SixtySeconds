@@ -16,7 +16,6 @@ const ExpectedText: React.FC<Props> = ({ expectedText, actualText }) => {
       </h3>
 
       <div className="relative p-6 rounded-3xl shadow-lg bg-gradient-to-br from-green-50 via-yellow-50 to-blue-50 border border-green-200 hover:scale-[1.01] transition-transform duration-200">
-        {/* Decorative shine */}
         <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-transparent via-white/40 to-transparent animate-pulse pointer-events-none"></div>
 
         <div className="relative flex flex-wrap gap-2 text-lg leading-relaxed font-sans z-10">
@@ -35,7 +34,6 @@ const ExpectedText: React.FC<Props> = ({ expectedText, actualText }) => {
         </div>
       </div>
 
-      {/* Custom keyframes */}
       <style jsx>{`
         @keyframes pop {
           0% {

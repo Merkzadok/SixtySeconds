@@ -14,7 +14,6 @@ const ResultStats: React.FC<Props> = ({
   children,
 }) => (
   <div className="relative p-6 rounded-3xl bg-gradient-to-br from-green-50 via-yellow-50 to-blue-50 border border-green-200 shadow-lg space-y-3 hover:scale-[1.02] transition-transform duration-300">
-    {/* Decorative shine */}
     <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-white/30 via-white/10 to-white/30 animate-pulse pointer-events-none"></div>
 
     <div className="relative z-10">
@@ -51,7 +50,6 @@ const ResultStats: React.FC<Props> = ({
       {children && <div className="pt-2">{children}</div>}
     </div>
 
-    {/* Custom keyframes */}
     <style jsx>{`
       @keyframes pop {
         0% {
