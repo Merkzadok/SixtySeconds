@@ -66,11 +66,8 @@ export default function SignInForm() {
       }
     } catch (err: unknown) {
       const msg =
-        err instanceof Error
-          ? err.message
-          : "Имэйл эсвэл нууц үг буруу байна.";
+        err instanceof Error ? err.message : "Имэйл эсвэл нууц үг буруу байна.";
       setEmailError(msg);
-  
     } finally {
       setIsLoading(false);
     }
@@ -113,7 +110,7 @@ export default function SignInForm() {
                     <Input
                       id="login-email"
                       type="email"
-                      placeholder="email "
+                      placeholder="имэйл"
                       value={formData.email}
                       onChange={(e) =>
                         handleInputChange("email", e.target.value)
@@ -148,7 +145,7 @@ export default function SignInForm() {
                     <Input
                       id="login-password"
                       type="password"
-                      placeholder="password"
+                      placeholder="нууц үг"
                       value={formData.password}
                       onChange={(e) =>
                         handleInputChange("password", e.target.value)
