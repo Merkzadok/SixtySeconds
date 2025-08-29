@@ -37,6 +37,7 @@ export type ProfileType = {
   about?: string;
   avatarImage: string;
   age: number;
+  name: string;
 };
 
 export type UserType = {

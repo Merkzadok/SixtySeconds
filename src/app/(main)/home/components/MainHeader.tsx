@@ -11,7 +11,6 @@ import {
   BookOpen,
   Gamepad2,
   Trophy,
-  Crown,
   XCircle,
   Star,
 } from "lucide-react";
@@ -29,7 +28,6 @@ export type NavigationItem = {
 
 export default function MainHeader() {
   const pathname = usePathname();
-  const router = useRouter();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const userScore = 2847;
@@ -82,9 +80,7 @@ export default function MainHeader() {
     <header className="bg-[#B0DB9C] backdrop-blur-md border-b border-green-200 sticky top-0 z-50 shadow-md">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          {/* Left side: Logo + Nav */}
           <div className="flex items-center space-x-8">
-            {/* Logo */}
             <Link href="/home">
               <div className="flex items-center space-x-2 cursor-pointer">
                 <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-emerald-500 rounded-full flex items-center justify-center shadow-lg border-2 border-white">
@@ -102,7 +98,6 @@ export default function MainHeader() {
               </div>
             </Link>
 
-            {/* Desktop Navigation */}
             <div className="hidden md:block">
               <Navigation
                 navigationItems={navigationItems}
@@ -112,7 +107,6 @@ export default function MainHeader() {
             </div>
           </div>
 
-          {/* Right side: Avatar + Mobile Menu */}
           <div className="flex items-center space-x-4">
             <ProfileAvatar />
             <Button
@@ -127,7 +121,6 @@ export default function MainHeader() {
         </div>
       </div>
 
-      {/* Mobile Navigation */}
       {isMobileMenuOpen && (
         <MobileNavigation
           navigationItems={navigationItems}

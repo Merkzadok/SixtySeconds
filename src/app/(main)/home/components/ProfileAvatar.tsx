@@ -4,7 +4,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/Components/ui/avatar";
 import { useUser } from "@/provider/CurrentUser";
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { ChevronDown } from "lucide-react"; // 👈 жижиг сумны icon
+import { ChevronDown } from "lucide-react";
 
 export default function ProfileAvatar() {
   const { user, setUser } = useUser();
@@ -12,7 +12,6 @@ export default function ProfileAvatar() {
   const router = useRouter();
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  // Dropdown-г гадна даралт дээр хаах
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -27,7 +26,7 @@ export default function ProfileAvatar() {
   }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem("Token:"); // login үедээ хэрхэн хадгалсантай тааруулах
+    localStorage.removeItem("Token:");
     setUser(null);
     router.push("/");
   };
@@ -36,20 +35,18 @@ export default function ProfileAvatar() {
 
   return (
     <div className="relative flex items-center gap-1" ref={dropdownRef}>
-      {/* Avatar → profile руу орох */}
       <div onClick={() => router.push("/profile")}>
         <Avatar className="w-10 h-10 ring-2 ring-purple-200 cursor-pointer hover:ring-purple-300 transition-all">
           {user.profile?.avatarImage ? (
             <AvatarImage src={user.profile.avatarImage} />
           ) : (
             <AvatarFallback className="bg-gradient-to-br from-purple-400 to-pink-400 text-white font-semibold">
-              {user.profile?.name?.[0].toUpperCase() || "U"}
+              {user.profile?.username?.[0].toUpperCase() || "U"}
             </AvatarFallback>
           )}
         </Avatar>
       </div>
 
-      {/* Жижиг сум → dropdown toggle */}
       <button
         onClick={() => setOpen(!open)}
         className="flex items-center gap-1 px-2 py-1 rounded-lg border border-gray-200 hover:bg-purple-50 hover:border-purple-300 transition"
@@ -57,7 +54,6 @@ export default function ProfileAvatar() {
         <ChevronDown size={16} className="text-purple-600" />
       </button>
 
-      {/* Dropdown → зөвхөн Logout */}
       {open && (
         <div className="absolute right-0 top-12 w-36 bg-white border border-gray-200 rounded-xl shadow-lg py-2 z-50">
           <button

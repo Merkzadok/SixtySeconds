@@ -1,11 +1,8 @@
 "use client";
 import { useRef, useLayoutEffect } from "react";
-import { motion } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Trophy, Star } from "lucide-react";
 import MainSectionCard from "./components/MainSectionCard";
-import QuickStatCard from "./components/QuickCard";
 import Link from "next/link";
 import ProtectedRoute from "@/provider/ProtectPage";
 
@@ -16,7 +13,6 @@ export default function HomePage() {
   const quickStatsRef = useRef<(HTMLDivElement | null)[]>([]);
   const gsapCtx = useRef<gsap.Context | null>(null);
 
-  // Main sections data
   const mainSectionItems = [
     {
       id: "reading",
@@ -34,12 +30,6 @@ export default function HomePage() {
       bgPattern: "bg-gradient-to-br from-emerald-100 via-green-50 to-lime-100",
       href: "/leaderboard",
     },
-  ];
-
-  // Quick stats data
-  const quickStats = [
-    { label: "Түвшин", value: "#47", icon: Trophy },
-    { label: "Оноо", value: "2,847", icon: Star },
   ];
 
   useLayoutEffect(() => {
@@ -100,25 +90,9 @@ export default function HomePage() {
                 </div>
               ))}
             </div>
-
-            <div className="flex justify-center mt-12">
-              <div className="inline-grid grid-cols-2 md:grid-cols-4 gap-4">
-                {quickStats.map((stat, i) => (
-                  <div
-                    key={stat.label}
-                    ref={(el) => {
-                      quickStatsRef.current[i] = el;
-                    }}
-                  >
-                    <QuickStatCard stat={stat} />
-                  </div>
-                ))}
-              </div>
-            </div>
           </div>
         </main>
 
-        {/* Footer (always bottom) */}
         <footer className="py-6 px-4 md:px-8 border-t-2 border-green-200 bg-gradient-to-r from-green-50 to-emerald-50">
           <div className="flex justify-center items-center gap-8 text-sm text-green-700">
             <a
