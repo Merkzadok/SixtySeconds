@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Comfortaa, Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import UserContextProvider from "@/provider/CurrentUser";
+import TransitionLayout from "./(auth)/auth-animation";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,7 +32,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${comfortaa.className} antialiased`}>
-        <UserContextProvider>{children}</UserContextProvider>
+        <TransitionLayout>
+          <UserContextProvider>{children}</UserContextProvider>
+        </TransitionLayout>
       </body>
     </html>
   );
