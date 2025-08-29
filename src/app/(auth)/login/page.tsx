@@ -9,8 +9,11 @@ import { Button } from "@/Components/ui/button";
 import { Mail, Lock, User } from "lucide-react";
 import Link from "next/link";
 import { LoaderScreen } from "@/Components/loader/loading";
+import { useUser } from "@/provider/CurrentUser";
+import { UserType } from "../../../../types/type";
 
 export default function SignInForm() {
+  const { setUser } = useUser();
   const router = useRouter();
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [isLoading, setIsLoading] = useState(false);
@@ -45,12 +48,15 @@ export default function SignInForm() {
 
       const data = (await res.json()) as {
         accesstoken: string;
-        user: { profileId: number | null };
+        user: UserType;
       };
+
+      setUser(data.user);
       toast.success("Welcome back! 🎉", {
         description: "Great to see you again!",
         duration: 1000,
       });
+
       localStorage.setItem("Token:", data.accesstoken);
 
       if (data.user.profileId) {
