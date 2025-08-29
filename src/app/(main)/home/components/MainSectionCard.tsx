@@ -19,7 +19,6 @@ interface MainSectionCardProps {
 }
 
 export default function MainSectionCard({ item }: MainSectionCardProps) {
-  // Map item IDs to imported animation JSONs
   const getAnimationData = (id: string) => {
     switch (id) {
       case "games":
@@ -33,7 +32,6 @@ export default function MainSectionCard({ item }: MainSectionCardProps) {
     }
   };
 
-  // Fallback icons
   const getButtonIcon = (id: string) => {
     switch (id) {
       case "games":
