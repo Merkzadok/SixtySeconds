@@ -1,6 +1,5 @@
 "use client";
 
-import { UserType } from "../../../../../types/type";
 import React, { useState } from "react";
 import { useUser } from "@/provider/CurrentUser";
 import { useFormik } from "formik";
@@ -232,7 +231,7 @@ export default function ProfileCard() {
         )}
       </div>
 
-      <div className="max-w-md w-full border-2 border-[#B960FF] rounded-3xl p-6 bg-[#F3E9FF] shadow-md text-center">
+      <div className="max-w-md w-full border-2 border-green-400 rounded-3xl p-6 bg-[#F3E9FF] shadow-md text-center">
         <p className="text-[#B960FF] font-semibold text-lg">
           🎉 Та идэвхтэй гишүүнчлэлтэй байна
         </p>
@@ -241,7 +240,7 @@ export default function ProfileCard() {
           <button
             onClick={() => router.push("/subscription")}
             type="button"
-            className="w-full bg-[#B960FF] hover:bg-[#9f4dd8] text-white py-3 rounded-xl font-semibold transition"
+            className="w-full bg-green-300 hover:bg-[#9f4dd8] text-white py-3 rounded-xl font-semibold transition"
           >
             Гишүүн болох
           </button>
