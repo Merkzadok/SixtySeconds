@@ -107,7 +107,7 @@ export default function SignInForm() {
                     <Input
                       id="login-email"
                       type="email"
-                      placeholder="email оруулна уу"
+                      placeholder="email "
                       value={formData.email}
                       onChange={(e) =>
                         handleInputChange("email", e.target.value)
@@ -142,7 +142,7 @@ export default function SignInForm() {
                     <Input
                       id="login-password"
                       type="password"
-                      placeholder="Нууц үгээ оруулна уу"
+                      placeholder="password"
                       value={formData.password}
                       onChange={(e) =>
                         handleInputChange("password", e.target.value)
