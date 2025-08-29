@@ -3,7 +3,7 @@
 import Lottie from "lottie-react";
 import { BookOpen, Gamepad2, Trophy } from "lucide-react";
 import GameApp from "@/data/animations/game-app.json";
-import MeditatingBrain from "@/data/animations/Meditating-Brain.json";
+import MeditatingBrain from "@/data/animations/ReadingBook.json";
 import Rank from "@/data/animations/Rank.json";
 
 export type MainSectionItem = {
@@ -61,23 +61,23 @@ export default function MainSectionCard({ item }: MainSectionCardProps) {
 
         <div className="relative z-10">
           <div
-            className={`w-20 h-20 bg-gradient-to-br ${item.gradient} rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-all duration-300 shadow-lg`}
+            className={`w-30 h-30 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-all duration-300 shadow-lg`}
           >
             {animationData ? (
               <Lottie
                 animationData={animationData}
                 loop
-                className="w-12 h-12"
+                className="w-35 h-35"
               />
             ) : (
               <ButtonIcon className="w-10 h-10 text-white animate-pulse" />
             )}
           </div>
 
-          <h3 className="text-2xl font-bold text-gray-800 mb-3">
+          <h3 className="text-3xl font-bold text-gray-800 mb-3">
             {item.label}
           </h3>
-          <p className="text-gray-700 text-base font-medium leading-relaxed">
+          <p className="text-gray-700 text-2xl font-medium leading-relaxed">
             {item.description}
           </p>
 
