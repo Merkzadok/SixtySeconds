@@ -84,9 +84,7 @@ export default function MainSectionCard({ item }: MainSectionCardProps) {
           </p>
 
           <div className="mt-6">
-            <div
-              className={`inline-flex items-center px-4 py-2 bg-gradient-to-r ${item.gradient} text-white rounded-full text-sm font-semibold shadow-md group-hover:shadow-lg transition-all duration-300`}
-            >
+            <div className="inline-flex items-center px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-full text-sm font-semibold shadow-md group-hover:shadow-lg transition-all duration-300">
               {item.label}
               <ButtonIcon className="w-4 h-4 ml-2" />
             </div>
