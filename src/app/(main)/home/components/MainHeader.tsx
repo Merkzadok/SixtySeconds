@@ -36,24 +36,24 @@ export default function MainHeader() {
   const userRating = 4.8;
 
   const navigationItems: NavigationItem[] = [
-    { id: "home", label: "Home", icon: Home, href: "/home" },
-    { id: "reading", label: "Reading", icon: BookOpen, href: "/reading" },
-    { id: "games", label: "Games", icon: Gamepad2, href: "/games" },
+    { id: "home", label: "Нүүр хуудас", icon: Home, href: "/home" },
+    { id: "reading", label: "Унших", icon: BookOpen, href: "/reading" },
+    { id: "games", label: "Тоглоом", icon: Gamepad2, href: "/games" },
     {
       id: "leaderboard",
-      label: "Leaderboard",
+      label: "Тэргүүлэгчдийн самбар",
       icon: Trophy,
       href: "/leaderboard",
     },
     {
       id: "incorrect-words",
-      label: "Incorrect Words",
+      label: "Алдаатай үгс",
       icon: XCircle,
       href: "/incorrect-words",
     },
     {
       id: "subscription",
-      label: "Subscribe",
+      label: "Гишүүнчлэлийн эрх",
       icon: Star,
       href: "/subscription",
     },
