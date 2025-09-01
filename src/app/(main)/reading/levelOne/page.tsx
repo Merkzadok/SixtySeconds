@@ -112,10 +112,6 @@ const SpeechToTextMongolian: React.FC = () => {
     <ProtectedRoute>
       <div className="bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 min-h-screen flex items-center justify-center">
         <div className="max-w-md mx-auto mt-20 px-6 py-8 bg-gradient-to-b from-white to-gray-50 rounded-2xl shadow-xl font-sans space-y-8">
-          <h1 className="text-center text-3xl font-extrabold text-indigo-600 drop-shadow-sm">
-            Монгол яриаг текст рүү
-          </h1>
-
           {sentence && (
             <ExpectedText
               expectedText={sentence?.sentence}
