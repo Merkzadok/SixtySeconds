@@ -18,7 +18,6 @@ const ReadingTimer: React.FC = () => {
   const [fullTranscript, setFullTranscript] = useState("");
   const [interimTranscript, setInterimTranscript] = useState("");
   const [sentence, setSentence] = useState<any>(null);
-
   const [totalWords, setTotalWords] = useState(0);
   const [matchedWords, setMatchedWords] = useState(0);
   const recognitionRef = useRef<SpeechRecognition | null>(null);
