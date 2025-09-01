@@ -73,7 +73,6 @@ export default function ProfileForm() {
         setFormData((prev) => ({ ...prev, profileImage: data.secure_url }));
       }
     } catch (err) {
-      console.error("Upload failed:", err);
     } finally {
       setUploading(false);
     }
@@ -100,7 +99,6 @@ export default function ProfileForm() {
 
       setTimeout(() => router.push("/home"), 1000);
     } catch (error) {
-      console.error("Хадгалах үед алдаа гарлаа:", error);
       alert("Хадгалах үед алдаа гарлаа. Дахин оролдоно уу.");
     } finally {
       setLoadingSave(false);

@@ -33,7 +33,6 @@ const VoiceRecorder = forwardRef<VoiceRecorderHandle, Props>(
       stop: async () => {
         stopRecordingInternal();
 
-        // Wait for blob to be ready
         setTimeout(async () => {
           const blob = mediaBlobRef.current;
           if (blob) {
@@ -46,11 +45,9 @@ const VoiceRecorder = forwardRef<VoiceRecorderHandle, Props>(
               const url = await uploadToCloudinary(fetchedBlob);
               onUploadComplete?.(url);
             } catch (error) {
-              console.error("Failed to fetch blob from URL", error);
               onUploadComplete?.(null);
             }
           } else {
-            console.warn("No blob available.");
             onUploadComplete?.(null);
           }
         }, 1000);
@@ -70,7 +67,6 @@ const VoiceRecorder = forwardRef<VoiceRecorderHandle, Props>(
         const data: { secure_url?: string } = await response.json();
         return data.secure_url ?? null;
       } catch (error) {
-        console.error("Cloudinary upload error:", error);
         return null;
       }
     };

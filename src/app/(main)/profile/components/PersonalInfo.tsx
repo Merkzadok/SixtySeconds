@@ -29,8 +29,6 @@ export default function ProfileCard() {
   const [editing, setEditing] = useState(false);
   const router = useRouter();
 
-  console.log(user);
-
   const formik = useFormik<ProfileForm>({
     initialValues: {
       username: user?.profile?.username || "",
@@ -79,7 +77,6 @@ export default function ProfileCard() {
 
         setEditing(false);
       } catch (err) {
-        console.error(err);
         alert("Профайл хадгалах явцад алдаа гарлаа.");
       }
     },
@@ -232,19 +229,6 @@ export default function ProfileCard() {
             <Edit2 size={20} />
           </button>
         )}
-      </div>
-
-      <div className="max-w-md w-full border-2 border-green-400 rounded-3xl p-6 bg-[#F3E9FF] shadow-md text-center">
-        <p className="text-[#B960FF] font-semibold text-lg">
-          🎉 Та идэвхтэй гишүүнчлэлтэй байна
-        </p>
-        <button
-          onClick={() => router.push("/subscription")}
-          type="button"
-          className="w-full bg-green-300 hover:bg-[#9f4dd8] text-white py-3 rounded-xl font-semibold transition"
-        >
-          Гишүүн болох
-        </button>
       </div>
     </div>
   );

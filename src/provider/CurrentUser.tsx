@@ -41,7 +41,6 @@ export default function UserContextProvider({
         );
         setUser(res.data.user);
       } catch (err) {
-        console.error("Error fetching user:", err);
         setUser(null);
       } finally {
         setLoading(false);
