@@ -25,27 +25,25 @@ const IncorrectWordPage: React.FC = () => {
   const { user } = useUser();
 
   const fetchSentence = async () => {
-    try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/wrong/${user?.profileId}`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-        }
-      );
-      const data = await res.json();
+    if (!user?.profileId) return;
 
-      setSentence(data);
-      setSelectedWord(null);
-      setFeedback(null);
-    } catch (error) {
-    } finally {
-    }
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/wrong/${user?.profileId}`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+    const data = await res.json();
+
+    setSentence(data);
+    setSelectedWord(null);
+    setFeedback(null);
   };
 
   useEffect(() => {
     fetchSentence();
-  }, []);
+  }, [user?.profileId]);
 
   const submitSelection = async () => {
     if (!sentence?.sentence || !selectedWord) return;
@@ -154,15 +152,15 @@ const IncorrectWordPage: React.FC = () => {
                 </p>
 
                 <div className="flex justify-center space-x-8 text-lg">
-                  <p className="text-slate-200">
+                  <p className="text-slate-600 text-lg font-medium">
                     Энэ өгүүлбэрийн оноо:{" "}
                     <span className="font-bold text-blue-300">
                       {feedback.score}
                     </span>
                   </p>
-                  <p className="text-slate-200">
-                    🏆 Нийт оноо:{" "}
-                    <span className="font-bold text-yellow-300 text-xl">
+                  <p className="text-slate-600 text-lg font-medium">
+                    🏆 Нийт оноо:
+                    <span className="font-bold text-yellow-400 text-xl pl-2 ">
                       {totalScore}
                     </span>
                   </p>
@@ -170,7 +168,7 @@ const IncorrectWordPage: React.FC = () => {
 
                 <button
                   onClick={fetchSentence}
-                  className="mt-4 px-8 py-3 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-400 hover:to-purple-500 text-white font-bold rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-lg shadow-md"
+                  className="mt-4 px-8 py-3 bg-green-500 text-white font-bold rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-lg shadow-md"
                   style={{ textShadow: "1px 1px 2px rgba(0,0,0,0.3)" }}
                 >
                   ➡️ Дараагийн өгүүлбэр

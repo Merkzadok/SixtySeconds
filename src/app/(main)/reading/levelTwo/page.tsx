@@ -48,7 +48,7 @@ const SpeechToTextMongolian: React.FC = () => {
   };
 
   useEffect(() => {
-    if (!user) return;
+    if (!user?.id) return;
     recognitionRef.current = createRecognition(
       setFullTranscript,
       setInterimTranscript,
@@ -57,7 +57,7 @@ const SpeechToTextMongolian: React.FC = () => {
     fetchNextSentence();
 
     return () => recognitionRef.current?.stop();
-  }, [user]);
+  }, [user?.id]);
 
   const handleSaveAndNext = async () => {
     if (!sentence) return;
@@ -84,7 +84,7 @@ const SpeechToTextMongolian: React.FC = () => {
       recognitionRef.current?.stop();
       fetchNextSentence();
       setAudioUrl("");
-    } catch (error) {}
+    } catch {}
   };
 
   const { matchCount, total, accuracy } = compareTexts(

@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import { useUser } from "@/provider/CurrentUser";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { useRouter } from "next/navigation";
 import { Loader2, Edit2, Check, X } from "lucide-react";
 import Image from "next/image";
 
@@ -27,7 +26,6 @@ const avatarList = [
 export default function ProfileCard() {
   const { user, setUser, loading } = useUser();
   const [editing, setEditing] = useState(false);
-  const router = useRouter();
 
   const formik = useFormik<ProfileForm>({
     initialValues: {
@@ -76,7 +74,7 @@ export default function ProfileCard() {
         });
 
         setEditing(false);
-      } catch (err) {
+      } catch {
         alert("Профайл хадгалах явцад алдаа гарлаа.");
       }
     },
