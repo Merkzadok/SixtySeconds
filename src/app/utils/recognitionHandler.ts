@@ -44,9 +44,7 @@ export const createRecognition = (
     setInterimTranscript(interim);
   };
 
-  recognition.onerror = (event: SpeechRecognitionErrorEvent) => {
-    console.error("Speech recognition error", event);
-  };
+  recognition.onerror = (event: SpeechRecognitionErrorEvent) => {};
 
   recognition.onend = () => {
     setListening(false);

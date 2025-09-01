@@ -4,7 +4,6 @@ import { useState, FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { Label } from "@/Components/ui/label";
-import { Input } from "@/Components/ui/input";
 import { Button } from "@/Components/ui/button";
 import { Mail, Lock, User } from "lucide-react";
 import Link from "next/link";
@@ -67,15 +66,13 @@ export default function SignUpForm() {
       const msg =
         err instanceof Error ? err.message : "Имэйл эсвэл нууц үг буруу байна.";
       setEmailError(msg);
-      console.error("Signup error:", err);
-    } finally {
+
       setIsLoading(false);
     }
   };
 
   return (
     <>
-      {isLoading && <LoaderScreen />}
       <div className="min-h-screen bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 flex items-center justify-center p-4 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 via-purple-600/10 to-teal-600/10"></div>
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl animate-pulse"></div>
@@ -110,7 +107,7 @@ export default function SignUpForm() {
                     <span className="px-4 text-gray-500">
                       <User size={20} />
                     </span>
-                    <Input
+                    <input
                       id="signup-username"
                       type="text"
                       placeholder="нэр"
@@ -119,7 +116,7 @@ export default function SignUpForm() {
                         handleInputChange("username", e.target.value)
                       }
                       required
-                      className="flex-1 bg-transparent border-0 focus:outline-none focus:ring-0 py-4 text-gray-800 placeholder-gray-400"
+                      className="flex-1 bg-transparent border-0 focus:outline-none focus:ring-0 h-9 text-gray-800 placeholder-gray-400"
                     />
                   </div>
                   {usernameError && (
@@ -144,7 +141,7 @@ export default function SignUpForm() {
                     <span className="px-4 text-gray-500">
                       <Mail size={20} />
                     </span>
-                    <Input
+                    <input
                       id="signup-email"
                       type="email"
                       placeholder="имэйл"
@@ -153,7 +150,7 @@ export default function SignUpForm() {
                         handleInputChange("email", e.target.value)
                       }
                       required
-                      className="flex-1 bg-transparent border-0 focus:outline-none focus:ring-0 py-4 text-gray-800 placeholder-gray-400"
+                      className="flex-1 bg-transparent border-0 focus:outline-none focus:ring-0 h-9 text-gray-800 placeholder-gray-400"
                     />
                   </div>
                   {emailError && (
@@ -178,7 +175,7 @@ export default function SignUpForm() {
                     <span className="px-4 text-gray-500">
                       <Lock size={20} />
                     </span>
-                    <Input
+                    <input
                       id="signup-password"
                       type="password"
                       placeholder="нууц үг"
@@ -187,7 +184,7 @@ export default function SignUpForm() {
                         handleInputChange("password", e.target.value)
                       }
                       required
-                      className="flex-1 bg-transparent border-0 focus:outline-none focus:ring-0 py-4 text-gray-800 placeholder-gray-400"
+                      className="flex-1 bg-transparent border-0 focus:outline-none focus:ring-0 h-9 text-gray-800 placeholder-gray-400"
                     />
                   </div>
                   {passwordError && (

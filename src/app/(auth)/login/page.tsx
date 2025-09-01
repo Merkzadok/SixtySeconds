@@ -4,11 +4,9 @@ import { useState, FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { Label } from "@/Components/ui/label";
-import { Input } from "@/Components/ui/input";
 import { Button } from "@/Components/ui/button";
 import { Mail, Lock, User } from "lucide-react";
 import Link from "next/link";
-import { LoaderScreen } from "@/Components/loader/loading";
 import { useUser } from "@/provider/CurrentUser";
 import { UserType } from "../../../../types/type";
 
@@ -68,14 +66,12 @@ export default function SignInForm() {
       const msg =
         err instanceof Error ? err.message : "Имэйл эсвэл нууц үг буруу байна.";
       setEmailError(msg);
-    } finally {
       setIsLoading(false);
     }
   };
 
   return (
     <>
-      {isLoading && <LoaderScreen />}
       <div className="min-h-screen bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 flex items-center justify-center p-4 relative overflow-hidden">
         <div className="absolute top-4 right-4 md:top-8 md:right-8 z-10">
           <Link href="/register">
@@ -107,7 +103,7 @@ export default function SignInForm() {
                     <span className="px-4 text-gray-500">
                       <Mail size={20} />
                     </span>
-                    <Input
+                    <input
                       id="login-email"
                       type="email"
                       placeholder="имэйл"
@@ -116,7 +112,7 @@ export default function SignInForm() {
                         handleInputChange("email", e.target.value)
                       }
                       required
-                      className="flex-1 bg-transparent border-0 focus:outline-none focus:ring-0 py-4 text-gray-800 placeholder-gray-400"
+                      className="flex-1 h-9 bg-transparent border-0 focus:outline-none focus:border-0 ring-0 focus:shadow-none focus:ring-0 text-gray-800 placeholder-gray-600 shadow-none"
                     />
                   </div>
                   {emailError && (
@@ -142,7 +138,7 @@ export default function SignInForm() {
                     <span className="px-4 text-gray-500">
                       <Lock size={20} />
                     </span>
-                    <Input
+                    <input
                       id="login-password"
                       type="password"
                       placeholder="нууц үг"
@@ -151,13 +147,10 @@ export default function SignInForm() {
                         handleInputChange("password", e.target.value)
                       }
                       required
-                      className="flex-1 bg-transparent border-0 focus:outline-none focus:ring-0 py-4 text-gray-800 placeholder-gray-400"
+                      className="flex-1 h-9 bg-transparent border-0 focus:outline-none focus:border-0 ring-0 focus:shadow-none focus:ring-0 text-gray-800 placeholder-gray-600 shadow-none"
                     />
-                    <button
-                      type="button"
-                      className="px-4 text-gray-500 hover:text-gray-700 transition-colors"
-                    ></button>
                   </div>
+
                   {passwordError && (
                     <p className="text-red-500 text-sm mt-2 flex items-center gap-1">
                       <span className="w-4 h-4 bg-red-500 rounded-full flex items-center justify-center text-white text-xs">
