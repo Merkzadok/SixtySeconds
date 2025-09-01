@@ -27,22 +27,6 @@ const TranscriptBox: React.FC<Props> = ({
         </p>
       )}
     </div>
-
-    <style jsx>{`
-      @keyframes pop {
-        0% {
-          transform: scale(0.85);
-          opacity: 0.6;
-        }
-        50% {
-          transform: scale(1.1);
-          opacity: 1;
-        }
-        100% {
-          transform: scale(1);
-        }
-      }
-    `}</style>
   </div>
 );
 

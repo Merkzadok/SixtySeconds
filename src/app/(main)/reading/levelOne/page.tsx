@@ -63,7 +63,7 @@ const SpeechToTextMongolian: React.FC = () => {
     if (!sentence) return;
 
     try {
-      const response = await fetch(
+      await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/gemini/finish/${sentence?.readingId}`,
         {
           method: "PUT",
