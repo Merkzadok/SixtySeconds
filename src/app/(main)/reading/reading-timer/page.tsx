@@ -18,6 +18,7 @@ const ReadingTimer: React.FC = () => {
   const [fullTranscript, setFullTranscript] = useState("");
   const [interimTranscript, setInterimTranscript] = useState("");
   const [sentence, setSentence] = useState<any>(null);
+
   const [totalWords, setTotalWords] = useState(0);
   const [matchedWords, setMatchedWords] = useState(0);
   const recognitionRef = useRef<SpeechRecognition | null>(null);
@@ -127,8 +128,12 @@ const ReadingTimer: React.FC = () => {
 
         {!testStarted && timeLeft < 60 && (
           <div className="mt-4 text-center text-lg text-gray-700 space-y-1">
-            <p>🔠 Нийт үгс: <b>{totalWords}</b></p>
-            <p>✅ Зөв үгс: <b>{matchedWords}</b></p>
+            <p>
+              🔠 Нийт үгс: <b>{totalWords}</b>
+            </p>
+            <p>
+              ✅ Зөв үгс: <b>{matchedWords}</b>
+            </p>
             <p>
               🎯 Нарийвчлал:{" "}
               <b className="text-orange-600">

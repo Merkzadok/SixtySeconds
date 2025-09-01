@@ -3,8 +3,8 @@ import { useUser } from "@/provider/CurrentUser";
 import React, { useState } from "react";
 import axios from "axios";
 import { Check } from "lucide-react";
-import MainHeader from "@/app/(main)/home/components/MainHeader";
 import ProtectedRoute from "@/provider/ProtectPage";
+import { AxiosError } from "axios";
 
 type BillingPeriod = "7 Өдөр үнэгүй" | "Сарын эрх" | "3-Сарын эрх" | "Жилээр";
 
@@ -92,11 +92,7 @@ export default function Subscription() {
       if (res.status === 201) {
         alert("Таны subscription амжилттай бүртгэгдлээ!");
       }
-    } catch (error: any) {
-      console.error(
-        "Front-end - Subscription error:",
-        error.response?.data || error.message
-      );
+    } catch (error) {
       alert("Алдаа гарлаа, дахин оролдоно уу.");
     }
   };
