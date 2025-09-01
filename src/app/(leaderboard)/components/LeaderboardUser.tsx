@@ -1,5 +1,4 @@
 import { Crown, Star, Trophy, Zap } from "lucide-react";
-import Image from "next/image";
 
 type LeaderboardUserProps = {
   username: string;
@@ -40,12 +39,11 @@ export default function LeaderboardUser({
     >
       <div className="flex items-center space-x-4">
         {getIcon()}
-        <div className="text-2xl relative w-10 h-10">
-          <Image
+        <div className="text-2xl">
+          <img
             src={avatarImage || "/avatar1.png"}
             alt={username}
-            fill
-            className="rounded-full object-cover"
+            className="w-10 h-10 rounded-full"
           />
         </div>
         <div className="relative">
