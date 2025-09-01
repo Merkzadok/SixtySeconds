@@ -40,7 +40,6 @@ const SpeechToTextMongolian: React.FC = () => {
       `${process.env.NEXT_PUBLIC_API_URL}/gemini/levelThree/${user?.profileId}`,
       {
         method: "POST",
-        // body:JSON.stringify({sentence})
       }
     );
     const data = await res.json();
@@ -64,7 +63,7 @@ const SpeechToTextMongolian: React.FC = () => {
     if (!sentence) return;
 
     try {
-      const response = await fetch(
+      await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/gemini/finish/${sentence?.readingId}`,
         {
           method: "PUT",

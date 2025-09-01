@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, ChangeEvent, FormEvent } from "react";
+import { useState, useEffect, FormEvent } from "react";
 import axios from "axios";
 import { Input } from "@/Components/ui/input";
 import { Button } from "@/Components/ui/button";
@@ -32,7 +32,7 @@ export default function ProfileForm() {
   const [previewImage, setPreviewImage] = useState<string>(
     "/avatars/avatar1.png"
   );
-  const [uploading, setUploading] = useState(false);
+  const [uploading] = useState(false);
   const [loadingSave, setLoadingSave] = useState(false);
 
   useEffect(() => {
@@ -43,39 +43,10 @@ export default function ProfileForm() {
         username: user.username || "",
       }));
     }
-  }, [user]);
+  }, [user?.id]);
 
   const handleInputChange = (field: string, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
-  };
-
-  const handleImageUpload = async (e: ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    const formImage = new FormData();
-    formImage.append("file", file);
-    formImage.append("upload_preset", "profileImage");
-
-    setUploading(true);
-    try {
-      const res = await fetch(
-        "https://api.cloudinary.com/v1_1/daywx3gsj/image/upload",
-        {
-          method: "POST",
-          body: formImage,
-        }
-      );
-
-      const data = await res.json();
-      if (data.secure_url) {
-        setPreviewImage(data.secure_url);
-        setFormData((prev) => ({ ...prev, profileImage: data.secure_url }));
-      }
-    } catch (err) {
-    } finally {
-      setUploading(false);
-    }
   };
 
   const handleAvatarSelect = (url: string) => {
@@ -99,7 +70,7 @@ export default function ProfileForm() {
 
       setTimeout(() => router.push("/home"), 1000);
     } catch (error) {
-      alert("Хадгалах үед алдаа гарлаа. Дахин оролдоно уу.");
+      alert(`Хадгалах үед алдаа гарлаа. Дахин оролдоно уу. ${error}`);
     } finally {
       setLoadingSave(false);
     }

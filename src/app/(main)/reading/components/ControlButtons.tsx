@@ -23,7 +23,6 @@ const ControlButtons: React.FC<Props> = ({ listening, onToggle, onClear }) => (
       {listening ? "Зогсоох" : "Унших"}
     </button>
 
-    {/* Clear button */}
     <button
       onClick={onClear}
       className="w-32 h-32 flex flex-col items-center justify-center rounded-full text-lg font-bold text-white shadow-md transition-all duration-300 bg-gradient-to-br from-sky-300 via-sky-400 to-sky-500 hover:scale-110 active:scale-95 hover:shadow-xl"

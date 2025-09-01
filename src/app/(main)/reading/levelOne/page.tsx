@@ -57,13 +57,13 @@ const SpeechToTextMongolian: React.FC = () => {
     fetchNextSentence();
 
     return () => recognitionRef.current?.stop();
-  }, [user]);
+  }, [user?.id]);
 
   const handleSaveAndNext = async () => {
     if (!sentence) return;
 
     try {
-      const response = await fetch(
+      await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/gemini/finish/${sentence?.readingId}`,
         {
           method: "PUT",
@@ -84,7 +84,7 @@ const SpeechToTextMongolian: React.FC = () => {
       recognitionRef.current?.stop();
       fetchNextSentence();
       setAudioUrl("");
-    } catch (error) {}
+    } catch {}
   };
 
   const { matchCount, total, accuracy } = compareTexts(

@@ -40,7 +40,6 @@ const SpeechToTextMongolian: React.FC = () => {
       `${process.env.NEXT_PUBLIC_API_URL}/gemini/levelTwo/${user?.profileId}`,
       {
         method: "POST",
-        // body:JSON.stringify({sentence})
       }
     );
     const data = await res.json();
@@ -49,7 +48,7 @@ const SpeechToTextMongolian: React.FC = () => {
   };
 
   useEffect(() => {
-    if (!user) return;
+    if (!user?.id) return;
     recognitionRef.current = createRecognition(
       setFullTranscript,
       setInterimTranscript,
@@ -58,13 +57,13 @@ const SpeechToTextMongolian: React.FC = () => {
     fetchNextSentence();
 
     return () => recognitionRef.current?.stop();
-  }, [user]);
+  }, [user?.id]);
 
   const handleSaveAndNext = async () => {
     if (!sentence) return;
 
     try {
-      const response = await fetch(
+      await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/gemini/finish/${sentence?.readingId}`,
         {
           method: "PUT",
@@ -85,7 +84,7 @@ const SpeechToTextMongolian: React.FC = () => {
       recognitionRef.current?.stop();
       fetchNextSentence();
       setAudioUrl("");
-    } catch (error) {}
+    } catch {}
   };
 
   const { matchCount, total, accuracy } = compareTexts(
