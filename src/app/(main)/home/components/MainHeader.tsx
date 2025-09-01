@@ -82,19 +82,25 @@ export default function MainHeader() {
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center space-x-8">
             <Link href="/home">
-              <div className="flex items-center space-x-2 cursor-pointer">
-                <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-emerald-500 rounded-full flex items-center justify-center shadow-lg border-2 border-white">
+              <div className="flex items-center gap-3 cursor-pointer">
+                <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-500 rounded-full flex items-center justify-center shadow-lg border-2 border-white">
                   <span
-                    className="text-white font-black text-2xl"
+                    className="text-white text-2xl"
                     role="img"
                     aria-label="owl"
                   >
                     🦉
                   </span>
                 </div>
-                <span className="font-black text-xl text-green-900 tracking-tight drop-shadow">
-                  60 Секунд
-                </span>
+
+                <div className="flex gap-1 leading-none">
+                  <p className="font-black text-xl text-green-900 drop-shadow">
+                    60
+                  </p>
+                  <p className="font-black text-xl text-green-900 drop-shadow">
+                    Секунд
+                  </p>
+                </div>
               </div>
             </Link>
 
