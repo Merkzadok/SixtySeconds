@@ -7,7 +7,6 @@ import { Label } from "@/Components/ui/label";
 import { Button } from "@/Components/ui/button";
 import { Mail, Lock, User } from "lucide-react";
 import Link from "next/link";
-import { LoaderScreen } from "@/Components/loader/loading";
 
 export default function SignUpForm() {
   const router = useRouter();
@@ -56,7 +55,7 @@ export default function SignUpForm() {
         return;
       }
 
-      toast.success("Welcome to our learning adventure! 🚀", {
+      toast.success("Тавтай морил! 🚀", {
         description: "Хаяг амжилттай үүслээ.",
         duration: 1200,
       });

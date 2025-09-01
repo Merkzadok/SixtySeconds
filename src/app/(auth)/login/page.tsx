@@ -50,15 +50,15 @@ export default function SignInForm() {
       };
 
       setUser(data.user);
-      toast.success("Welcome back! 🎉", {
-        description: "Great to see you again!",
+      toast.success("Тавтай морил! 🎉", {
+        description: "Дахиад уулзах таатай байна!",
         duration: 1000,
       });
 
       localStorage.setItem("Token:", data.accesstoken);
 
       if (data.user.profileId) {
-        setTimeout(() => router.push("/profile"), 1000);
+        setTimeout(() => router.push("/home"), 1000);
       } else {
         setTimeout(() => router.push("/create-profile"), 1000);
       }
