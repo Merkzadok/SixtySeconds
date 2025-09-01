@@ -23,13 +23,13 @@ const ReadingStats = () => {
   return (
     <div>
       <div className="flex flex-col items-center text-center mb-7 mt-12">
-        <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-[#2a7b9b] via-[#57c785] to-[#eddd53] bg-clip-text text-transparent mb-6">
+        <h1 className="text-4xl md:text-6xl font-bold  bg-[#2a7b9b]  bg-clip-text text-transparent mb-6">
           Амжилтын самбар
         </h1>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-      {/* card heseg  */}
+        {/* card heseg  */}
         <div className="bg-white rounded-2xl p-6 shadow-lg border-2 border-blue-200 min-h-[160px] flex flex-col items-center justify-center text-center">
           <BarChart3 className="h-10 w-10 text-blue-600 mb-4" />
           <div className="text-3xl font-bold text-blue-600">

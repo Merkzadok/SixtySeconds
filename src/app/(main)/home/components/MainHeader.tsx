@@ -39,7 +39,7 @@ export default function MainHeader() {
     { id: "games", label: "Тоглоом", icon: Gamepad2, href: "/games" },
     {
       id: "leaderboard",
-      label: "Тэргүүлэгчдийн самбар",
+      label: "Шилдэг суралцагчид",
       icon: Trophy,
       href: "/leaderboard",
     },

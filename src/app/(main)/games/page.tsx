@@ -15,35 +15,66 @@ import {
   CardTitle,
 } from "@/Components/ui/card";
 import ProtectedRoute from "@/provider/ProtectPage";
+import Image from "next/image";
 
 type GameType = "mastermind" | "memory" | "snake" | "wordle" | null;
 
 const Games = () => {
   const [selectedGame, setSelectedGame] = useState<GameType>(null);
 
+  // const games = [
+  //   {
+  //     id: "mastermind" as const,
+  //     title: "Оюун ухаан",
+  //     description: "Ухаанаа ажиллуулж код таах тоглоом",
+  //     component: <MastermindGame />,
+  //   },
+  //   {
+  //     id: "memory" as const,
+  //     title: "Санах ой",
+  //     description: "Ижил картуудыг олж тоглох тоглоом",
+  //     component: <MemoryGame />,
+  //   },
+  //   {
+  //     id: "snake" as const,
+  //     title: "Могой",
+  //     description: "Могойгоо хооллоод урт болгоё тоглоом",
+  //     component: <SnakeGame />,
+  //   },
+  //   {
+  //     id: "wordle" as const,
+  //     title: "Үг таах",
+  //     description: "5 үсэгтэй үгийг 6 оролдлогоор ба багатайгаар таах тоглоом",
+  //     component: <Wordle />,
+  //   },
+  // ];
   const games = [
     {
       id: "mastermind" as const,
       title: "Оюун ухаан",
       description: "Ухаанаа ажиллуулж код таах тоглоом",
+      image: "/mastermind.png",
       component: <MastermindGame />,
     },
     {
       id: "memory" as const,
       title: "Санах ой",
       description: "Ижил картуудыг олж тоглох тоглоом",
+      image: "/memory.png",
       component: <MemoryGame />,
     },
     {
       id: "snake" as const,
       title: "Могой",
       description: "Могойгоо хооллоод урт болгоё тоглоом",
+      image: "/Sanke.png",
       component: <SnakeGame />,
     },
     {
       id: "wordle" as const,
       title: "Үг таах",
       description: "5 үсэгтэй үгийг 6 оролдлогоор ба багатайгаар таах тоглоом",
+      image: "/wordle.webp",
       component: <Wordle />,
     },
   ];
@@ -76,25 +107,20 @@ const Games = () => {
             <p className="text-muted-foreground text-lg">Тоглоомоо сонгоорой</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-4 gap-6">
             {games.map((game) => (
               <Card
                 key={game.id}
-                className="cursor-pointer hover:shadow-lg transition-shadow"
+                className="cursor-pointer hover:shadow-lg transition-shadow flex items-center justify-center"
                 onClick={() => setSelectedGame(game.id)}
               >
-                <CardHeader>
-                  <CardTitle className="text-xl">{game.title}</CardTitle>
-                  <CardDescription>{game.description}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <Button
-                    className="w-full bg-gradient-to-r from-green-500 via-green-600 to-green-700
-"
-                  >
-                    Тоглох {game.title}
-                  </Button>
-                </CardContent>
+                <Image
+                  src={game.image}
+                  alt={game.title}
+                  width={220}
+                  height={220}
+                  className="object-contain"
+                />
               </Card>
             ))}
           </div>
