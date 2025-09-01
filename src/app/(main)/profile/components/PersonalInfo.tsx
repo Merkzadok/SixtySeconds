@@ -29,6 +29,8 @@ export default function ProfileCard() {
   const [editing, setEditing] = useState(false);
   const router = useRouter();
 
+  console.log(user);
+
   const formik = useFormik<ProfileForm>({
     initialValues: {
       username: user?.profile?.username || "",
@@ -98,6 +100,154 @@ export default function ProfileCard() {
       </div>
     );
 
+  // return (
+  //   <div className="flex flex-col items-center py-10 bg-white min-h-screen space-y-8 px-4 md:px-0">
+  //     <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-[#2a7b9b] via-[#57c785] to-[#eddd53] bg-clip-text text-transparent mb-6">
+  //       Миний профайл
+  //     </h1>
+
+  //     <div className="max-w-md w-full bg-white rounded-3xl shadow-lg border-2 border-[#0AA84C] p-6 space-y-6 relative">
+  //       <div className="flex justify-center">
+  //         <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-[#0AA84C] shadow-md">
+  //           <img
+  //             src={formik.values.avatarImage || "/default-avatar.png"}
+  //             alt="avatar"
+  //             className="w-full h-full object-cover"
+  //           />
+  //         </div>
+  //       </div>
+
+  //       {editing && (
+  //         <div className="flex justify-center gap-4 flex-wrap">
+  //           {avatarList.map((avatar, index) => (
+  //             <button
+  //               key={index}
+  //               type="button"
+  //               onClick={() => formik.setFieldValue("avatarImage", avatar)}
+  //               className={`w-14 h-14 rounded-full overflow-hidden border-4 transition-all duration-300 ${
+  //                 formik.values.avatarImage === avatar
+  //                   ? "border-[#0AA84C] scale-110 shadow-lg"
+  //                   : "border-transparent hover:border-[#0AA84C]"
+  //               }`}
+  //             >
+  //               <img
+  //                 src={avatar}
+  //                 alt={`avatar-${index}`}
+  //                 className="w-full h-full object-cover"
+  //               />
+  //             </button>
+  //           ))}
+  //         </div>
+  //       )}
+
+  //       {!editing ? (
+  //         <div className="space-y-4 text-center">
+  //           <h2 className="text-2xl font-semibold">
+  //             {user?.profile?.username}
+  //           </h2>
+  //           <p className="text-gray-600">{user.email}</p>
+  //           <p>Нас: {user?.profile?.age}</p>
+  //         </div>
+  //       ) : (
+  //         <form onSubmit={formik.handleSubmit} className="space-y-5">
+  //           <div>
+  //             <label className="block text-gray-700 mb-1 font-semibold">
+  //               Нэр
+  //             </label>
+  //             <input
+  //               name="username"
+  //               value={formik.values.username}
+  //               onChange={formik.handleChange}
+  //               className="w-full border rounded-xl p-3 focus:ring-2 focus:ring-[#0AA84C] outline-none transition"
+  //               placeholder="Нэрээ бичнэ үү"
+  //             />
+  //             {formik.errors.username && formik.touched.username && (
+  //               <p className="text-red-500 text-sm mt-1">
+  //                 {formik.errors.username}
+  //               </p>
+  //             )}
+  //           </div>
+
+  //           <div>
+  //             <label className="block text-gray-700 mb-1 font-semibold">
+  //               Имэйл
+  //             </label>
+  //             <input
+  //               name="email"
+  //               value={formik.values.email}
+  //               onChange={formik.handleChange}
+  //               className="w-full border rounded-xl p-3 focus:ring-2 focus:ring-[#068F3F] outline-none transition"
+  //               placeholder="Имэйл хаяг"
+  //             />
+  //             {formik.errors.email && formik.touched.email && (
+  //               <p className="text-red-500 text-sm mt-1">
+  //                 {formik.errors.email}
+  //               </p>
+  //             )}
+  //           </div>
+
+  //           <div>
+  //             <label className="block text-gray-700 mb-1 font-semibold">
+  //               Нас
+  //             </label>
+  //             <input
+  //               type="number"
+  //               name="age"
+  //               value={formik.values.age}
+  //               onChange={formik.handleChange}
+  //               className="w-full border rounded-xl p-3 focus:ring-2 focus:ring-[#057534] outline-none transition"
+  //               placeholder="Нас"
+  //             />
+  //           </div>
+
+  //           <div className="flex justify-between space-x-4">
+  //             <button
+  //               type="submit"
+  //               className="flex items-center justify-center gap-2 bg-[#55E691] hover:bg-[#32C971] text-white font-semibold py-3 rounded-xl transition w-full"
+  //             >
+  //               <Check size={20} /> Хадгалах
+  //             </button>
+  //             <button
+  //               type="button"
+  //               onClick={() => {
+  //                 formik.resetForm();
+  //                 setEditing(false);
+  //               }}
+  //               className="flex items-center justify-center gap-2 bg-[#3ACAF2] hover:bg-[#2397B8] text-white font-semibold py-3 rounded-xl transition w-full"
+  //             >
+  //               <X size={20} /> Болих
+  //             </button>
+  //           </div>
+  //         </form>
+  //       )}
+
+  //       {!editing && (
+  //         <button
+  //           onClick={() => setEditing(true)}
+  //           className="absolute top-4 right-4 p-2 rounded-full bg-[#55E691] text-white hover:bg-[#0E9654] transition"
+  //           aria-label="Edit profile"
+  //         >
+  //           <Edit2 size={20} />
+  //         </button>
+  //       )}
+  //     </div>
+
+  //     <div className="max-w-md w-full border-2 border-green-400 rounded-3xl p-6 bg-[#F3E9FF] shadow-md text-center">
+  //       <p className="text-[#B960FF] font-semibold text-lg">
+  //         🎉 Та идэвхтэй гишүүнчлэлтэй байна
+  //       </p>
+  //       <>
+  //         <button
+  //           onClick={() => router.push("/subscription")}
+  //           type="button"
+  //           className="w-full bg-green-300 hover:bg-[#9f4dd8] text-white py-3 rounded-xl font-semibold transition"
+  //         >
+  //           Гишүүн болох
+  //         </button>
+  //       </>
+  //     </div>
+  //   </div>
+  // );
   return (
     <div className="flex flex-col items-center py-10 bg-white min-h-screen space-y-8 px-4 md:px-0">
       <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-[#2a7b9b] via-[#57c785] to-[#eddd53] bg-clip-text text-transparent mb-6">
@@ -106,12 +256,12 @@ export default function ProfileCard() {
 
       <div className="max-w-md w-full bg-white rounded-3xl shadow-lg border-2 border-[#0AA84C] p-6 space-y-6 relative">
         <div className="flex justify-center">
-          <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-[#0AA84C] shadow-md">
+          <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-[#0AA84C] shadow-md relative">
             <Image
               src={formik.values.avatarImage || "/default-avatar.png"}
               alt="avatar"
               fill
-              className="object-cover"
+              className="object-cover rounded-full"
             />
           </div>
         </div>
@@ -236,15 +386,13 @@ export default function ProfileCard() {
         <p className="text-[#B960FF] font-semibold text-lg">
           🎉 Та идэвхтэй гишүүнчлэлтэй байна
         </p>
-        <>
-          <button
-            onClick={() => router.push("/subscription")}
-            type="button"
-            className="w-full bg-green-300 hover:bg-[#9f4dd8] text-white py-3 rounded-xl font-semibold transition"
-          >
-            Гишүүн болох
-          </button>
-        </>
+        <button
+          onClick={() => router.push("/subscription")}
+          type="button"
+          className="w-full bg-green-300 hover:bg-[#9f4dd8] text-white py-3 rounded-xl font-semibold transition"
+        >
+          Гишүүн болох
+        </button>
       </div>
     </div>
   );
