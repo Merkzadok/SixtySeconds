@@ -1,5 +1,4 @@
 import { Crown, Star, Trophy, Zap } from "lucide-react";
-import { RankType } from "../../../../types/types";
 
 type LeaderboardUserProps = {
   username: string;

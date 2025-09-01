@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Check } from "lucide-react";
 import ProtectedRoute from "@/provider/ProtectPage";
-import { AxiosError } from "axios";
 
 type BillingPeriod = "7 Өдөр үнэгүй" | "Сарын эрх" | "3-Сарын эрх" | "Жилээр";
 

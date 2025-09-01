@@ -6,6 +6,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useRouter } from "next/navigation";
 import { Loader2, Edit2, Check, X } from "lucide-react";
+import Image from "next/image";
 
 type ProfileForm = {
   username: string;
@@ -106,10 +107,11 @@ export default function ProfileCard() {
       <div className="max-w-md w-full bg-white rounded-3xl shadow-lg border-2 border-[#0AA84C] p-6 space-y-6 relative">
         <div className="flex justify-center">
           <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-[#0AA84C] shadow-md">
-            <img
+            <Image
               src={formik.values.avatarImage || "/default-avatar.png"}
               alt="avatar"
-              className="w-full h-full object-cover"
+              fill
+              className="object-cover"
             />
           </div>
         </div>

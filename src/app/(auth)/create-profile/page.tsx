@@ -8,6 +8,7 @@ import { Label } from "@/Components/ui/label";
 import { useUser } from "@/provider/CurrentUser";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import Image from "next/image";
 
 const avatarOptions = [
   "/avatars/avatar1.png",
@@ -117,10 +118,12 @@ export default function ProfileForm() {
         className="w-full max-w-sm bg-white border-2 border-green-500 rounded-3xl shadow-lg px-5 py-6 space-y-6"
       >
         <div className="flex justify-center">
-          <img
+          <Image
             src={previewImage}
             alt="Profile Preview"
-            className="w-24 h-24 rounded-full border-4 border-green-400 object-cover"
+            width={96}
+            height={96}
+            className="rounded-full border-4 border-green-400 object-cover"
           />
         </div>
 
