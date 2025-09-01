@@ -39,7 +39,6 @@ const IncorrectWordPage: React.FC = () => {
       setSelectedWord(null);
       setFeedback(null);
     } catch (error) {
-      console.log(error);
     } finally {
     }
   };

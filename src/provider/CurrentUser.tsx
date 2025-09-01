@@ -24,8 +24,6 @@ export default function UserContextProvider({
   const [user, setUser] = useState<UserType | null>(null);
   const [loading, setLoading] = useState(true);
 
-  console.log({ loading, user });
-
   useEffect(() => {
     const fetchCurrentUser = async () => {
       const token = localStorage.getItem("Token:");

@@ -28,8 +28,6 @@ export default function ProfileCard() {
   const [editing, setEditing] = useState(false);
   const router = useRouter();
 
-  console.log(user);
-
   const formik = useFormik<ProfileForm>({
     initialValues: {
       username: user?.profile?.username || "",

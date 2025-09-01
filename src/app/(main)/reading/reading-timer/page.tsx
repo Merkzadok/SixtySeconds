@@ -146,13 +146,7 @@ const ReadingTimer: React.FC = () => {
           </div>
         )}
 
-        <VoiceRecorder
-          ref={recorderRef}
-          onUploadComplete={(url) => {
-            // Та хүсвэл энэ бичлэгийг хадгалах боломжтой
-            console.log("Recorded audio URL:", url);
-          }}
-        />
+        <VoiceRecorder ref={recorderRef} onUploadComplete={(url) => {}} />
       </div>
     </div>
   );

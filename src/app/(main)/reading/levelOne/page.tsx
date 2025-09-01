@@ -84,9 +84,7 @@ const SpeechToTextMongolian: React.FC = () => {
       recognitionRef.current?.stop();
       fetchNextSentence();
       setAudioUrl("");
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   const { matchCount, total, accuracy } = compareTexts(
