@@ -12,12 +12,16 @@ const VoiceRecorder = dynamic(() => import("../components/VoiceRecorder"), {
   ssr: false,
 });
 
+type sentenceType = {
+  sentence: string;
+};
+
 const ReadingTimer: React.FC = () => {
   const [timeLeft, setTimeLeft] = useState(60);
   const [testStarted, setTestStarted] = useState(false);
   const [fullTranscript, setFullTranscript] = useState("");
   const [interimTranscript, setInterimTranscript] = useState("");
-  const [sentence, setSentence] = useState<any>(null);
+  const [sentence, setSentence] = useState<sentenceType | null>(null);
   const [totalWords, setTotalWords] = useState(0);
   const [matchedWords, setMatchedWords] = useState(0);
   const recognitionRef = useRef<SpeechRecognition | null>(null);
@@ -68,6 +72,7 @@ const ReadingTimer: React.FC = () => {
   };
 
   const onSentenceFinish = () => {
+    if (!sentence?.sentence) return;
     const { matchCount, total } = compareTexts(
       sentence.sentence,
       fullTranscript
