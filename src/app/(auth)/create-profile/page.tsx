@@ -135,12 +135,13 @@ export default function ProfileForm() {
               onClick={() => handleAvatarSelect(url)}
               className={`w-12 h-12 rounded-full p-1 border-2 ${
                 previewImage === url ? "border-green-500" : "border-transparent"
-              } hover:border-blue-400 transition-all`}
+              } hover:border-blue-400 transition-all relative`}
             >
-              <img
+              <Image
                 src={url}
                 alt={`Avatar ${index + 1}`}
-                className="rounded-full w-full h-full"
+                fill
+                className="rounded-full object-cover"
               />
             </button>
           ))}

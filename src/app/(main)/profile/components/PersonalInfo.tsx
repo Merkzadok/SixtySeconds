@@ -123,16 +123,17 @@ export default function ProfileCard() {
                 key={index}
                 type="button"
                 onClick={() => formik.setFieldValue("avatarImage", avatar)}
-                className={`w-14 h-14 rounded-full overflow-hidden border-4 transition-all duration-300 ${
+                className={`w-14 h-14 rounded-full overflow-hidden border-4 transition-all duration-300 relative ${
                   formik.values.avatarImage === avatar
                     ? "border-[#0AA84C] scale-110 shadow-lg"
                     : "border-transparent hover:border-[#0AA84C]"
                 }`}
               >
-                <img
+                <Image
                   src={avatar}
                   alt={`avatar-${index}`}
-                  className="w-full h-full object-cover"
+                  fill
+                  className="object-cover"
                 />
               </button>
             ))}
