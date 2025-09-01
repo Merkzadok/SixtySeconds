@@ -7,6 +7,7 @@ import { Button } from "@/Components/ui/button";
 import { Label } from "@/Components/ui/label";
 import { useUser } from "@/provider/CurrentUser";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 const avatarOptions = [
   "/avatars/avatar1.png",
@@ -95,7 +96,8 @@ export default function ProfileForm() {
           username: formData.username,
         }
       );
-      alert("Мэдээлэл амжилттай хадгалагдлаа!");
+      toast.success("Мэдээлэл амжилттай хадгалагдлаа!");
+
       setTimeout(() => router.push("/home"), 1000);
     } catch (error) {
       console.error("Хадгалах үед алдаа гарлаа:", error);
@@ -141,18 +143,17 @@ export default function ProfileForm() {
             </button>
           ))}
         </div>
-
         <div className="text-center">
-          <Label htmlFor="upload" className="text-sm text-gray-600">
+          {/* <Label htmlFor="upload" className="text-sm text-gray-600">
             📤 Зураг оруулах:
-          </Label>
-          <input
+          </Label> */}
+          {/* <input
             type="file"
             id="upload"
             accept="image/*"
             onChange={handleImageUpload}
             className="ml-2 text-sm"
-          />
+          /> */}
         </div>
         {uploading && (
           <p className="text-center text-blue-500 text-sm mt-1">

@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import { Comfortaa, Geist, Geist_Mono } from "next/font/google";
+import { Comfortaa } from "next/font/google";
 import "./globals.css";
 import UserContextProvider from "@/provider/CurrentUser";
 import TransitionLayout from "@/Components/Transition-Layout";
+import { Toaster } from "sonner";
 
 const comfortaa = Comfortaa({
   subsets: ["latin", "cyrillic", "cyrillic-ext"],
@@ -25,6 +26,7 @@ export default function RootLayout({
         <TransitionLayout>
           <UserContextProvider>{children}</UserContextProvider>
         </TransitionLayout>
+        <Toaster richColors position="top-center" />
       </body>
     </html>
   );
