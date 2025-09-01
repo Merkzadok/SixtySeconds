@@ -15,7 +15,7 @@ type Sentence = {
 };
 
 const IncorrectWordPage: React.FC = () => {
-  const [totalScore, setTotalScore] = useState(0); // Нийт оноо хадгалах
+  const [totalScore, setTotalScore] = useState(0);
   const [sentence, setSentence] = useState<Sentence | null>(null);
   const [selectedWord, setSelectedWord] = useState<string | null>(null);
   const [feedback, setFeedback] = useState<{
@@ -66,7 +66,6 @@ const IncorrectWordPage: React.FC = () => {
     if (data.success) {
       setFeedback({ correct, score: data.score });
 
-      // ✔ Оноо зөв бол нэмнэ
       if (correct) {
         setTotalScore((prev) => prev + 1);
       }
@@ -77,34 +76,24 @@ const IncorrectWordPage: React.FC = () => {
 
   return (
     <ProtectedRoute>
-      <div className="min-h-screen bg-gradient-to-br from-slate-700 to-slate-900 py-8 px-4">
+      <div className="min-h-screen bg-[#C0E6BA] py-8 px-4">
         <div className="max-w-4xl mx-auto space-y-8">
-          {/* Header with chalk-like styling */}
           <div className="text-center space-y-4">
             <h2 className="text-4xl font-bold text-white drop-shadow-lg">
               🔍 Алдаатай үг хайх
             </h2>
-            <p className="text-slate-300 text-lg font-medium">
+            <p className="text-slate-600 text-lg font-medium">
               Доорх өгүүлбэрээс алдаатай үгийг сонгоорой.
             </p>
           </div>
 
-          {/* Chalkboard Container */}
           <div className="relative">
-            {/* Chalkboard Shadow */}
             <div className="absolute inset-0 bg-black/30 rounded-xl transform translate-x-2 translate-y-2"></div>
 
-            {/* Main Chalkboard */}
-            <div className="relative bg-gradient-to-br from-green-800 via-green-700 to-green-900 rounded-xl border-8 border-amber-900 shadow-2xl overflow-hidden">
-              {/* Wood grain effect on border */}
-              <div className="absolute inset-0 border-4 border-amber-800 rounded-lg"></div>
-
-              {/* Chalk dust texture overlay */}
+            <div className="relative bg-green-700 rounded-xl border-8 border-amber-900 shadow-2xl overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent mix-blend-overlay"></div>
 
-              {/* Content Area */}
               <div className="relative p-8 md:p-12">
-                {/* Sentence Display */}
                 <div className="bg-green-800/50 backdrop-blur-sm p-8 rounded-lg border border-green-600/30 shadow-inner">
                   <div className="text-center text-2xl md:text-3xl leading-relaxed font-mono tracking-wide">
                     {sentence &&
@@ -131,7 +120,6 @@ const IncorrectWordPage: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Submit Button */}
                 <div className="flex justify-center mt-8">
                   <button
                     disabled={!selectedWord}
@@ -152,7 +140,6 @@ const IncorrectWordPage: React.FC = () => {
             </div>
           </div>
 
-          {/* Feedback Section */}
           {feedback && (
             <div className="bg-white/10 backdrop-blur-md rounded-xl border border-white/20 p-6 shadow-xl">
               <div className="text-center space-y-4">
