@@ -52,4 +52,5 @@ export type RankType = {
   totalScore: number;
   id: number;
   isCurrentUser: boolean;
+  rank: number;
 };
