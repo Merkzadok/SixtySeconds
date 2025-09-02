@@ -30,9 +30,7 @@ const LeaderBoard = () => {
         } else {
           setBoard(top5);
         }
-      } catch (error) {
-        console.error("Leaderboard fetch error:", error);
-      }
+      } catch (error) {}
     };
 
     fetchLeaderboard();

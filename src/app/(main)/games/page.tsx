@@ -7,13 +7,7 @@ import { MemoryGame } from "./components/MemoryGame";
 import { SnakeGame } from "./components/SnakeGame";
 import { Wordle } from "./components/Wordle";
 import { Button } from "@/Components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/Components/ui/card";
+import { Card } from "@/Components/ui/card";
 import ProtectedRoute from "@/provider/ProtectPage";
 import Image from "next/image";
 
@@ -22,32 +16,6 @@ type GameType = "mastermind" | "memory" | "snake" | "wordle" | null;
 const Games = () => {
   const [selectedGame, setSelectedGame] = useState<GameType>(null);
 
-  // const games = [
-  //   {
-  //     id: "mastermind" as const,
-  //     title: "Оюун ухаан",
-  //     description: "Ухаанаа ажиллуулж код таах тоглоом",
-  //     component: <MastermindGame />,
-  //   },
-  //   {
-  //     id: "memory" as const,
-  //     title: "Санах ой",
-  //     description: "Ижил картуудыг олж тоглох тоглоом",
-  //     component: <MemoryGame />,
-  //   },
-  //   {
-  //     id: "snake" as const,
-  //     title: "Могой",
-  //     description: "Могойгоо хооллоод урт болгоё тоглоом",
-  //     component: <SnakeGame />,
-  //   },
-  //   {
-  //     id: "wordle" as const,
-  //     title: "Үг таах",
-  //     description: "5 үсэгтэй үгийг 6 оролдлогоор ба багатайгаар таах тоглоом",
-  //     component: <Wordle />,
-  //   },
-  // ];
   const games = [
     {
       id: "mastermind" as const,

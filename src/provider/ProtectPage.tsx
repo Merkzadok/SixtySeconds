@@ -22,7 +22,7 @@ export default function ProtectedRoute({
     }
 
     axios
-      .get("http://localhost:4001/auth/validate", {
+      .get(`${process.env.NEXT_PUBLIC_API_URL}/auth/validate`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then(() => setLoading(false))
