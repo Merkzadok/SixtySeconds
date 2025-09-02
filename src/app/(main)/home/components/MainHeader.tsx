@@ -18,6 +18,7 @@ import Navigation from "./Navigation";
 import ProfileAvatar from "./ProfileAvatar";
 import MobileNavigation from "./MobileNavigation";
 import Link from "next/link";
+import Image from "next/image";
 
 export type NavigationItem = {
   id: string;
@@ -83,14 +84,20 @@ export default function MainHeader() {
           <div className="flex items-center space-x-8">
             <Link href="/home">
               <div className="flex items-center gap-3 cursor-pointer">
-                <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-500 rounded-full flex items-center justify-center shadow-lg border-2 border-white">
-                  <span
+                <div className="w-12 h-8 bg-[#B0DB9C] rounded-full flex items-center justify-center shadow-lg ">
+                  <Image
+                    src="/favicon.png"
+                    width={500}
+                    height={200}
+                    alt="Picture of the author"
+                  />{" "}
+                  {/* <span
                     className="text-white text-2xl"
                     role="img"
                     aria-label="owl"
                   >
-                    🦉
-                  </span>
+                  
+                  </span> */}
                 </div>
 
                 <div className="flex gap-1 leading-none">
