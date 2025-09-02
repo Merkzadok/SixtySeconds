@@ -91,7 +91,6 @@ const IncorrectWordPage: React.FC = () => {
 
           {/* Chalkboard Container */}
           <div className="relative">
-            {/* Chalkboard Shadow */}
             <div className="absolute inset-0 bg-black/30 rounded-xl transform translate-x-2 translate-y-2"></div>
 
             {/* Main Chalkboard */}
