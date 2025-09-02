@@ -96,7 +96,7 @@ export default function SignInForm() {
                   htmlFor="login-email"
                   className="text-gray-700 font-semibold"
                 >
-                  Email
+                  Имэйл
                 </Label>
                 <div className="relative">
                   <div className="flex items-center bg-gray-50 border-2 rounded-xl overflow-hidden border-gray-200 focus-within:border-blue-500 focus-within:bg-white transition-all duration-300 hover:shadow-md">
