@@ -4,7 +4,7 @@ import UserAudio from "../components/UserAudio";
 
 export default function LeaderboardSectionn() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-[#C0e6BA] ">
       <MainHeader />
       <Leaderboard />
       <UserAudio />

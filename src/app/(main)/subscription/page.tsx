@@ -98,8 +98,8 @@ export default function Subscription() {
 
   return (
     <ProtectedRoute>
-      <div className="min-h-screen bg-gradient-to-b ">
-        <div className="mt-12 flex flex-col items-center text-center mb-10">
+      <div className="min-h-screen bg-[#C0e6BA] ">
+        <div className="pt-10 flex flex-col items-center text-center mb-10">
           <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent">
             Subscription
           </h1>

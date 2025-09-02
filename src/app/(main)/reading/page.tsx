@@ -37,7 +37,7 @@ const levels = [
 
 const ReadingPage = () => {
   return (
-    <div className="min-h-screen bg-background p-4">
+    <div className="min-h-screen bg-[#C0e6BA] p-4  ">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-8 mt-12">
           <h1 className="text-4xl font-bold mb-4">Унших</h1>
