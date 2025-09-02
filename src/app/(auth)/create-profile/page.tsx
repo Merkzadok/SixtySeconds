@@ -115,18 +115,7 @@ export default function ProfileForm() {
             </button>
           ))}
         </div>
-        <div className="text-center">
-          {/* <Label htmlFor="upload" className="text-sm text-gray-600">
-            📤 Зураг оруулах:
-          </Label> */}
-          {/* <input
-            type="file"
-            id="upload"
-            accept="image/*"
-            onChange={handleImageUpload}
-            className="ml-2 text-sm"
-          /> */}
-        </div>
+        <div className="text-center"></div>
         {uploading && (
           <p className="text-center text-blue-500 text-sm mt-1">
             Зураг байршиж байна...
