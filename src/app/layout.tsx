@@ -14,10 +14,9 @@ export const metadata: Metadata = {
   title: "60секунд",
   description: "Унших, ярих чадвараа хөгжүүлэх апп.",
   icons: {
-    icon: "/favicon.png",
+    icon: "/bird.png",
   },
 };
-//edd
 
 export default function RootLayout({
   children,
