@@ -17,6 +17,7 @@ export const metadata: Metadata = {
     icon: "/favicon.png",
   },
 };
+//edd
 
 export default function RootLayout({
   children,
