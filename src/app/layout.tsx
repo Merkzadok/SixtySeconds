@@ -13,6 +13,9 @@ const comfortaa = Comfortaa({
 export const metadata: Metadata = {
   title: "60секунд",
   description: "Унших, ярих чадвараа хөгжүүлэх апп.",
+  icons: {
+    icon: "/favicon.png",
+  },
 };
 
 export default function RootLayout({
