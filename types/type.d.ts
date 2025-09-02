@@ -1,12 +1,8 @@
-// types.d.ts
-
-// Generic JSON module typing
 declare module "*.json" {
   const value: Record<string, unknown>;
   export default value;
 }
 
-// Specifically for Lottie animations
 declare module "/Meditating-Brain.json" {
   const value: Record<string, unknown>;
   export default value;
@@ -33,7 +29,7 @@ export type ProfileType = {
 export type UserType = {
   id: number;
   email: string;
-  username:string,
+  username: string;
   profile: ProfileType;
   profileId?: number;
 };
