@@ -26,13 +26,13 @@ const levels = [
     path: "/reading/levelThree",
     image: "/level3.png",
   },
-  {
-    id: "readingTimer",
-    title: "60 sec",
-    description: "Хугацаатай унших дасгал",
-    path: "/reading/reading-timer",
-    image: "/hourglass.png",
-  },
+  // {
+  //   id: "readingTimer",
+  //   title: "60 sec",
+  //   description: "Хугацаатай унших дасгал",
+  //   path: "/reading/reading-timer",
+  //   image: "/hourglass.png",
+  // },
 ];
 
 const ReadingPage = () => {
