@@ -194,6 +194,11 @@ export default function SignUpForm() {
                           "Нууц үг дор хаяж 8 тэмдэгттэй байх ёстой."
                         )
                       }
+                      onInput={(e) =>
+                        (e.currentTarget as HTMLInputElement).setCustomValidity(
+                          ""
+                        )
+                      }
                       className="flex-1 bg-transparent border-0 focus:outline-none focus:ring-0 h-9 text-gray-800 placeholder-gray-400"
                     />
                   </div>

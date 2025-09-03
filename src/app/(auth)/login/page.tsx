@@ -42,6 +42,8 @@ export default function SignInForm() {
         else if (msg.includes("password"))
           setPasswordError("Нууц үг буруу байна!.");
         else throw new Error(errorData.message || "Login failed");
+
+        setIsLoading(false);
         return;
       }
 
