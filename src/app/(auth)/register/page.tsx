@@ -30,6 +30,11 @@ export default function SignUpForm() {
     setUsernameError("");
     setEmailError("");
     setPasswordError("");
+    if (formData.password.length < 8) {
+      setPasswordError("Нууц үг дор хаяж 8 тэмдэгттэй байх ёстой.");
+      setIsLoading(false);
+      return;
+    }
 
     try {
       const res = await fetch(
@@ -183,6 +188,12 @@ export default function SignUpForm() {
                         handleInputChange("password", e.target.value)
                       }
                       required
+                      minLength={8}
+                      onInvalid={(e) =>
+                        (e.currentTarget as HTMLInputElement).setCustomValidity(
+                          "Нууц үг дор хаяж 8 тэмдэгттэй байх ёстой."
+                        )
+                      }
                       className="flex-1 bg-transparent border-0 focus:outline-none focus:ring-0 h-9 text-gray-800 placeholder-gray-400"
                     />
                   </div>
