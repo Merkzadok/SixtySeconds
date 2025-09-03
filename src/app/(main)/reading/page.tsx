@@ -8,21 +8,21 @@ const levels = [
   {
     id: "levelOne",
     title: "Түвшин 1",
-    description: "1 дүгээр ангийн хүүхдүүдэд амар сэдэв",
+    description: "Амархан сэдэв",
     path: "/reading/levelOne",
     image: "/level1.png",
   },
   {
     id: "levelTwo",
     title: "Түвшин 2",
-    description: "1 дүгээр ангийн хүүхдүүдэд дунд зэргийн сэдэв",
+    description: "Дунд зэргийн сэдэв",
     path: "/reading/levelTwo",
     image: "/level2.png",
   },
   {
     id: "levelThree",
     title: "Түвшин 3",
-    description: "1 дүгээр ангийн хүүхдүүдэд хэцүү сэдэв",
+    description: "хэцүү сэдэв",
     path: "/reading/levelThree",
     image: "/level3.png",
   },
@@ -37,26 +37,36 @@ const levels = [
 
 const ReadingPage = () => {
   return (
-    <div className="min-h-screen bg-[#C0e6BA] p-4  ">
+    <div className="min-h-screen bg-[#C0e6BA] p-4">
       <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-8 mt-12">
-          <h1 className="text-4xl font-bold mb-4">Унших</h1>
-          <p className="text-muted-foreground text-lg">Түвшингээ сонгоорой</p>
+        {/* Толгой хэсэг */}
+        <div className="text-center mb-10 mt-12">
+          <h1 className="text-4xl font-bold mb-4">Унших булан</h1>
+          <p className="text-lg text-gray-700 font-medium">
+            Түвшингээ сонгоод уншаарай
+          </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* Түвшин сонгох картууд */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {levels.map((level) => (
             <Link key={level.id} href={level.path}>
-              <Card className="cursor-pointer hover:shadow-lg transition-shadow flex items-center justify-center p-4">
-                <div className="w-full h-70 flex items-center justify-center">
+              <Card className="cursor-pointer group rounded-2xl bg-white shadow-lg hover:shadow-2xl hover:scale-105 transition-transform flex flex-col items-center justify-center p-6">
+                <div className="w-40 h-40 flex items-center justify-center mb-4">
                   <Image
                     src={level.image}
                     alt={level.title}
-                    width={220}
-                    height={220}
-                    className="object-contain w-full h-full"
+                    width={160}
+                    height={160}
+                    className="object-contain drop-shadow-md group-hover:rotate-3 transition-transform"
                   />
                 </div>
+                <h2 className="text-2xl font-bold text-purple-600 mb-2">
+                  {level.title}
+                </h2>
+                <p className="text-base text-gray-600 text-center">
+                  {level.description}
+                </p>
               </Card>
             </Link>
           ))}

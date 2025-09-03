@@ -86,7 +86,7 @@ export default function MainHeader() {
               <div className="flex items-center gap-3 cursor-pointer">
                 <div className="w-12 h-8 bg-[#B0DB9C] rounded-full flex items-center justify-center shadow-lg ">
                   <Image
-                    src="/Favicon.ico"
+                    src="/favicon.ico"
                     width={500}
                     height={200}
                     alt="Picture of the author"

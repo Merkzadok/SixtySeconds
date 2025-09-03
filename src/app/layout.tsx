@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   title: "60секунд",
   description: "Унших, ярих чадвараа хөгжүүлэх апп.",
   icons: {
-    icon: "/Favicon.ico",
+    icon: "/favicon.ico",
   },
 };
 
