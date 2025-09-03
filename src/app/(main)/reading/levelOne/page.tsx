@@ -32,6 +32,7 @@ const SpeechToTextMongolian: React.FC = () => {
   const [fullTranscript, setFullTranscript] = useState("");
   const [interimTranscript, setInterimTranscript] = useState("");
   const [listening, setListening] = useState(false);
+  const [microphoneAllowed, setMicrophoneAllowed] = useState(true);
   const recorderRef = useRef<VoiceRecorderHandle>(null);
   const recognitionRef = useRef<SpeechRecognition | null>(null);
 
@@ -43,18 +44,28 @@ const SpeechToTextMongolian: React.FC = () => {
       }
     );
     const data = await res.json();
-
     setSentence(data);
   };
 
   useEffect(() => {
-    if (!user) return;
-    recognitionRef.current = createRecognition(
-      setFullTranscript,
-      setInterimTranscript,
-      setListening
-    );
-    fetchNextSentence();
+    const checkMicrophonePermission = async () => {
+      try {
+        await navigator.mediaDevices.getUserMedia({ audio: true });
+        recognitionRef.current = createRecognition(
+          setFullTranscript,
+          setInterimTranscript,
+          setListening
+        );
+        fetchNextSentence();
+      } catch (err) {
+        console.error("🎤 Microphone permission denied or error:", err);
+        setMicrophoneAllowed(false);
+      }
+    };
+
+    if (user) {
+      checkMicrophonePermission();
+    }
 
     return () => recognitionRef.current?.stop();
   }, [user?.id]);
@@ -84,7 +95,9 @@ const SpeechToTextMongolian: React.FC = () => {
       recognitionRef.current?.stop();
       fetchNextSentence();
       setAudioUrl("");
-    } catch {}
+    } catch (error) {
+      console.error("❌ Error saving sentence:", error);
+    }
   };
 
   const { matchCount, total, accuracy } = compareTexts(
@@ -95,7 +108,6 @@ const SpeechToTextMongolian: React.FC = () => {
   const onToggle = () => {
     if (listening) {
       setStopTime(new Date());
-
       recognitionRef.current?.stop();
       recorderRef.current?.stop();
       setListening(false);
@@ -106,6 +118,22 @@ const SpeechToTextMongolian: React.FC = () => {
       setListening(true);
     }
   };
+
+  if (!microphoneAllowed) {
+    return (
+      <div className="flex flex-col items-center justify-center h-screen text-center px-4">
+        <h1 className="text-xl font-semibold text-red-600 mb-2">
+          🎤 Микрофоны зөвшөөрөл олгогдоогүй байна
+        </h1>
+        <p className="text-gray-700">
+          Та микрофонд хандалтын зөвшөөрөл олгоогүй байна. Аппыг ашиглахын тулд
+          микрофонд хандалтын зөвшөөрөл өгөөрэй. Мөн <strong>HTTPS</strong>{" "}
+          ашиглаж байгаа эсэхийг шалгана уу.
+        </p>
+      </div>
+    );
+  }
+
   if (!sentence) return <LoaderScreen />;
 
   return (
