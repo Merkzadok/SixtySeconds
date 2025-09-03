@@ -38,8 +38,9 @@ export default function SignInForm() {
       if (!res.ok) {
         const errorData = await res.json();
         const msg = (errorData.message || "").toLowerCase();
-        if (msg.includes("email")) setEmailError(errorData.message);
-        else if (msg.includes("password")) setPasswordError(errorData.message);
+        if (msg.includes("email")) setEmailError("Имэйл буруу байна!.");
+        else if (msg.includes("password"))
+          setPasswordError("Нууц үг буруу байна!.");
         else throw new Error(errorData.message || "Login failed");
         return;
       }
