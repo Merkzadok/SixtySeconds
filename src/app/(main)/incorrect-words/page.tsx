@@ -153,17 +153,17 @@ const IncorrectWordPage: React.FC = () => {
 
                 <div className="flex justify-center space-x-8 text-lg">
                   <p className="text-slate-600 text-lg font-medium">
-                    Энэ өгүүлбэрийн оноо:{" "}
+                    ✅ Зөв үг:{" "}
                     <span className="font-bold text-blue-300">
-                      {feedback.score}
+                      {sentence?.correctAnswer}
                     </span>
                   </p>
-                  <p className="text-slate-600 text-lg font-medium">
-                    🏆 Нийт оноо:
-                    <span className="font-bold text-yellow-400 text-xl pl-2 ">
-                      {totalScore}
+                  {/* <p className="text-slate-600 text-lg font-medium">
+                    ❌ Чиний сонгосон:{" "}
+                    <span className="font-bold text-red-300">
+                      {selectedWord}
                     </span>
-                  </p>
+                  </p> */}
                 </div>
 
                 <button

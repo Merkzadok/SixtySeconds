@@ -1,4 +1,4 @@
-import globeAnimation from "@/data/animations/DuoAttack.json";
+import globeAnimation from "@/data/animations/ReadingBook.json";
 import Lottie from "lottie-react";
 export const LoaderScreen = () => {
   return (
@@ -6,7 +6,7 @@ export const LoaderScreen = () => {
       <Lottie
         animationData={globeAnimation}
         loop={true}
-        className="w-40 h-40 sm:w-60 sm:h-60 lg:w-150 lg:h-150"
+        className="w-40 h-40 sm:w-60 sm:h-60 lg:w-100 lg:h-100"
       />
     </div>
   );

@@ -52,7 +52,7 @@ export default function MainHeader() {
     },
     {
       id: "subscription",
-      label: "Гишүүнчлэлийн эрх",
+      label: "Гишүүнчлэл",
       icon: Star,
       href: "/subscription",
     },
@@ -111,7 +111,7 @@ export default function MainHeader() {
               </div>
             </Link>
 
-            <div className="hidden md:block">
+            <div className="hidden md:block md:pr-2 ">
               <Navigation
                 navigationItems={navigationItems}
                 activeSection={activeSection}
