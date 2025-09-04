@@ -20,8 +20,15 @@
     ],
     "paths": {
       "@/*": ["./src/*"]
-    }
+    },
+    "noImplicitAny": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/(leaderboard)/components/leaderboard.tsx"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "src/app/(leaderboard)/components/leaderboard.tsx"
+  ],
   "exclude": ["node_modules"]
 }

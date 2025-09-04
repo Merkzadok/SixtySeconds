@@ -40,7 +40,7 @@ export default function UserContextProvider({
           }
         );
         setUser(res.data.user);
-      } catch (err) {
+      } catch {
         setUser(null);
       } finally {
         setLoading(false);
