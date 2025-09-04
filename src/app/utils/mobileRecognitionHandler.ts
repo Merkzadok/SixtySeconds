@@ -14,7 +14,6 @@ export interface PermissionState {
   isSecure: boolean;
 }
 
-// Enhanced microphone permission checker with mobile-specific handling
 export const checkMicrophonePermission = async (): Promise<PermissionState> => {
   const isMobile =
     /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
