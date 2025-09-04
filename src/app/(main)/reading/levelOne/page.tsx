@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect, useState, useRef } from "react";
 import dynamic from "next/dynamic";
 
@@ -188,7 +190,7 @@ const SpeechToTextMongolian: React.FC = () => {
                 📱 Mobile Instructions
               </p>
               <ul className="text-sm text-blue-700 mt-2 text-left list-disc list-inside space-y-1">
-                <li>Ensure you're using HTTPS</li>
+                <li>Ensure youre using HTTPS</li>
                 <li>Allow microphone permissions when prompted</li>
                 <li>Try refreshing the page</li>
                 <li>Check your browser settings</li>

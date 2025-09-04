@@ -1,10 +1,15 @@
-// @/app/utils/mobileRecognitionHandler.ts
-
+/* eslint-disable @typescript-eslint/no-explicit-any */
 declare global {
   interface Window {
     SpeechRecognition: any;
     webkitSpeechRecognition: any;
   }
+}
+
+interface SpeechRecognitionEvent extends Event {
+  readonly resultIndex: number;
+  readonly results: SpeechRecognitionResultList;
+  readonly error: string;
 }
 
 export interface PermissionState {
@@ -108,7 +113,7 @@ export const createMobileOptimizedRecognition = (
 
   let finalTranscript = "";
 
-  recognition.onresult = (event) => {
+  recognition.onresult = (event: SpeechRecognitionEvent) => {
     let interimTranscript = "";
 
     for (let i = event.resultIndex; i < event.results.length; i++) {
@@ -131,7 +136,7 @@ export const createMobileOptimizedRecognition = (
     setListening(false);
   };
 
-  recognition.onerror = (event) => {
+  recognition.onerror = (event: SpeechRecognitionEvent) => {
     console.error("Speech recognition error:", event.error);
     setListening(false);
 
