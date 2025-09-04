@@ -79,7 +79,7 @@ const IncorrectWordPage: React.FC = () => {
             <h2 className="text-4xl font-bold text-white drop-shadow-lg">
               🔍 Алдаатай үг хайх
             </h2>
-            <p className="text-slate-600 text-lg font-medium">
+            <p className="text-slate- text-lg font-medium">
               Доорх өгүүлбэрээс алдаатай үгийг сонгоорой.
             </p>
           </div>

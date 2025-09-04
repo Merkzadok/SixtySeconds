@@ -23,8 +23,8 @@ const ReadingStats = () => {
   return (
     <div>
       <div className="flex flex-col items-center text-center mb-7 mt-12">
-        <h1 className="text-4xl md:text-6xl font-bold  bg-[#2a7b9b]  bg-clip-text text-transparent mb-6">
-          Амжилтын самбар
+        <h1 className="text-4xl md:text-5xl font-bold  bg-[#2a7b9b]  bg-clip-text text-transparent mb-6">
+        🏆 Амжилтын самбар 
         </h1>
       </div>
 
