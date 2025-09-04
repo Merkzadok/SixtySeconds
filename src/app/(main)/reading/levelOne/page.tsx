@@ -16,6 +16,7 @@ import {
   checkMicrophonePermission,
   createMobileOptimizedRecognition,
 } from "@/app/utils/mobileRecognitionHandler";
+import { MobileSpeechComponent } from "../components/MobileComponent";
 
 const VoiceRecorder = dynamic(() => import("../components/VoiceRecorder"), {
   ssr: false,
@@ -228,7 +229,7 @@ const SpeechToTextMongolian: React.FC = () => {
               actualText={fullTranscript}
             />
           )}
-
+          <MobileSpeechComponent />
           <ControlButtons
             listening={listening}
             onToggle={onToggle}
