@@ -71,10 +71,13 @@ const Games = () => {
       <div className="min-h-screen bg-[#C0e6BA] p-4">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-8 mt-12">
-            <h1 className="text-4xl font-bold mb-4">Тоглоом цуглуулга</h1>
-            <p className="text-muted-foreground text-lg">Тоглоомоо сонгоорой</p>
+            <h1 className="text-5xl font-extrabold mb-4 bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 bg-clip-text text-transparent drop-shadow-lg">
+              🎮 Тоглоом цуглуулга
+            </h1>
+            <p className="text-lg font-semibold bg-gradient-to-r from-pink-400 to-orange-400 bg-clip-text text-transparent">
+              Тоглоомоо сонгоорой ✨
+            </p>
           </div>
-
           <div className="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-4 gap-6">
             {games.map((game) => (
               <Card
