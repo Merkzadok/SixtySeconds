@@ -19,7 +19,7 @@ export const MobileSpeechComponent = () => {
 
     SpeechRecognition.startListening({
       continuous: false, // Don't use continuous on mobile
-      language: "en-US",
+      language: "mn-MN",
       interimResults: true,
     });
 
