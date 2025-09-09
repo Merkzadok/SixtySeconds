@@ -91,13 +91,6 @@ export default function MainHeader() {
                     height={200}
                     alt="Picture of the author"
                   />{" "}
-                  {/* <span
-                    className="text-white text-2xl"
-                    role="img"
-                    aria-label="owl"
-                  >
-                  
-                  </span> */}
                 </div>
 
                 <div className="flex gap-1 leading-none">
