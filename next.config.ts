@@ -1,6 +1,7 @@
+import withPWA from "next-pwa";
 import type { NextConfig } from "next";
 
-const nextConfig: NextConfig = {
+const baseConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
@@ -16,7 +17,7 @@ const nextConfig: NextConfig = {
         source: "/api/:path*",
         headers: [
           { key: "Access-Control-Allow-Credentials", value: "true" },
-          { key: "Access-Control-Allow-Origin", value: "*" }, // Хэрэв production бол "*" биш домэйнээ заа
+          { key: "Access-Control-Allow-Origin", value: "*" }, // production дээр бол "*" биш өөрийн домэйн
           {
             key: "Access-Control-Allow-Methods",
             value: "GET,DELETE,PATCH,POST,PUT",
@@ -35,4 +36,12 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+// ✅ PWA тохиргоо нэмсэн хувилбар
+const withPWANextConfig = withPWA({
+  dest: "public",
+  register: true,
+  skipWaiting: true,
+  disable: process.env.NODE_ENV === "development",
+})(baseConfig);
+
+export default withPWANextConfig;
